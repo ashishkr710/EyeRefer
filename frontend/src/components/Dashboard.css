@@ -1,0 +1,230 @@
+.dashboard-container {
+    margin-left: 220px;
+    padding: 30px;
+    border-radius: 8px;
+    min-height: 90vh;
+    background-color:#ecf1f3;
+    margin-top: 0px;
+}
+
+/* Dashboard title */
+.dashboard-title {
+    font-size: 20px;
+    /* font-weight: bold; */
+    margin-bottom: 20px;
+    color: #343a40;
+}
+
+/* Doctor info container */
+.doctor-info {
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    color: #333;
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+.table th{
+    background-color: white;
+}
+/* Info item in doctor details */
+.info-item {
+    margin-bottom: 10px;
+}
+
+/* Loading container styling */
+.loading-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+/* Error container styling */
+.error-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+    color: red;
+    font-size: 18px;
+}
+.refer{
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+.appointment-btn{
+    background-color: #35c0e4;
+    color:white;
+    border-color:transparent;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+.appointment-btn:hover{
+    background-color: #2a99b6;
+}
+.card-heading{
+    display: flex;
+}
+.spinner-border {
+    margin-top: 10px;
+}
+.card-body2{
+    flex: 1 1 auto;
+  padding: 4px;
+  color: var(--bs-card-color);
+}
+/* Flexbox for Metrics Cards */
+.metrics-cards {
+    display: flex;
+    justify-content: space-between;
+    gap: 1.5rem; /* Adds space between cards */
+    margin-bottom: 2rem;
+    flex-wrap: wrap; /* Ensures cards wrap on smaller screens */
+    cursor: pointer;
+}
+
+/* Individual metrics card */
+.metrics-cards .card {
+    flex: 1 1 calc(25% - 1.5rem); /* Flex grow, shrink, and width with a gap */
+    margin-bottom: 1rem;
+    min-width: 250px; /* Ensures cards don't shrink too much */
+    background-color: #fff;
+    border-radius: 8px;
+    /* box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); */
+    padding: 1.25rem;
+    text-align: center;
+    border-color: transparent;
+}
+
+/* Card title */
+.metrics-cards .card-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #343a40;
+}
+
+/* Card text (value) */
+.metrics-cards .card-text {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: black;
+}
+
+/* Table styling for Patient List */
+.patient-list-section {
+    margin-top: 2rem;
+}
+
+.patient-table-container {
+    margin-top: 2rem;
+    max-height: 500px;
+    overflow-y: auto;
+    margin-top: -30px;
+}
+
+/* Table Styling */
+.patient-table-container th,
+.patient-table-container td {
+    text-align: center;
+}
+
+.patient-table-container th {
+    background-color: #f1f1f1;
+}
+
+.patient-table-container td {
+    padding: 0.8rem;
+}
+
+/* Badge for referal status */
+.patient-table-container .badge {
+    padding: 0.4rem 0.6rem;
+}
+
+.patient-table-container .badge.bg-success {
+    background-color: #28a745;
+}
+
+.patient-table-container .badge.bg-panding {
+    background-color: rgb(232, 250, 244);
+}
+
+/* Responsive Design: Cards on smaller screens */
+@media (max-width: 1200px) {
+    .metrics-cards .card {
+        flex: 1 1 calc(33.33% - 1.5rem); /* 3 cards per row */
+    }
+}
+
+@media (max-width: 768px) {
+    .metrics-cards .card {
+        flex: 1 1 calc(50% - 1.5rem); /* 2 cards per row */
+    }
+}
+
+@media (max-width: 576px) {
+    .metrics-cards .card {
+        flex: 1 1 100%; /* 1 card per row on very small screens */
+    }
+}
+/* Table Styling */
+.patient-table-container th,
+.patient-table-container td {
+    text-align: center;
+}
+
+.patient-table-container th {
+    background-color: #f1f1f1;
+}
+
+.patient-table-container td {
+    padding: 0.8rem;
+}
+
+/* Badge for referal status */
+.patient-table-container .badge {
+    padding: 0.4rem 0.6rem;
+}
+
+.patient-table-container .badge.bg-success {
+    background-color: #28a745;
+
+}
+
+.patient-table-container .badge.bg-panding {
+    background-color: rgb(232, 250, 244);
+    text-transform: capitalize;
+  border-radius: 4px;
+    
+}
+
+/* Responsive Design: Make the table scrollable on smaller screens */
+@media (max-width: 768px) {
+    .patient-table-container {
+        overflow-x: auto; /* Enable horizontal scrolling */
+        -webkit-overflow-scrolling: touch; /* For smooth scrolling on mobile devices */
+    }
+    
+    .patient-table-container table {
+        width: 100%; /* Ensure the table takes up full width */
+        min-width: 600px; /* Minimum width to prevent columns from becoming too narrow */
+    }
+
+    .patient-table-container th, .patient-table-container td {
+        white-space: nowrap; /* Prevent text from wrapping */
+        font-size: 0.9rem; /* Adjust font size for readability */
+    }
+}
+
+/* Further adjustment for very small screens (e.g., mobile devices) */
+@media (max-width: 480px) {
+    .patient-table-container table {
+        min-width: 500px; /* Slightly reduced width for very small screens */
+    }
+}
+

@@ -1,0 +1,36 @@
+.patient-details-container{
+    margin-left: 220px;
+    margin-top: 0px;
+    padding: 20px;
+    background-color: #ecf1f3;
+    height: calc(100vh - 60px);
+    overflow-y: auto;
+}
+.details-btn{
+display: flex;
+  justify-content: space-between;
+}
+.patient-info{
+    padding:15px;
+    background-color: white;
+    margin-top: 15px;
+
+}
+.name-info{
+    padding:8px;
+    background-color: #ecf1f3;
+    margin: 0px;
+}
+.back{
+    cursor: pointer;
+    position: relative;
+  top: 1rem
+}
+.form-group4{
+    display: flex;
+  max-width: 100%;
+  width: 69%;
+}
+.type{
+    width:100%;
+}

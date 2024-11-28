@@ -1,0 +1,176 @@
+.add-staff-container {
+  margin-left: 220px;
+  margin-top: 2px;
+  padding: 20px;
+  background-color: #ecf1f3;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  min-height: 90vh;
+}
+
+.btn-add-staff {
+  float: right;
+  margin-top:-8px;
+  margin-right: 100px;
+  height: 50px;
+  background-color: #0dcaf0;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+}
+
+.btn-add-staff:hover {
+  background-color: #35c0e4;
+}
+
+.staff-list-header {
+  margin-top: -25px;
+  /* margin-bottom: 30px; */
+  padding: 15px;
+  border-radius: 8px;
+}
+.hii1{
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0,0,0,.1);
+  gap: 1rem;
+  margin-bottom: 20px;
+  padding: 10px;
+  margin-top: 60px;
+}
+
+.staff-list-header h3 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: #495057;
+}
+
+.staff-list-container {
+  margin-top: 10px;
+  border-radius: 8px;
+
+}
+.active > .page-link{
+  z-index: 3;
+  color: var(--bs-pagination-active-color);
+  background-color: #43D79E;
+  border-color: #43D79E;
+}
+.page-link:hover{
+  color:black;
+  z-index: 2;
+  background-color: rgba(67, 215, 158, 0.3) ;
+  border-color: var(--bs-pagination-hover-border-color);
+}
+.page-link{
+  color:black;
+}
+.table {
+  width: 100%;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+.add-staff{
+  display: flex;
+  justify-content: space-between;
+}
+.referral-title{
+  margin-top: 10px;
+}
+.table th,
+.table td {
+  text-align: center;
+  padding: 12px 20px;
+}
+
+.table th {
+  color: rgba(0, 0, 0, 0.87);
+  font-weight: bold;
+}
+
+.table td {
+  background-color:#ffffff;
+}
+
+.table tbody tr:nth-child(even) {
+  background-color: #f1f1f1;
+}
+
+.table tbody tr:hover {
+  background-color: #e9ecef;
+  cursor: pointer;
+}
+
+.spinner-border {
+  margin: 20px auto;
+  display: block;
+}
+
+.add-staff-h3 {
+  margin-top: 100px;
+  margin-left: 100px;
+}
+/* Modal Overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: white;
+  border-radius: 8px;
+  width: 500px; /* You can adjust the width */
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  animation: modal-in 0.3s ease-out; /* Animation to make the modal appear smoothly */
+}
+
+/* Modal Animation (optional) */
+@keyframes modal-in {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+.add-staff-div{
+  display: flex;
+  justify-content: end;
+}
+.btn-cancel1 {
+  background-color: white;
+  color: #43d79e;
+  border-radius: 5px;
+  padding: 8px 16px;
+  margin-left: 10px;
+  border-color:  #43d79e;
+}
+
+.btn-cancel1:hover {
+  background-color: #e0e0e0;
+  color:white;
+  background-color: #43d79e;
+}
+
+.btn-primary {
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #17a2b8;
+}
+

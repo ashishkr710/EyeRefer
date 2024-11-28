@@ -1,0 +1,97 @@
+.add-appointment-container {
+    margin-left: 220px;
+    margin-top: 2px;
+    padding: 20px;
+    background-color: #ecf1f3;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    min-height: 90vh;
+  }
+  .form-group1 {
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+    align-items: center;
+  }
+  
+  .form-group{
+    padding: 20px;
+  }
+
+  .form-group1 label {
+    font-weight: bold;
+    color: #495057;
+    display: block; 
+    width: 100%;  
+    margin-bottom: -20px; 
+  }
+  .form-group1 label.add-appointment-lable{
+    margin-bottom: 15px;
+  }
+  .form-control,
+  .form-select1 {
+    flex: 1; 
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ced4da;
+  }
+  
+  .form-select {
+    height: 38px;
+  }
+  
+  .btn-subcancel {
+    display: flex;
+    /* justify-content: space-evenly; */
+    gap: 50px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+    padding-bottom: 30px;
+    margin-left: 10px;
+  }
+.fieldflex1{
+  display: flex;
+  margin-top: 20px;
+  justify-content: stretch;
+  gap: 100px;
+  margin-left: 37px;
+}
+  .text-danger {
+    font-size: 12px;
+    color: red;
+  }
+
+  /* Responsive layout */
+  @media (max-width: 768px) {
+    /* Stack form fields vertically on smaller screens */
+    .form-group1 {
+      flex-direction: column; /* Stack fields vertically */
+    }
+  
+    /* Make form fields take full width on small screens */
+    .form-control,
+    .form-select1 {
+      width: 100%;
+    }
+  
+    /* Stack buttons vertically on small screens */
+    .btn-subcancel {
+      flex-direction: column;
+    }
+  
+    .appointment-btn {
+      width: 100%; /* Make buttons full-width on small screens */
+      margin-bottom: 10px;
+    }
+  }
+  
+  /* Centering the form elements */
+  .add-appointment-container form {
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: white
+  }
+  

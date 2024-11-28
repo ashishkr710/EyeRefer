@@ -1,0 +1,47 @@
+.patient-list-container {
+    margin-left: 220px;
+    margin-top: 0px;
+    padding: 20px;
+    background-color: #ecf1f3;
+    height: calc(100vh - 60px);
+    overflow-y: auto;
+}
+
+.patient-list-container .d-flex {
+    width: 100%;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, .1);
+    gap: 1rem;
+    margin-bottom: 20px;
+    padding: 10px;
+}
+
+.patient-list-container .form-control {
+    max-width: 500px;
+}
+
+.btn-search {
+    height: 45px;
+    margin-top: 8px;
+}
+.refer-btn-heading{
+    margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.search-border {
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, .1);
+    gap: 1rem;
+    margin-bottom: 20px;
+    padding: 10px;
+}
+/* .action{
+    
+} */
+.action:hover{
+    background-color: #43d79e;
+    border-radius: 50%;
+    cursor: pointer;
+}

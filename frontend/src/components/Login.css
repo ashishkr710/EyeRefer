@@ -1,0 +1,205 @@
+section.sign-up-section {
+    background: #f9ffff;
+}
+.login-bg {
+    width: 100%;
+}
+.parent-div {
+    display: flex;
+    min-height: calc(100vh - 39px);
+}
+/* .field-wrap {
+    margin-top: 15px;
+} */
+
+.bg-img-div {
+    margin: auto 0;
+    text-align: center;
+}
+.left-login-wrap {
+    background: linear-gradient(to bottom, #43d79e 0%, #35c0e4 100%);
+    width: 50%;
+    display: flex;
+    justify-content: center;
+}
+.name-input {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+}
+.first-name-div {
+    width: 100%;
+}
+.main-sign-layout {
+    display: flex;
+    flex-direction: column;
+}
+.sign-up-form {
+    width: 50%;
+    padding: 40px 120px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+.auth-form h4 {
+    color: var(--heading-color);
+    margin-bottom: 50px;
+    font-size: var(--signup-heading);
+}
+.form-heading h2 {
+    font-size: 30px;
+    color: var(--heading-color);
+    text-align: center;
+    margin-bottom: 40px;
+    font-weight: 500;
+}
+
+form.auth-form {
+    background: white;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 0px;
+}
+
+.input-fields label,
+.password-fields label {
+    font-size: var(--para-size);
+}
+
+select#doctorType {
+    position: relative;
+    width: 100%;
+    padding: 20px;
+    border: 1px solid var(--border-color);
+    margin: 8px 0px;
+}
+.sign-up-btn {
+    margin-top: 40px;
+}
+
+.css-q8hpuo-MuiFormControl-root {
+    margin-top: 8px;
+    border: 1px solid var(--border-color);
+}
+.forget-password-div {
+    display: flex;
+    justify-content: flex-end;
+}
+#forget-link a {
+    color: var(--primary);
+    text-decoration: none;
+}
+
+.field-wrap.input-fields {
+    margin-bottom: 20px;
+}
+.doctor-label {
+    margin-bottom: 8px;
+}
+.bottom-sec {
+    margin-top: 20px;
+    text-align: center;
+}
+.bottom-sec p {
+    color: var(--light-text);
+    opacity: 70%;
+}
+.bottom-sec span a {
+    text-decoration: none;
+    font-weight: 600;
+    margin-left: 10px;
+}
+
+.new-logo-img{
+    display: none;
+}
+.eye-refer-logo {
+    display: none;
+}
+.mobile-view-logo {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+.btn-login{margin-top: 40px;
+        padding: 12px;
+        font-size: 16px;
+        width: 100%;
+        background-color:#35c0e4;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        }
+.btn-login:hover{
+    background-color:#2a99b6;
+}
+.signup-text{
+    color:#35c0e4;
+}
+@media screen and (max-width: 1600px) {
+    .new-logo-img {
+        display: block;
+    }
+    .logo-img {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 1400px) {
+    .sign-up-form {
+        width: 50%;
+        padding: 55px 60px;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .name-input {
+        display: flex;
+        flex-direction: column;
+        gap: 0px;
+        width: 100%;
+    }
+    .eye-refer-logo {
+        display: block;
+    }
+    .left-login-wrap {
+        display: none;
+    }
+    .sign-up-form {
+        width: 100%;
+        padding: 55px 30px;
+    }
+    .bg-img-div {
+        display: none;
+    }
+    .form-heading h2 {
+        font-size: 30px;
+    }
+    form.auth-form {
+        padding: 25px;
+    }
+}
+@media screen and (max-width: 576px) {
+    .sign-up-form {
+        width: 100%;
+        display: block;
+        padding: 40px 30px;
+    }
+    .field-wrap input {
+        padding: 12px;
+    }
+    select#doctorType {
+        padding: 12px;
+    }
+    input#email {
+        padding: 12px !important ;
+    }
+    .input-password {
+        padding: 12px !important;
+    }
+    .form-heading h2 {
+        font-size: 20px;
+        margin-bottom: 30px;
+    }
+}

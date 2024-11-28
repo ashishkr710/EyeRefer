@@ -1,0 +1,102 @@
+/* Doctor List Container */
+.doctor-list-container {
+    margin-left: 220px;
+    margin-top: 60px;
+    padding: 20px;
+    background-color: #ecf1f3;
+    height: calc(100vh - 60px);
+    overflow-y: auto; 
+    margin-top: 0px;
+}
+
+/* Table */
+.table {
+    width: 100%;
+    margin-top: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Table Striping */
+.table-striped > tbody > tr:nth-of-type(2n+1) > * {
+    --bs-table-color-type: var(--bs-table-striped-color);
+    --bs-table-bg-type:white;
+}
+
+/* Table Header */
+.table th {
+    background-color: #ecf1f3;
+    color: #212121;
+    font-weight: bold;
+}
+
+/* Table Cells */
+.table th, .table td {
+    text-align: center;
+    padding: 12px 20px;
+    background-color: white;
+}
+
+.table tbody tr:nth-child(even) {
+    background-color: #f1f1f1; 
+}
+
+.table tbody tr:hover {
+    background-color: #e9ecef;
+    cursor: pointer;
+}
+
+/* Responsive Design for Table */
+@media (max-width: 768px) {
+    .table-container {
+        overflow-x: auto; /* Enable horizontal scrolling */
+        -webkit-overflow-scrolling: touch; /* For smooth scrolling on mobile devices */
+    }
+    
+    .table {
+        width: 100%;
+        min-width: 600px; /* Prevent the table from becoming too narrow */
+    }
+
+    .table th, .table td {
+        white-space: nowrap; /* Prevent text from wrapping */
+        font-size: 0.9rem; /* Adjust font size for better readability */
+    }
+}
+
+/* Further adjustments for very small screens (e.g., mobile devices) */
+@media (max-width: 480px) {
+    .table {
+        min-width: 500px; /* Slightly reduced minimum width for very small screens */
+    }
+}
+
+/* Spinner */
+.spinner-border {
+    margin: 20px auto;
+    display: block;
+}
+
+/* Error Container */
+.error-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: red;
+    font-size: 1.2rem;
+}
+
+/* Icon Styles */
+.icon {
+    margin-top: 5px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.icon-2 {
+    background: linear-gradient(to left, #5ae1fd, #5bebb1);
+    border-radius: 4px;
+    padding: 10px;
+}
