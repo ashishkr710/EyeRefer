@@ -169,7 +169,7 @@ const Dashboard: React.FC = () => {
         {user?.doctype === 2 ? (
           <>
             <h6 className="refer-title">Refer a Patient</h6>
-            <button className="appointment-btn"  style={{ marginTop: -10}} onClick={() => navigate("/add-patient")}>+Add Referral Patient</button>
+            <button className="appointment-btn"  style={{ marginTop: -10}} onClick={() => navigate("/add-patient")}>+ Add Referral Patient</button>
           </>
         ) : (
           <>

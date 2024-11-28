@@ -119,7 +119,7 @@ const PatientList: React.FC = () => {
    {user?.doctype === 2 && (
       <div className='refer-btn-heading' style={{ marginTop: 10 }}>
          <p className="patient-list-title fw-medium fs-5 mb-3">Referred Patients</p>
-        <button className="btn-add-staff"  onClick={() => navigate("/add-patient")}>+Add Referral Patient</button>
+        <button className="btn-add-staff"  onClick={() => navigate("/add-patient")}>+ Add Referral Patient</button>
       </div>
    )}
 

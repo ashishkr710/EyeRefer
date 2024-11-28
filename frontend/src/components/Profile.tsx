@@ -7,11 +7,10 @@ import { Modal, Button, Form } from 'react-bootstrap';
 import { toast, ToastContainer } from 'react-toastify';
 import { Local } from '../environment/env';
 import AddAddress from './AddAddress';
-import UpdateAddress from './UpdateAddress'; // Import UpdateAddress component
+import UpdateAddress from './UpdateAddress'; 
 import { AiOutlineDelete } from "react-icons/ai";
 import { BsPencilSquare } from "react-icons/bs";
 import './Profile.css';
-// import { BiUnderline } from 'react-icons/bi';
 
 interface Address {
   uuid: string;
@@ -95,8 +94,8 @@ const Profile: React.FC = () => {
   const handleCloseAddAddressModal = () => setShowAddAddressModal(false);
 
   const handleOpenUpdateAddressModal = (address: Address) => {
-    setSelectedAddress(address); // Set the selected address
-    setShowUpdateAddressModal(true); // Open the update address modal
+    setSelectedAddress(address); 
+    setShowUpdateAddressModal(true); 
   };
 
   const handleCloseUpdateAddressModal = () => setShowUpdateAddressModal(false);
@@ -142,11 +141,11 @@ const Profile: React.FC = () => {
           user: formData,
         }));
         setShowEditModal(false);
-        alert('Profile updated successfully');
+        toast.success('Profile updated successfully');
       })
       .catch((err) => {
         console.error(err);
-        alert('Error updating profile');
+        toast.error('Error updating profile');
       });
   };
 

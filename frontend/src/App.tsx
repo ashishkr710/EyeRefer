@@ -13,7 +13,7 @@ import Verify from './components/Verify';
 import Login from './components/Login';
 import Profile from './components/Profile';
 import AddAddress from './components/AddAddress';
-import Chat from './components/chat';
+import Chat from './components/Chat';
 import AddAppointment from './components/AddAppoinments';
 import UpdatePassword from './components/UpdatePassword';
 import UpdateAddress from './components/UpdateAddress';
@@ -30,7 +30,7 @@ const App: React.FC = () => {
     { path: '/Verify', element: <Verify /> },
     { path: '/login', element: <Login /> },
     {
-      path: '/', 
+      path: '/',
       element: <Header />,
       children: [
         { path: '/dashboard', element: <Dashboard /> },
@@ -38,16 +38,18 @@ const App: React.FC = () => {
         { path: '/add-patient', element: <AddPatient /> },
         { path: '/doctor', element: <DoctorList /> },
         { path: '/add-staff', element: <AddStaff /> },
-        { path: '/add-address', element: <AddAddress close={function (): void {
-          throw new Error('Function not implemented.');
-        } } /> },
+        {
+          path: '/add-address', element: <AddAddress close={function (): void {
+            throw new Error('Function not implemented.');
+          }} />
+        },
         { path: '/update-address', element: <UpdateAddress /> },
         { path: '/profile', element: <Profile /> },
         { path: '/chat', element: <Chat /> },
         { path: '/add-appointment', element: <AddAppointment /> },
         { path: '/update-password', element: <UpdatePassword /> },
         { path: '/appointment-list', element: <AppointmentList /> },
-        {path:'/patients-details/:patientId',element:<PatientDetails/>},
+        { path: '/patients-details/:patientId', element: <PatientDetails /> },
         { path: '/notifications', element: <NotificationPage /> } // Add the new route
       ]
     }

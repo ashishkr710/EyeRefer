@@ -7,6 +7,7 @@ import { Local } from '../environment/env';
 import './PatientDetails.css'
 import { IoIosArrowBack } from "react-icons/io";
 import moment from 'moment';
+import Chat from './Chat'; // Import the Chat component
 
 const PatientDetails: React.FC = () => {
     const { patientId } = useParams<{ patientId: string }>();
@@ -58,8 +59,8 @@ const PatientDetails: React.FC = () => {
     return (
         <div className="patient-details-container">
             <div className='details-btn'>
-                <p  className='back fw-bold' onClick={() => navigate("/patient")}><IoIosArrowBack /> Back</p >
-                <button className="appointment-btn" onClick={() => navigate("/add-patient")}>+Add Referral Patient</button>
+                <p className='back fw-bold' onClick={() => navigate("/patient")}><IoIosArrowBack /> Back</p >
+                <button className="appointment-btn" onClick={() => navigate("/add-patient")}>+ Add Referral Patient</button>
             </div>
             <div className='patient-info'>
                 <h6 className="fw-bold" style={{ marginTop: '1.5rem', marginBottom: "1.5rem" }}>Basic Information</h6>
@@ -90,7 +91,7 @@ const PatientDetails: React.FC = () => {
 
                         </div>
 
-                        <p  style={{ marginTop: '1.5rem', marginBottom: "1.5rem",fontSize:16, color:"black"}}>Reason of consult</p >
+                        <p style={{ marginTop: '1.5rem', marginBottom: "1.5rem", fontSize: 16, color: "black" }}>Reason of consult</p >
 
                         <div className='name-info row'>
                             <div className="form-group2 col p-3" >
@@ -100,19 +101,18 @@ const PatientDetails: React.FC = () => {
                             <div className="form-group2 col p-3">
                                 <label htmlFor="text">Laterality: {patientData?.laterality}</label>
                             </div>
-                            <div className="form-group2 col p-3">
-                                <label htmlFor="text">Timing:{patientData?.timing}</label>
-                            </div>
                         </div>
 
+                        {/* Add the Chat component */}
+                        <Chat patientId={patientData?.id} />
 
-                        <p  style={{ marginTop: '1.5rem', marginBottom: "1.5rem" ,fontSize:16, color:"black"}}>Referral OD/MD</p >
+                        <p style={{ marginTop: '1.5rem', marginBottom: "1.5rem", fontSize: 16, color: "black" }}>Referral OD/MD</p >
 
                         <div className='name-info row'>
                             <div className="form-group2 col p-3">
                                 <label htmlFor="name">MD/OD Name: {`${patientData?.referedby?.firstname} ${patientData?.referedby?.lastname}`}</label>
                             </div>
- 
+
                             <div className="form-group2 col p-3">
                                 <label htmlFor="gender">Location: {patientData?.address?.street}</label>
                             </div>
@@ -122,7 +122,7 @@ const PatientDetails: React.FC = () => {
                         </div>
 
 
-                        <p  style={{ marginTop: '1.5rem', marginBottom: "1.5rem" ,fontSize:16, color:"black"}}>Appointment Details</p >
+                        <p style={{ marginTop: '1.5rem', marginBottom: "1.5rem", fontSize: 16, color: "black" }}>Appointment Details</p >
 
                         <div className='name-info row'>
                             <div className="form-group2 col p-3">
@@ -135,7 +135,7 @@ const PatientDetails: React.FC = () => {
 
                         </div>
 
-                        <p  style={{ marginTop: '1.5rem', marginBottom: "1.5rem" ,fontSize:16, color:"black"}}>Insurance Details</p >
+                        <p style={{ marginTop: '1.5rem', marginBottom: "1.5rem", fontSize: 16, color: "black" }}>Insurance Details</p >
 
                         <div className='name-info row'>
                             <div className="form-group2 col p-3">
@@ -152,7 +152,7 @@ const PatientDetails: React.FC = () => {
                         </div>
 
 
-                        <p  style={{ marginTop: '1.5rem', marginBottom: "1.5rem" ,fontSize:16, color:"black"}}>Notes</p >
+                        <p style={{ marginTop: '1.5rem', marginBottom: "1.5rem", fontSize: 16, color: "black" }}>Notes</p >
 
                         <div className='name-info row'>
                             <div className="form-group2 col p-3">

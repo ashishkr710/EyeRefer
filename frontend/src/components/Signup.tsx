@@ -81,7 +81,7 @@ const Signup: React.FC = () => {
                             initialValues={{
                                 firstname: '',
                                 lastname: '',
-                                doctype: '',
+                                doctype: '1', // Set a default value or a placeholder value
                                 email: '',
                                 password: '',
                                 confirmPass: ''
@@ -90,71 +90,61 @@ const Signup: React.FC = () => {
                             onSubmit={signupHandler}>
                             {() => (
                                 <Form className="auth-form">
-<div className='form-border'>
+                                    <div className='form-border'>
+                                        <div className='name'>
+                                            <div className="field-wrap input-fields">
+                                                <label>First Name<span className='star'>*</span></label>
+                                                <Field type="text" name="firstname" className="form-control" placeholder="First name" />
+                                                <ErrorMessage name="firstname" component="div" className="text-danger" />
+                                            </div>
 
-                                    <div className='name'>
-                                        <div className="field-wrap input-fields">
-                                            <label>First Name<span className='star'>*</span></label>
-                                            <Field type="text" name="firstname" className="form-control" placeholder="First name" />
-                                            <ErrorMessage name="firstname" component="div" className="text-danger" />
+                                            <div className="field-wrap input-fields">
+                                                <label>Last Name<span className='star'>*</span></label>
+                                                <Field type="text" name="lastname" className="form-control" placeholder="Last name" />
+                                                <ErrorMessage name="lastname" component="div" className="text-danger" />
+                                            </div>
                                         </div>
 
                                         <div className="field-wrap input-fields">
-                                            <label>Last Name<span className='star'>*</span></label>
-                                            <Field type="text" name="lastname" className="form-control" placeholder="Last name" />
-                                            <ErrorMessage name="lastname" component="div" className="text-danger" />
+                                            <label className="doctor-label">Doctor Type<span className='star'>*</span></label>
+                                            <Field as="select" name="doctype" className="form-select p-2" aria-label="Doctor Type" style={{height:46}}>
+                                                <option value="" style={{color:"#ccc"}} disabled>Select Doctor Type</option>
+                                                <option value="1">MD</option>
+                                                <option value="2">OD</option>
+                                            </Field>
+                                            <ErrorMessage name="doctype" component="div" className="text-danger" />
+                                        </div>
+
+                                        <div className="field-wrap input-fields">
+                                            <label>Email<span className='star'>*</span></label>
+                                            <Field type="email" name="email" className="form-control" placeholder="Enter your email address" />
+                                            <ErrorMessage name="email" component="div" className="text-danger" />
+                                        </div>
+
+                                        <div className="field-wrap input-fields">
+                                            <label>Password<span className='star'>*</span></label>
+                                            <Field type="password" name="password" className="form-control" placeholder="Password" />
+                                            <ErrorMessage name="password" component="div" className="text-danger" />
+                                        </div>
+
+                                        <div className="field-wrap input-fields">
+                                            <label>Confirm Password<span className='star'>*</span></label>
+                                            <Field type="password" name="confirmPass" className="form-control" placeholder="Confirm Password" />
+                                            <ErrorMessage name="confirmPass" component="div" className="text-danger" />
+                                        </div>
+
+                                        <button type="submit" className="sign-up-btn1 btn-outline-dark ">SignUp</button>
+
+                                        <div className="bottom-sec">
+                                            <p>Already have an account? <Link to='/Login' className="login-link">Login</Link></p>
                                         </div>
                                     </div>
-
-                                    <div className="field-wrap input-fields">
-                                        <label className="doctor-label">Doctor Type<span className='star'>*</span></label>
-                                        <Field as="select" name="doctype" className="form-select p-2" aria-label="Doctor Type" style={{height:46}}>
-                                            <option value="MD" style={{color:"#ccc"}} disabled>Select Doctor Type</option>
-                                            <option value="1">MD</option>
-                                            <option value="2">OD</option>
-                                        </Field>
-                                        <ErrorMessage name="doctype" component="div" className="text-danger" />
-                                    </div>
-
-
-
-                                    <div className="field-wrap input-fields">
-                                        <label>Email<span className='star'>*</span></label>
-                                        <Field type="email" name="email" className="form-control" placeholder="Enter your email address" />
-                                        <ErrorMessage name="email" component="div" className="text-danger" />
-                                    </div>
-
-                                    <div className="field-wrap input-fields">
-                                        <label>Password<span className='star'>*</span></label>
-                                        <Field type="password" name="password" className="form-control" placeholder
-                                            ="Password" />
-                                        <ErrorMessage name="password" component="div" className="text-danger" />
-                                    </div>
-
-                                    <div className="field-wrap input-fields">
-                                        <label>Confirm Password<span className='star'>*</span></label>
-                                        <Field type="password" name="confirmPass" className="form-control" placeholder
-                                            ="Confirm Password" />
-                                        <ErrorMessage name="confirmPass" component="div" className="text-danger" />
-                                    </div>
-
-                                    <button type="submit" className="sign-up-btn1 btn-outline-dark ">SignUp</button>
-
-                                    <div className="bottom-sec">
-                            <p>Already have an account? <Link to='/Login' className="login-link">Login</Link></p>
-                        </div>
-                        </div>
                                 </Form>
-
                             )}
                         </Formik>
-
-                      
                     </div>
                             {/* </div> */}
-
                 </div>
-
             </section>
             <section className='footer'>
                 <div className='footer-content bg-dark'>
@@ -166,4 +156,3 @@ const Signup: React.FC = () => {
 }
 
 export default Signup;
-
