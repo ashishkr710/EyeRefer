@@ -5,7 +5,6 @@ import Room from "../models/Room";
 
 export const joinRoom = async(socket:any, data:any) => {
     try{
-            // console.log(data);
             const room = await Room.findOne({where:{ user_id_1:data.user1,
                 user_id_2:data.user2, patient_id:data.patient }});
 
@@ -42,13 +41,12 @@ export const joinRoom = async(socket:any, data:any) => {
             }
     }
     catch(err){
-        // console.log(err);
+
     }
 }
 
 export const sendMessage = async(socket:any, message:any) => {
     try{
-        console.log("\n\nMessage", message);
             const chat = await Chat.create({message: message.message,
                 room_id: message.room, sender_id: message.sender,
                 receiver_id: message.receiver});

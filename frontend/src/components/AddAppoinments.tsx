@@ -27,7 +27,6 @@ const AddAppointment: React.FC = () => {
       const response = await api.get(`${Local.GET_PATIENT_LIST}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      console.log('Patient List:', response.data.patientList);
       return response.data;
     } catch (err: any) {
       toast.error(err.response?.data?.message || 'Error fetching patient list');
@@ -53,12 +52,7 @@ const AddAppointment: React.FC = () => {
     queryFn: fetchPatients,
   });
 
-  // const a=patientList.patientList;
-  // console.log(a)
-
-  // patientList.patientList.map((patt:any,index:any)=>(
-  //   console.log(patt.firstname)
-  // ))
+  
 
 
   const { data: MDList, isLoading: isLoadingDocs, isError: isErrorDocs, error: errorDocs } = useQuery({

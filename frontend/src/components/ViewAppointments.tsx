@@ -14,7 +14,6 @@ const AppointmentDetails: React.FC = () => {
 
   const getAppointmentDetails = async () => {
     try {
-      console.log("Getting appointment details");
       const response = await api.get(
         `${Local.VIEW_APPOINTMENT}/${appointmentId}`,
         {
@@ -40,7 +39,6 @@ const AppointmentDetails: React.FC = () => {
     queryKey: ["appointmentDetails", appointmentId],
     queryFn: getAppointmentDetails,
   });
-  console.log(appointmentData);
   useEffect(() => {
     if (!token) {
       navigate("/login");
