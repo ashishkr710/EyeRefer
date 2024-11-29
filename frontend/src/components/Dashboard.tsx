@@ -78,6 +78,20 @@ const Dashboard: React.FC = () => {
     queryFn: fetchDoctorList
   });
 
+  const directChat = (patient:any, user1:any, user2:any, user:any, firstname:any, lastname:any) => {
+    const chatdata = {
+        patient: patient,
+        user1: user1,
+        user2: user2,
+        user:user,
+        roomname: `${firstname} ${lastname}`
+    };
+    localStorage.setItem("pname", chatdata.roomname);
+    localStorage.setItem('chatdata', JSON.stringify(chatdata));
+    navigate('/chat')
+    return;
+  }
+
   if (userLoading || patientLoading || doctorLoading) {
     return (
       <div className="loading-container">
@@ -189,6 +203,7 @@ const Dashboard: React.FC = () => {
                 <th scope="col">Refer by</th>
                 <th scope="col">Refer to</th>
                 <th scope="col">Refer back</th>
+                <th scope='col'>Direct Message</th>
                 <th scope="col">Status</th>
               </tr>
             </thead>
@@ -200,6 +215,9 @@ const Dashboard: React.FC = () => {
                   <td>{patient.referedby.firstname} {patient.referedby.lastname}</td>
                   <td>{patient.referedto.firstname} {patient.referedto.lastname}</td>
                   <td>{patient.referback ? 'Yes' : 'No'}</td>
+                  <td> <p className = 'text-primary text-decoration-underline chng-pointer' onClick={()=>{
+                                    directChat(patient.uuid, patient.referedby.uuid, patient.referedto.uuid, userData?.data.user.uuid, patient.firstname, patient.lastname);
+                                }} >Link</p> </td>
                   <td>
                     <span className={`badge ${patient.referalstatus ? 'bg-success' : 'bg-panding'}`}>
                       {patient.referalstatus ? 'Completed' : 'Pending'}

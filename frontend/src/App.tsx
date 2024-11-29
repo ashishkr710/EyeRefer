@@ -22,6 +22,7 @@ import NotificationPage from './components/NotificationPage'; // Import the Noti
 
 import './App.css';
 import PatientDetails from './components/PatientsDetails';
+import UpdateAppointment from './components/UpdateAppointment';
 
 
 const App: React.FC = () => {
@@ -50,7 +51,8 @@ const App: React.FC = () => {
         { path: '/update-password', element: <UpdatePassword /> },
         { path: '/appointment-list', element: <AppointmentList /> },
         { path: '/patients-details/:patientId', element: <PatientDetails /> },
-        { path: '/notifications', element: <NotificationPage /> } // Add the new route
+        { path: '/notifications', element: <NotificationPage /> }, // Add the new route
+        {path:'/update-appointment/:appointmentId',element:<UpdateAppointment/>}
       ]
     }
   ]);

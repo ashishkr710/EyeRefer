@@ -28,27 +28,18 @@ const AppointmentsList: React.FC = () => {
       const response = await api.get(`${Local.GET_APPOINTMENT_LIST}`, {
         headers: {
           Authorization: `Bearer ${token}`,
-        
         },
-      
-        
       });
-    
       return response.data;
-      
     } catch (err: any) {
-      
       toast.error(`${err.message || 'Error fetching appointments data'}`);
-      
     }
   };
-
 
   const { data: appointmentsData, error, isLoading, isError } = useQuery({
     queryKey: ['appointments'],
     queryFn: fetchAppointments,
   });
-
 
   // Filter appointments based on search query
   const handleSearch = () => {
@@ -132,38 +123,47 @@ const AppointmentsList: React.FC = () => {
           aria-label="Search"
         />
         <button className="btn btn-primary btn-search" type="button" onClick={handleSearch}>
-        <i className="fa fa-search"  style={{ marginRight: 5 }}></i>  Search
+          <i className="fa fa-search" style={{ marginRight: 5 }}></i>  Search
         </button>
       </div>
 
       {/* Appointments List Table */}
       <div className="patient-table-container">
-      <table className="table">
-        <thead>
-          <tr>
-            <th scope="col">Patient Name</th>
-            <th scope="col">Doctor Name</th>
-            <th scope="col">Appointment Date</th>
-            <th scope="col">Appointment Type</th>
-          </tr>
-        </thead>
-        <tbody>
-          {currentAppointments.length > 0 ? (
-            currentAppointments.map((appointment: any) => (
-              <tr key={appointment.uuid}>
-                <td>{appointment.Patient?.firstname} {appointment.Patient?.lastname}</td>
-                <td>{appointment.User?.firstname} {appointment.User?.lastname}</td>
-                <td>{appointment.date}</td>
-                <td>{appointment.type}</td>
-              </tr>
-            ))
-          ) : (
+        <table className="table">
+          <thead>
             <tr>
-              <td colSpan={4} className="text-center">No appointments found</td>
+              <th scope="col">Patient Name</th>
+              <th scope="col">Doctor Name</th>
+              <th scope="col">Appointment Date</th>
+              <th scope="col">Appointment Type</th>
+              <th scope="col">Actions</th>
             </tr>
-          )}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {currentAppointments.length > 0 ? (
+              currentAppointments.map((appointment: any) => (
+                <tr key={appointment.uuid}>
+                  <td>{appointment.Patient?.firstname} {appointment.Patient?.lastname}</td>
+                  <td>{appointment.User?.firstname} {appointment.User?.lastname}</td>
+                  <td>{appointment.date}</td>
+                  <td>{appointment.type}</td>
+                  <td>
+                    <button
+                      className="btn btn-primary"
+                      onClick={() => navigate(`/update-appointment/${appointment.uuid}`)}
+                    >
+                      Edit
+                    </button>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan={5} className="text-center">No appointments found</td>
+              </tr>
+            )}
+          </tbody>
+        </table>
       </div>
 
       {/* Pagination Controls */}

@@ -72,4 +72,15 @@
     text-align: center;
     color: red;
   }
+  .edit-appointment-container{
+    margin-left: 215px;
+    background-color: #ecf1f3;
+    height: 80vh;
+    align-items: 10px;
+  }
+
+  .edit-appointment-container h5{
+    margin-left: 20px;
+    margin-top: 0px;
+  }
   

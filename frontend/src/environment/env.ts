@@ -20,6 +20,9 @@ interface config {
     ADD_APPOINTMENT:any;
     GET_APPOINTMENT_LIST:any;
     GET_PATIENT_DETAILS:any;
+    GET_APPOINTMENT:any;
+    UPDATE_APPOINTMENT:any;
+    GET_ROOM: string;
 }
 
 export const Local: config = {
@@ -43,5 +46,8 @@ export const Local: config = {
     UPDATE_ADDRESS: import.meta.env.VITE_UPDATE_ADDRESS,
     ADD_APPOINTMENT:import.meta.env.VITE_ADD_APPOINTMENT,
     GET_APPOINTMENT_LIST:import.meta.env.VITE_GET_APPOINTMENT_LIST,
-    GET_PATIENT_DETAILS:import.meta.env.VITE_GET_PATIENT_DETAILS
+    GET_PATIENT_DETAILS:import.meta.env.VITE_GET_PATIENT_DETAILS,
+    GET_APPOINTMENT: import.meta.env.VITE_GET_APPOINTMENT,
+    UPDATE_APPOINTMENT: import.meta.env.VITE_UPDATE_APPOINTMENT,
+    GET_ROOM: import.meta.env.VITE_GET_ROOM,
 }

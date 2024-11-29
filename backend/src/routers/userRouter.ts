@@ -1,16 +1,16 @@
 import { Router } from "express";
-import { 
-    registerUser, 
-    loginUser, 
-    verifyUser, 
-    getUser, 
-    getDocList, 
-    getPatientList, 
-    addPatient, 
-    addAddress, 
-    getDoctorList, 
-    updateprofile, 
-    changePassword, 
+import {
+    registerUser,
+    loginUser,
+    verifyUser,
+    getUser,
+    getDocList,
+    getPatientList,
+    addPatient,
+    addAddress,
+    getDoctorList,
+    updateprofile,
+    changePassword,
     updateAddress,
     addStaff,
     getStaffList,
@@ -18,6 +18,9 @@ import {
     addAppointment,
     getAppointmentList,
     getPatientDetails,
+    getAppointmentDetails,
+    updateAppointment,
+    getRooms,
 
 } from "../controllers/userController";
 import userAuthMiddleware from "../middlewares/userAuth";
@@ -40,9 +43,17 @@ router.post("/change-password", userAuthMiddleware, changePassword);
 router.put('/update-address', userAuthMiddleware, updateAddress);
 router.post('/add-staff', userAuthMiddleware, addStaff);
 router.get('/get-staff', userAuthMiddleware, getStaffList);
-router.delete('/delete-address',userAuthMiddleware,deleteAddress);
-router.post('/add-appointment',userAuthMiddleware,addAppointment)
-router.get('/appointment-list',userAuthMiddleware,getAppointmentList);
-router.get('/patients-details/:patientId',userAuthMiddleware, getPatientDetails);
+router.delete('/delete-address', userAuthMiddleware, deleteAddress);
+router.post('/add-appointment', userAuthMiddleware, addAppointment)
+router.get('/appointment-list', userAuthMiddleware, getAppointmentList);
+router.get('/patients-details/:patientId', userAuthMiddleware, getPatientDetails);
+router.get(
+    "/view-appointment/:appointmentId",
+    userAuthMiddleware,
+    getAppointmentDetails
+);
+router.put("/update-appointment/:appointmentId", userAuthMiddleware, updateAppointment)
+
+router.get('/room-list', userAuthMiddleware, getRooms);
 
 export default router;
