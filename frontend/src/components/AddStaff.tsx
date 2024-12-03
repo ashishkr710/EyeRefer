@@ -1,104 +1,132 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState, useEffect } from 'react';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
 import api from '../api/axiosInstance';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import './AddStaff.css';
+import axios from 'axios';
 
 const AddStaff: React.FC = () => {
   const navigate = useNavigate();
-
-  const [staffName, setStaffName] = useState('');
-  const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
-  const [gender, setGender] = useState('Male');
   const [loading, setLoading] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  
   const [staffList, setStaffList] = useState<any[]>([]);
-  const [filteredStaff, setFilteredStaff] = useState<any[]>([]); // For filtered staff
+  const [filteredStaff, setFilteredStaff] = useState<any[]>([]); 
   const [fetching, setFetching] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-  
-  const [currentPage, setCurrentPage] = useState(1); // Track current page
-  const staffPerPage = 5; // Number of staff to display per page
+  const [currentPage, setCurrentPage] = useState(1); 
+  const staffPerPage = 5; 
 
-  // Fetch staff list on component mount
+  const fetchStaff = async () => {
+    setFetching(true);
+    const token = localStorage.getItem('token');
+    if (!token) {
+      toast.error('Please log in to view staff.');
+      navigate('/login');
+      return;
+    }
+
+    try {
+      const response = await api.get(import.meta.env.VITE_GET_STAFF, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (response.status === 200) {
+        setStaffList(response.data);
+        setFilteredStaff(response.data); 
+      } else {
+        toast.error('Failed to fetch staff list.');
+      }
+    } catch (err: unknown) {
+      toast.error('Error fetching staff list');
+      console.log(err);
+    } finally {
+      setFetching(false);
+    }
+  };
+
   useEffect(() => {
-    const fetchStaff = async () => {
-      setFetching(true);
+    fetchStaff();
+  }, [navigate]);
+
+  const formik = useFormik({
+    initialValues: {
+      staffName: '',
+      email: '',
+      phone: '',
+      gender: ' ',
+    },
+    validationSchema: Yup.object({
+      staffName: Yup.string().required('Staff Name is required'),
+      email: Yup.string().email('Invalid email address').required('Email is required'),
+      phone: Yup.string().required('Phone Number is required'),
+      gender: Yup.string().required('Gender is required'),
+    }),
+    onSubmit: async (values) => {
       const token = localStorage.getItem('token');
       if (!token) {
-        toast.error('Please log in to view staff.');
+        toast.error('Please log in to add staff.');
         navigate('/login');
         return;
       }
-      
+
       try {
-        const response = await api.get(import.meta.env.VITE_GET_STAFF, {
+        setLoading(true);
+        const response = await api.post('/add-Staff', values, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (response.status === 201) {
+          toast.success('Staff added successfully');
+          formik.resetForm();
+          closeModal();
+          fetchStaff();
+        } else {
+          toast.error('Failed to add staff');
+        }
+      } catch (err: any) {
+        console.log(err);
+      } finally {
+        setLoading(false);
+      }
+    },
+  });
+
+  const deleteStaff = async (staffId: string) => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      toast.error('Please log in to delete staff.');
+      navigate('/login');
+      return;
+    }
+
+    if (window.confirm("Are you sure you want to delete this staff member?")) {
+      try {
+        setLoading(true);
+        const response = await axios.delete(`http://localhost:3000/delete-staff/${staffId}`, { // Pass the staffId in URL
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
 
         if (response.status === 200) {
-          setStaffList(response.data);
-          setFilteredStaff(response.data); // Initialize filtered staff with all staff
+          toast.success('Staff deleted successfully');
+          fetchStaff(); // Refresh the staff list
         } else {
-          toast.error('Failed to fetch staff list.');
+          toast.error('Failed to delete staff');
         }
       } catch (err: any) {
-        toast.error('Error fetching staff list');
+        toast.error('Error deleting staff');
         console.log(err);
       } finally {
-        setFetching(false);
+        setLoading(false);
       }
-    };
-
-    fetchStaff();
-  }, [navigate]);
-
-  // Handle adding new staff
-  const handleAddStaff = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    const token = localStorage.getItem('token');
-    if (!token) {
-      toast.error('Please log in to add staff.');
-      navigate('/login');
-      return;
-    }
-
-    const staffData = {
-      staffName,
-      email,
-      phone,
-      gender,
-    };
-
-    try {
-      setLoading(true);
-      const response = await api.post('/add-Staff', staffData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      if (response.status === 201) {
-        toast.success('Staff added successfully');
-        setStaffName('');
-        setEmail('');
-        setPhone('');
-        setGender('Male');
-        closeModal();
-        await fetchStaff();
-      } else {
-        toast.error('Failed to add staff');
-      }
-    } catch (err: any) {
-      console.log(err.response?.data?.message);
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -141,17 +169,18 @@ const AddStaff: React.FC = () => {
           <div className="modal-overlay">
             <div className="modal-content">
               <h3>Add Staff</h3>
-              <form className="add-staff-form" onSubmit={handleAddStaff}>
+              <form className="add-staff-form" onSubmit={formik.handleSubmit}>
                 <div className="form-group1">
                   <label htmlFor="staffName">Staff Name<span className='star'>*</span></label>
                   <input
                     type="text"
                     id="staffName"
                     className="form-control"
-                    value={staffName}
-                    onChange={(e) => setStaffName(e.target.value)}
-                    required
+                    {...formik.getFieldProps('staffName')}
                   />
+                  {formik.touched.staffName && formik.errors.staffName ? (
+                    <div className="error">{formik.errors.staffName}</div>
+                  ) : null}
                 </div>
 
                 <div className="form-group1">
@@ -160,22 +189,25 @@ const AddStaff: React.FC = () => {
                     type="email"
                     id="email"
                     className="form-control"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
+                    {...formik.getFieldProps('email')}
                   />
+                  {formik.touched.email && formik.errors.email ? (
+                    <div className="error">{formik.errors.email}</div>
+                  ) : null}
                 </div>
 
                 <div className="form-group1">
                   <label htmlFor="phone">Phone Number<span className='star'>*</span></label>
                   <input
-                    type="text"
-                    id="phone"
-                    className="form-control"
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
-                    required
+                  type="text"
+                  id="phone"
+                  className="form-control"
+                  maxLength={10}
+                  {...formik.getFieldProps('phone')}
                   />
+                  {formik.touched.phone && formik.errors.phone ? (
+                  <div className="error">{formik.errors.phone}</div>
+                  ) : null}
                 </div>
 
                 <div className="form-group1">
@@ -183,18 +215,19 @@ const AddStaff: React.FC = () => {
                   <select
                     id="gender"
                     className="form-control"
-                    value={gender}
-                    onChange={(e) => setGender(e.target.value)}
-                    required
+                    {...formik.getFieldProps('gender')}
                   >
                     <option value="Male">Male</option>
                     <option value="Female">Female</option>
                     <option value="Other">Other</option>
                   </select>
+                  {formik.touched.gender && formik.errors.gender ? (
+                    <div className="error">{formik.errors.gender}</div>
+                  ) : null}
                 </div>
 
                 <div className="add-staff-div">
-                  <button className="btn btn-cancel1" onClick={closeModal}>Cancel</button>
+                  <button type="button" className="btn btn-cancel1" onClick={closeModal}>Cancel</button>
                   <button
                     type="submit"
                     className="btn btn-primary"
@@ -230,27 +263,37 @@ const AddStaff: React.FC = () => {
           </div>
         ) : currentStaff.length > 0 ? (
           <div className="staff-list-container">
-             <div className="patient-table-container">
-            <table className="table">
-              <thead>
-                <tr>
-                  <th scope="col">Staff Name</th>
-                  <th scope="col">Email</th>
-                  <th scope="col">Phone</th>
-                  <th scope="col">Gender</th>
-                </tr>
-              </thead>
-              <tbody>
-                {currentStaff.map((staff: any, index: number) => (
-                  <tr key={staff.id}>
-                    <td>{staff.staffName}</td>
-                    <td>{staff.email}</td>
-                    <td>{staff.phone}</td>
-                    <td>{staff.gender}</td>
+            <div className="patient-table-container">
+              <table className="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Staff Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Phone</th>
+                    <th scope="col">Gender</th>
+                    <th scope="col">Actions</th> 
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {currentStaff.map((staff: any, index: number) => (
+                    <tr key={staff.uuid}> {/* Use the correct property for the key */}
+                      <td>{staff.staffName}</td>
+                      <td>{staff.email}</td>
+                      <td>{staff.phone}</td>
+                      <td>{staff.gender}</td>
+                      <td>
+                        <button
+                          className="btn btn-danger"
+                          onClick={() => deleteStaff(staff.uuid)} 
+                          disabled={loading}
+                        >
+                          {loading ? 'Deleting...' : 'Delete'}
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           </div>
         ) : (
@@ -302,7 +345,4 @@ const AddStaff: React.FC = () => {
 };
 
 export default AddStaff;
-function fetchStaff() {
-  throw new Error('Function not implemented.');
-}
 

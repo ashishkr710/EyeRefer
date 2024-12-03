@@ -37,9 +37,7 @@
     margin-bottom: 20px;
     padding: 10px;
 }
-/* .action{
-    
-} */
+
 .action:hover{
     background-color: #43d79e;
     border-radius: 50%;

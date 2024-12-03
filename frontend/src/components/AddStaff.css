@@ -30,6 +30,8 @@
   padding: 15px;
   border-radius: 8px;
 }
+
+
 .hii1{
   border-radius: 5px;
   box-shadow: 0 2px 5px rgba(0,0,0,.1);
@@ -172,5 +174,10 @@
 
 .btn-primary:hover {
   background-color: #17a2b8;
+}
+
+.error {
+  font-size: 12px;
+  color: red;
 }
 

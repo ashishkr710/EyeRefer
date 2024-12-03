@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import io from "socket.io-client";
-import './Chat.css'
+import "./Chat.css";
+// import '../Styling/Dashboard.css';
 import { toast } from "react-toastify";
 import api from "../api/axiosInstance";
 import { Local } from "../environment/env";
@@ -86,6 +87,7 @@ const Chat: React.FC = () => {
   };    
 
 
+
   const sendMessage = async () => {
     if (newMessage.trim() === "") {
       toast.warn("Please Enter Message");
@@ -124,7 +126,7 @@ const Chat: React.FC = () => {
       </>
   )
   }
- 
+;
   return (
     <>
         <div className="chat-layout">

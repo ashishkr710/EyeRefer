@@ -171,7 +171,7 @@ const Profile: React.FC = () => {
         <div className='profile-photo-heading'>
           <div>
             <img
-              src="avatar.avif"
+              src="avtar03.png"
               alt="Profile photo"
               className="googleIcon-4"
             />{user.firstname} {user.lastname}</div>

@@ -7,7 +7,6 @@ import { Local } from '../environment/env';
 import './PatientDetails.css'
 import { IoIosArrowBack } from "react-icons/io";
 import moment from 'moment';
-import Chat from './Chat'; // Import the Chat component
 
 const PatientDetails: React.FC = () => {
     const { patientId } = useParams<{ patientId: string }>();
@@ -32,7 +31,23 @@ const PatientDetails: React.FC = () => {
         queryKey: ['patientData?'],
         queryFn: getPatient
     });
-
+    const deletePatient = async () => {
+        if (window.confirm("Are you sure you want to delete this patient?")) {
+            try {
+                await api.delete(`${Local.DELETE_PATIENT}`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    },
+                    data: { patientId }
+                });
+                toast.success("Patient deleted successfully");
+                navigate("/patient");
+            } catch (err) {
+                toast.error("Failed to delete patient");
+                console.log(err);
+            }
+        }
+    };
 
     useEffect(() => {
         if (!token) {
@@ -61,6 +76,7 @@ const PatientDetails: React.FC = () => {
             <div className='details-btn'>
                 <p className='back fw-bold' onClick={() => navigate("/patient")}><IoIosArrowBack /> Back</p >
                 <button className="appointment-btn" onClick={() => navigate("/add-patient")}>+ Add Referral Patient</button>
+                
             </div>
             <div className='patient-info'>
                 <h6 className="fw-bold" style={{ marginTop: '1.5rem', marginBottom: "1.5rem" }}>Basic Information</h6>
@@ -104,7 +120,7 @@ const PatientDetails: React.FC = () => {
                         </div>
 
                         {/* Add the Chat component */}
-                        <Chat patientId={patientData?.id} />
+                        {/* <Chat patientId={patientData?.id} /> */}
 
                         <p style={{ marginTop: '1.5rem', marginBottom: "1.5rem", fontSize: 16, color: "black" }}>Referral OD/MD</p >
 
@@ -160,23 +176,11 @@ const PatientDetails: React.FC = () => {
                             </div>
                         </div>
 
-
-
-
-
-
-
-
-
-
-
-                        {/* <div className="form-group2 col">
-                        <label htmlFor="referedBy">MD/OD Name {`${patientData?.referedby?.firstname} ${patientData?.referedby?.lastname}`}</label> 
-                    </div> */}
-
                     </form>
                 </div>
+                
             </div>
+            <button className="delete-btn" onClick={deletePatient}>Delete Patient</button>
         </div>
     );
 };

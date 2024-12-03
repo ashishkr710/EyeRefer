@@ -51,9 +51,9 @@ const App: React.FC = () => {
         { path: '/update-password', element: <UpdatePassword /> },
         { path: '/appointment-list', element: <AppointmentList /> },
         { path: '/patients-details/:patientId', element: <PatientDetails /> },
-        { path: '/notifications', element: <NotificationPage /> }, // Add the new route
+        { path: '/notifications', element: <NotificationPage /> },
         {path:'/update-appointment/:appointmentId',element:<UpdateAppointment/>}
-      ]
+      ] 
     }
   ]);
 

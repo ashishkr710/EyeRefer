@@ -94,24 +94,25 @@ const UpdateAppointment: React.FC = () => {
       <h3 className="mb-4">Update Appointment</h3>
       <Formik
         initialValues={initialValues}
-        enableReinitialize={true} // Ensures the form updates when initialValues changes
+        enableReinitialize={true}
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
       >
         {({ isSubmitting }) => (
-          <Form className="form-container">
+            <Form className="form-container">
             <div className="form-group mb-3">
               <label htmlFor="appointmentDate">Appointment Date</label>
               <Field
-                type="date"
-                id="appointmentDate"
-                name="appointmentDate"
-                className="form-control"
+              type="date"
+              id="appointmentDate"
+              name="appointmentDate"
+              className="form-control"
+              min={new Date().toISOString().split("T")[0]} 
               />
               <ErrorMessage
-                name="appointmentDate"
-                component="div"
-                className="text-danger"
+              name="appointmentDate"
+              component="div"
+              className="text-danger"
               />
             </div>
 

@@ -15,13 +15,11 @@ const AddAppointment: React.FC = () => {
   const cancleAddAppointment = () => {
     navigate('/appointment-list')
   }
-  // Ensure only MDs can add appointments
   useEffect(() => {
     if (!token) navigate('/login');
     if (localStorage.getItem("doctype") !== '1') navigate('/dashboard');
   }, [navigate, token]);
 
-  // Fetch Patients List
   const fetchPatients = async () => {
     try {
       const response = await api.get(`${Local.GET_PATIENT_LIST}`, {
@@ -34,7 +32,6 @@ const AddAppointment: React.FC = () => {
     }
   };
 
-  // Fetch Doctor List (this can be used to confirm that the user is a doctor)
   const fetchDocs = async () => {
     try {
       const response = await api.get(`${Local.GET_DOC_LIST}`, {
@@ -46,13 +43,12 @@ const AddAppointment: React.FC = () => {
     }
   };
 
-  // Use React Query to fetch patient and doctor data
   const { data: patientList, isLoading: isLoadingPatients, isError: isErrorPatients, error: errorPatients } = useQuery({
     queryKey: ["patientList"],
     queryFn: fetchPatients,
   });
 
-  
+
 
 
   const { data: MDList, isLoading: isLoadingDocs, isError: isErrorDocs, error: errorDocs } = useQuery({
@@ -60,7 +56,7 @@ const AddAppointment: React.FC = () => {
     queryFn: fetchDocs,
   });
 
-  // Mutation to add appointment
+
   const addAppointment = async (data: any) => {
     try {
       const response = await api.post(`${Local.ADD_APPOINTMENT}`, data, {
@@ -80,9 +76,9 @@ const AddAppointment: React.FC = () => {
   });
 
   const validationSchema = Yup.object().shape({
-    patientId: Yup.string().required('Patient is required'),
-    type: Yup.string().required("Appointment type is required"),
-    date: Yup.date().required("Date is required"),
+    patientId: Yup.string().required('Patient Name is required'),
+    type: Yup.string().required("Type is required"),
+    date: Yup.date().required("Appointment Date is required"),
   });
 
   const referAppointmentHandler = (values: any) => {

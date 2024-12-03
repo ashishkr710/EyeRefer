@@ -41,7 +41,7 @@ export const joinRoom = async(socket:any, data:any) => {
             }
     }
     catch(err){
-
+        console.log(err);
     }
 }
 

@@ -23,6 +23,8 @@ interface config {
     GET_APPOINTMENT:any;
     UPDATE_APPOINTMENT:any;
     GET_ROOM: string;
+    DELETE_PATIENT: any;
+    // DELETE_STAFF: any;
 }
 
 export const Local: config = {
@@ -50,4 +52,7 @@ export const Local: config = {
     GET_APPOINTMENT: import.meta.env.VITE_GET_APPOINTMENT,
     UPDATE_APPOINTMENT: import.meta.env.VITE_UPDATE_APPOINTMENT,
     GET_ROOM: import.meta.env.VITE_GET_ROOM,
+    DELETE_PATIENT: import.meta.env.VITE_DELETE_PATIENT
+    // ,
+    // DELETE_STAFF: import.meta.env.VITE_DELETE_STAFF
 }

@@ -21,12 +21,14 @@ const AddPatient: React.FC = () => {
         headers: {
           Authorization: `Bearer ${token}`
         }
+        
       });
       toast.success("Patient referred successfully");
       navigate('/dashboard');
     } catch (err: any) {
       toast.error(`${err.response?.data?.message || 'Error occurred'}`);
     }
+    
   };
 
   useEffect(() => {
@@ -59,14 +61,14 @@ const AddPatient: React.FC = () => {
     lastname: Yup.string().required('Last Name is required'),
     gender: Yup.string().required("Gender Is required"),
     email: Yup.string().email('Invalid email').required('Email is required'),
-    dob: Yup.date().required('DOB is required'),
-    disease: Yup.string().required("Disease is required"),
+    dob: Yup.date().required('Date of Birth is required'),
+    disease: Yup.string().required("Disease Name is required"),
     referedto: Yup.string().required("Select Doctor"),
     address: Yup.string().required("Address is required"),
-    referback: Yup.string().required("Please select an option"),
+    // referback: Yup.string().required("Please select an option"),
     companyName: Yup.string().required("Company Name Is Required"),
     policyStartingDate: Yup.date().required("Policy Starting Date Is Required"),
-    policyEndingDate: Yup.date()
+    policyExpireDate: Yup.date()
       .required('Policy Ending Date is required')
       .min(new Date(), 'Policy Ending Date must be a future date')
       .typeError('Invalid date format'),
@@ -116,10 +118,10 @@ const AddPatient: React.FC = () => {
           disease: '',
           referedto: '',
           address: '',
-          referback: '',
+          referback: '0',
           companyName: '',
           policyStartingDate: '',
-          policyEndingDate: '',
+          policyExpireDate: '',
           notes: '',
           phoneNumber: '',
           laterality: '',
@@ -133,7 +135,6 @@ const AddPatient: React.FC = () => {
           <Form>  
 
             <div className='fields-container'>
-              {/* <p className="basic-info">Basic informati on</p> */}
               <h6 className="basic-info">Basic information</h6>
               <div className='referral-fields1 row'>
                 <div className="form-group col">
@@ -290,16 +291,15 @@ const AddPatient: React.FC = () => {
 
 
               <h6 className="basic-info">Insurance Details</h6>
-              {/* <div className='fields-container'> */}
 
               <div className='referral-fields1 row'>
                 <div className="form-group col">
                   <label>Company Name<span className='star'>*</span></label>
                   <Field as="select" name="companyName" className="form-control">
                     <option value="">Company Name</option>
-                    <option value="Ayushman Baharat">Ayushman Baharat</option>
-                    <option value="LIC">LIC</option>
-                    <option value="Bharat Bima">Bharat Bima</option>
+                    <option value="Ayushman Baharat">Axis Insurance</option>
+                    <option value="LIC">Digit Insurance</option>
+                    <option value="Bharat Bima">Bajaj Insurance</option>
                   </Field>
                   <ErrorMessage name="companyName" component="div" className="text-danger" />
                 </div>
@@ -313,8 +313,8 @@ const AddPatient: React.FC = () => {
                 <div className="form-group col">
                   <label>Policy Expire Date<span className='star'>*</span></label>
                   <Field type="date"
-                    name="policyEndingDate" placeholder="Enter Date" className="form-control" style={{color:"#495057"}}/>
-                  <ErrorMessage name="policyEndingDate" component="div" className="text-danger" />
+                    name="policyExpireDate" placeholder="Enter Date" className="form-control" style={{color:"#495057"}}/>
+                  <ErrorMessage name="policyExpireDate" component="div" className="text-danger" />
                 </div>
               </div>
 

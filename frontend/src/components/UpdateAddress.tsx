@@ -27,9 +27,9 @@ const UpdateAddress = ({ address, close }: { address: Address, close: () => void
       navigate('/login');
     }
   }, []);
-const handleNavigate=()=>{
+  const handleNavigate = () => {
     navigate('/profile')
-}
+  }
   const updateAddressMutation = useMutation({
     mutationFn: (data: Address) => {
       return api.put(`${Local.UPDATE_ADDRESS}`, data, {
@@ -63,7 +63,7 @@ const handleNavigate=()=>{
   return (
     <Formik
       initialValues={{
-        ...address,  // Pre-fill the form with the selected address
+        ...address,
       }}
       validationSchema={validationSchema}
       onSubmit={handleSubmit}

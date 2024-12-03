@@ -1,8 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-
-//import { useQuery } from '@tanstack/react-query';
 import { Local } from '../environment/env';
 import api from '../api/axiosInstance';
 import React, { useEffect, useState } from 'react';
@@ -10,13 +8,16 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import './Dashboard.css';
 import { useQuery } from '@tanstack/react-query';
-
+import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable';
+// import { Parser } from 'json2csv';
+// import {Parser} from 'json2csv';
 const Dashboard: React.FC = () => {
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
 
-  const [currentPage, setCurrentPage] = useState(1);  // Track current page
-  const patientsPerPage = 5;  // Number of patients to show per page
+  const [currentPage, setCurrentPage] = useState(1);  
+  const patientsPerPage = 5; 
 
   useEffect(() => {
     if (!token) {
@@ -121,27 +122,53 @@ const Dashboard: React.FC = () => {
   const totalRefersReceived = patientList?.length || 0;
   const totalRefersCompleted = patientList?.filter((patient: { referalstatus: boolean }) => patient.referalstatus === true).length || 0;
   const totalDoctors = doctorList?.length || 0;
-
-  // Pagination Logic
   const totalPages = Math.ceil(patientList?.length / patientsPerPage);
   const indexOfLastPatient = currentPage * patientsPerPage;
   const indexOfFirstPatient = indexOfLastPatient - patientsPerPage;
   const currentPatients = patientList?.slice(indexOfFirstPatient, indexOfLastPatient);
 
-  // Handle Page Change
   const handlePageChange = (pageNumber: number) => {
     setCurrentPage(pageNumber);
   };
 
-  // Create Page Numbers
   const pageNumbers = [];
   for (let i = 1; i <= totalPages; i++) {
     pageNumbers.push(i);
   }
 
+  const downloadPDF = () => {
+    const doc = new jsPDF();
+    doc.text('Patient List', 20, 10);
+    autoTable(doc, {
+      head: [['Patient Name', 'Disease', 'Refer by', 'Refer to', 'Refer back', 'Status']],
+      body: patientList.map((patient: any) => [
+        `${patient.firstname} ${patient.lastname}`,
+        patient.disease,
+        `${patient.referedby.firstname} ${patient.referedby.lastname}`,
+        `${patient.referedto.firstname} ${patient.referedto.lastname}`,
+        patient.referback ? 'Yes' : 'No',
+        patient.referalstatus ? 'Completed' : 'Pending'
+      ]),
+    });
+    doc.save('patient_list.pdf');
+  };
+
+  const downloadCSV = () => {
+    // const parser = new Parser();
+    // const csv = parser.parse(patientList);
+    // const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    // const url = URL.createObjectURL(blob);
+    // link.setAttribute('href', url);
+    link.setAttribute('download', 'patient_list.csv');
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <div className="dashboard-container">
-
       <h6 className="dashboard-title fw-bold" style={{fontSize:16,color:"black"}}>Dashboard</h6>
     
       <div className="metrics-cards">
@@ -229,7 +256,11 @@ const Dashboard: React.FC = () => {
           </table>
         </div>
 
-        {/* Pagination */}
+        <div className="download-buttons">
+          <button className="btn btn-primary" onClick={downloadPDF}>Download PDF</button>
+          {/* <button className="btn btn-secondary" onClick={downloadCSV}>Download CSV</button> */}
+        </div>
+
         <nav aria-label="Page navigation example">
           <ul className="pagination justify-content-end">
             <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
@@ -243,7 +274,6 @@ const Dashboard: React.FC = () => {
               </a>
             </li>
 
-            {/* Page Numbers */}
             {pageNumbers.map((number) => (
               <li key={number} className={`page-item ${currentPage === number ? 'active' : ''}`}>
                 <a
@@ -259,7 +289,6 @@ const Dashboard: React.FC = () => {
               </li>
             ))}
 
-            {/* Next Button */}
             <li className={`page-item ${currentPage === totalPages ? 'disabled' : ''}`}>
               <a className="page-link" href="#" aria-label="Next" onClick={(e) => {
                 e.preventDefault();

@@ -147,7 +147,7 @@ export const getPatientList = async (req: any, res: Response) => {
     try {
         const { uuid } = req.user;
         const user = await User.findOne({ where: { uuid: uuid } });
-        
+
         if (user) {
             // Fetching the patient list with additional Appointments data
             let patientList: any = await Patient.findAll({
@@ -216,9 +216,9 @@ export const addPatient = async (req: any, res: Response) => {
         const { uuid } = req.user;
         const user = await User.findOne({ where: { uuid: uuid } });
         if (user) {
-            const { firstname, lastname,gender,email,dob,disease, address, referedto, referback,companyName,policyStartingDate,policyExpireDate,notes,phoneNumber,laterality,timing,speciality } = req.body;
+            const { firstname, lastname, gender, email, dob, disease, address, referedto, referback, companyName, policyStartingDate, policyExpireDate, notes, phoneNumber, laterality, timing, speciality } = req.body;
 
-            const patient = await Patient.create({ firstname, lastname,gender,email,dob, disease, address, referedto, referback, companyName,policyStartingDate,policyExpireDate,notes,phoneNumber,laterality,timing,speciality,referedby: uuid });
+            const patient = await Patient.create({ firstname, lastname, gender, email, dob, disease, address, referedto, referback, companyName, policyStartingDate, policyExpireDate, notes, phoneNumber, laterality, timing, speciality, referedby: uuid });
             if (patient) {
                 res.status(200).json({ "message": "Patient added Successfully" });
             }
@@ -232,13 +232,38 @@ export const addPatient = async (req: any, res: Response) => {
     }
 }
 
+export const deletePatient = async (req: any, res: Response): Promise<void> => {
+    try {
+        const { patientId } = req.body; // Use req.body to get patientId
+        const { uuid } = req.user;
+
+        const user = await User.findOne({ where: { uuid } });
+        if (!user) {
+            res.status(401).json({ message: "You're not authorized" });
+            return;
+        }
+
+        const patient = await Patient.findOne({ where: { uuid: patientId } });
+        if (!patient) {
+            res.status(404).json({ message: "Patient not found" });
+            return;
+        }
+
+        await patient.destroy();
+        res.status(200).json({ message: "Patient deleted successfully" });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: "Error deleting patient" });
+    }
+};
+
 export const addAddress = async (req: any, res: Response) => {
     try {
         const { uuid } = req.user;
         const user = await User.findOne({ where: { uuid: uuid } });
         if (user) {
-            const { street, district, city, state, pincode, phone,title } = req.body;
-            const address = await Address.create({ street, district, city, state, pincode, phone,title, user: uuid });
+            const { street, district, city, state, pincode, phone, title } = req.body;
+            const address = await Address.create({ street, district, city, state, pincode, phone, title, user: uuid });
             if (address) {
                 res.status(200).json({ "message": "Address added Successfully" });
             }
@@ -305,7 +330,7 @@ export const getUserProfile = async (req: any, res: Response) => {
     try {
         const { uuid } = req.user;
         const user = await User.findOne({ where: { uuid: uuid }, include: Address });
-        
+
         if (!user) {
             return res.status(404).json({ "message": "User Not Found" });
         }
@@ -333,7 +358,7 @@ export const getUserProfile = async (req: any, res: Response) => {
                 referredDoctors: referredDoctors,
             };
         } else {
-            
+
             profileDetails = {
                 ...profileDetails,
                 additionalData: "Custom data for Admin or other types"
@@ -349,7 +374,7 @@ export const getUserProfile = async (req: any, res: Response) => {
 export const updateprofile = async (req: any, res: any) => {
     try {
         const { uuid } = req.user;
-        const { firstname, lastname, phone,email,gender} = req.body;
+        const { firstname, lastname, phone, email, gender } = req.body;
 
         const user = await User.findOne({ where: { uuid: uuid } });
         if (!user) {
@@ -360,7 +385,7 @@ export const updateprofile = async (req: any, res: any) => {
         user.lastname = lastname || user.lastname;
         user.phone = phone || user.phone;
         user.email = email || user.email;
-        user.gender=gender || user.gender;
+        user.gender = gender || user.gender;
 
         await user.save();
 
@@ -376,7 +401,7 @@ export const changePassword = async (req: any, res: any) => {
         const { uuid } = req.user;
         const { currentPassword, newPassword } = req.body;
 
-    
+
         const user = await User.findOne({ where: { uuid } });
 
         if (!user) {
@@ -403,7 +428,7 @@ export const changePassword = async (req: any, res: any) => {
 export const updateAddress = async (req: any, res: any) => {
     try {
         const { uuid } = req.user;
-        const { street, district, city, state, pincode,phone} = req.body;
+        const { street, district, city, state, pincode, phone } = req.body;
 
         const user = await User.findOne({ where: { uuid: uuid } });
         if (!user) {
@@ -418,7 +443,7 @@ export const updateAddress = async (req: any, res: any) => {
         address.district = district || address.district;
         address.city = city || address.city;
         address.state = state || address.state;
-        address.pincode = pincode || address.pincode; 
+        address.pincode = pincode || address.pincode;
         address.phone = phone || address.phone;
         await address.save();
 
@@ -432,21 +457,21 @@ export const updateAddress = async (req: any, res: any) => {
 
 export const addStaff = async (req: any, res: any) => {
     try {
-        const { uuid } = req.user; 
+        const { uuid } = req.user;
         const user = await User.findOne({ where: { uuid } });
 
 
 
-     
+
         const { staffName, gender, email, phone } = req.body;
 
-     
+
         if (!staffName || !email || !phone || !gender) {
             return res.status(400).json({ message: "All fields are required" });
         }
 
-    
-        const staff = await Staff.create({ staffName, gender, email, phone, userId:uuid });
+
+        const staff = await Staff.create({ staffName, gender, email, phone, userId: uuid });
 
         if (staff) {
             return res.status(201).json({ message: "Staff added successfully" });
@@ -456,26 +481,57 @@ export const addStaff = async (req: any, res: any) => {
 
     } catch (err) {
         console.error(err);
-        return res.status(500).json({ message: `Error: ${err|| err}` });
+        return res.status(500).json({ message: `Error: ${err || err}` });
     }
 };
 
-export const getStaffList = async (req: any, res: Response):Promise<void> => {
+export const getStaffList = async (req: any, res: Response): Promise<void> => {
     try {
         const { uuid } = req.user;
 
         const staffList = await Staff.findAll({
-            where: { userId: uuid },  
-            attributes: ['uuid','staffName', 'email', 'phone', 'gender'],  
+            where: { userId: uuid },
+            attributes: ['uuid', 'staffName', 'email', 'phone', 'gender'],
         });
         if (staffList.length > 0) {
-             res.status(200).json(staffList);
-             return
-        } 
+            res.status(200).json(staffList);
+            return
+        }
     } catch (err) {
         console.error(err);
-         res.status(500).json({ message: 'Server error, please try again later.' });
-         return
+        res.status(500).json({ message: 'Server error, please try again later.' });
+        return
+    }
+};
+
+
+export const deleteStaff = async (req: any, res: Response): Promise<void> => {
+    try {
+        const { uuid } = req.user; // User's UUID from token (this is good, leave it)
+        const { staffId } = req.params; // Changed to get staffId from URL params instead of body
+
+        if (!staffId) {
+            res.status(400).json({ message: "Staff ID is required" });
+            return;
+        }
+
+        const user = await User.findOne({ where: { uuid } });
+        if (!user) {
+            res.status(401).json({ message: "You're not authorized" });
+            return;
+        }
+
+        const staff = await Staff.findOne({ where: { uuid: staffId, userId: uuid } });
+        if (!staff) {
+            res.status(404).json({ message: "Staff not found" });
+            return;
+        }
+
+        await staff.destroy();
+        res.status(200).json({ message: "Staff deleted successfully" });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: "Error deleting staff at backend" });
     }
 };
 
@@ -499,50 +555,50 @@ export const deleteAddress = async (req: any, res: any) => {
 
 export const addAppointment = async (req: any, res: any) => {
     try {
-      const { uuid } = req.user;
-      const { patientId, type, date } = req.body;
-  
-      const user = await User.findOne({ where: { uuid } });
-      if (!user || user.doctype !== 1) {
-        return res.status(403).json({ message: 'Only doctors can create appointments' });
-      }
-  
-      const patient = await Patient.findOne({ where: { uuid: patientId } });
-      if (!patient) {
-        return res.status(404).json({ message: 'Patient not found' });
-      }
+        const { uuid } = req.user;
+        const { patientId, type, date } = req.body;
 
-      const appointment = await Appointments.create({
-        patientId,
-        userId: uuid,
-        type,
-        date,
-      });
-  
-      res.status(201).json({
-        message: 'Appointment added successfully',
-        appointment,
-      });
-    } catch (err:any) {
-      console.error(err);
-      res.status(500).json({ message: 'Error while adding appointment', error: err.message });
+        const user = await User.findOne({ where: { uuid } });
+        if (!user || user.doctype !== 1) {
+            return res.status(403).json({ message: 'Only doctors can create appointments' });
+        }
+
+        const patient = await Patient.findOne({ where: { uuid: patientId } });
+        if (!patient) {
+            return res.status(404).json({ message: 'Patient not found' });
+        }
+
+        const appointment = await Appointments.create({
+            patientId,
+            userId: uuid,
+            type,
+            date,
+        });
+
+        res.status(201).json({
+            message: 'Appointment added successfully',
+            appointment,
+        });
+    } catch (err: any) {
+        console.error(err);
+        res.status(500).json({ message: 'Error while adding appointment', error: err.message });
     }
-  };
+};
 
-  
-  export const getAppointmentList = async (req: any, res: Response): Promise<void> => {
+
+export const getAppointmentList = async (req: any, res: Response): Promise<void> => {
     try {
         const { uuid: userId } = req.user;
 
         const appointments = await Appointment.findAll({
             where: {
-                userId: userId, 
+                userId: userId,
             },
             attributes: ['uuid', 'date', 'type'],
             include: [
                 {
                     model: Patient,
-                    attributes: ['uuid', 'firstname', 'lastname', 'gender','email','dob','disease','referalstatus','notes','policyStartingDate','policyExpireDate','laterality'], 
+                    attributes: ['uuid', 'firstname', 'lastname', 'gender', 'email', 'dob', 'disease', 'referalstatus', 'notes', 'policyStartingDate', 'policyExpireDate', 'laterality'],
                 },
                 {
                     model: User,
@@ -612,13 +668,13 @@ export const getPatientDetails = async (req: any, res: Response) => {
                     attributes: ['street', 'city', 'state', 'pincode'],
                 },
                 {
-                    model:Appointments,
-                    attributes:['date',"type"],
+                    model: Appointments,
+                    attributes: ['date', "type"],
                 }
             ]
         });
 
-        const appoinment = await Appointment.findOne({where: {patientId}})
+        const appoinment = await Appointment.findOne({ where: { patientId } })
 
         if (patient) {
             // Construct the response object
@@ -626,20 +682,20 @@ export const getPatientDetails = async (req: any, res: Response) => {
                 uuid: patient.uuid,
                 firstname: patient.firstname,
                 lastname: patient.lastname,
-                gender:patient.gender,
-                email:patient.email,
-                dob:patient.dob,
+                gender: patient.gender,
+                email: patient.email,
+                dob: patient.dob,
                 disease: patient.disease,
                 referalstatus: patient.referalstatus,
                 referback: patient.referback,
-                companyName:patient.companyName,
-                policyStartingDate:patient.policyStartingDate,
-                policyExpireDate:patient.policyExpireDate,
-                notes:patient.notes,
-                phoneNumber:patient.phoneNumber,
-                laterality:patient.laterality,
-                timing:patient.timing,
-                speciality:patient.speciality,
+                companyName: patient.companyName,
+                policyStartingDate: patient.policyStartingDate,
+                policyExpireDate: patient.policyExpireDate,
+                notes: patient.notes,
+                phoneNumber: patient.phoneNumber,
+                laterality: patient.laterality,
+                timing: patient.timing,
+                speciality: patient.speciality,
                 // createdAt: patient.createdAt,
                 // updatedAt: patient.updatedAt,
                 referedto: patient.referedtoUser,
@@ -662,33 +718,33 @@ export const getPatientDetails = async (req: any, res: Response) => {
 
 export const getAppointmentDetails = async (req: any, res: Response) => {
     try {
-      const appointmentId = req.params.appointmentId;
-  
-      const appoinment = await Appointment.findOne({
-        where: { uuid: appointmentId },
-      });
-  
-      const patient = await Patient.findOne({
-        where: { uuid: appoinment?.patientId },
-      });
-  
-      res.status(200).json({
-        appoinment,
-        patient,
-        message: "Patient Details Found",
-      });
-    } catch (err) {
-      res.status(500).json({ message: `${err}` });
-    }
-  };
+        const appointmentId = req.params.appointmentId;
 
-  export const updateAppointment = async (req: any, res: any) => {
+        const appoinment = await Appointment.findOne({
+            where: { uuid: appointmentId },
+        });
+
+        const patient = await Patient.findOne({
+            where: { uuid: appoinment?.patientId },
+        });
+
+        res.status(200).json({
+            appoinment,
+            patient,
+            message: "Patient Details Found",
+        });
+    } catch (err) {
+        res.status(500).json({ message: `${err}` });
+    }
+};
+
+export const updateAppointment = async (req: any, res: any) => {
     try {
         const { uuid } = req.user;
         const appointmentId = req.params.appointmentId;
-        const { appointmentDate, appointmentType} = req.body;
+        const { appointmentDate, appointmentType } = req.body;
 
-        const appoinment = await Appointment.findOne({ where: { uuid:appointmentId } });
+        const appoinment = await Appointment.findOne({ where: { uuid: appointmentId } });
         if (!appoinment) {
             return res.status(404).json({ message: "Appointment not found" });
         }
@@ -705,37 +761,38 @@ export const getAppointmentDetails = async (req: any, res: Response) => {
     }
 };
 
-export const getRooms = async(req:any, res:Response) => {
-    try{
-        const {uuid} = req.user;
+export const getRooms = async (req: any, res: Response) => {
+    try {
+        const { uuid } = req.user;
         const user = await User.findByPk(uuid);
-        if(user){
-            const rooms = await Room.findAll({where:{
-                [Op.or]:[
-                    {user_id_1: user.uuid},
-                    {user_id_2: user.uuid}]
-            },
-            include: [
-                {
-                    model: User,
-                    as: 'doc1'
+        if (user) {
+            const rooms = await Room.findAll({
+                where: {
+                    [Op.or]: [
+                        { user_id_1: user.uuid },
+                        { user_id_2: user.uuid }]
                 },
-                {
-                    model: User,
-                    as: 'doc2'
-                },
-                {
-                    model: Patient,
-                    as: 'patient'
-                }
-            ]
-        });
-        res.status(200).json({"room":rooms, "user":user});
+                include: [
+                    {
+                        model: User,
+                        as: 'doc1'
+                    },
+                    {
+                        model: User,
+                        as: 'doc2'
+                    },
+                    {
+                        model: Patient,
+                        as: 'patient'
+                    }
+                ]
+            });
+            res.status(200).json({ "room": rooms, "user": user });
         } else {
-            res.status(404).json({"message": "You're not authorized"});
+            res.status(404).json({ "message": "You're not authorized" });
         }
     }
-    catch(err){
-        res.status(500).json({"message": err});
+    catch (err) {
+        res.status(500).json({ "message": err });
     }
 }

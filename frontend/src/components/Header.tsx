@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState } from 'react';
-import { Outlet, Link, useNavigate } from 'react-router-dom';
+import { Outlet, NavLink, useNavigate } from 'react-router-dom';
 import { PiHouseLight } from "react-icons/pi";
 import { MdOutlinePersonalInjury } from "react-icons/md";
 import { GrGroup } from "react-icons/gr";
@@ -34,13 +34,12 @@ const Header: React.FC = () => {
     <>
       <header className="header-container">
         <div className="header-left">
-          {/* <img src='logo1.png' alt="loginbg" /> */}
         </div>
 
         <div className="header-right">
-          <BiBell className='noteficationBell' onClick={handleBellClick} /> {/* Add onClick handler */}
+          <BiBell className='noteficationBell' onClick={handleBellClick} />
           <img
-            src="avatar.avif"
+            src="avtar03.png"
             alt="Profile photo"
             className='header-profile-img'
             style={{ width: '40px', height: '40px', borderRadius: '50%', marginRight: '-15px', marginTop: '-8px' }}
@@ -54,14 +53,14 @@ const Header: React.FC = () => {
                 </h6>
                 <ul className="dropdown-menu">
                   <li>
-                    <Link to="/profile" className="dropdown-item">
+                    <NavLink to="/profile" className="dropdown-item">
                       Profile
-                    </Link>
+                    </NavLink>
                   </li>
                   <li>
-                    <Link to="/update-password" className="dropdown-item">
+                    <NavLink to="/update-password" className="dropdown-item">
                       Change Password
-                    </Link>
+                    </NavLink>
                   </li>
                   <li>
                     <button
@@ -78,12 +77,12 @@ const Header: React.FC = () => {
               </div>
             ) : (
               <>
-                <Link to="/login" className="btn login-btn">
+                <NavLink to="/login" className="btn login-btn">
                   Login
-                </Link>
-                <Link to="/" className="btn signup-btn">
+                </NavLink>
+                <NavLink to="/" className="btn signup-btn">
                   Sign-up
-                </Link>
+                </NavLink>
               </>
             )}
           </div>
@@ -107,46 +106,46 @@ const Header: React.FC = () => {
           <nav className="nav-links ">
             <div className='nav-link'>
               <PiHouseLight className='house' />
-              <Link to="/dashboard" className="nav-link">
+              <NavLink to="/dashboard" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>
                 Dashboard
-              </Link>
+              </NavLink>
             </div>
 
             <div className='nav-link'>
               <MdOutlinePersonalInjury className='house' />
-              <Link to="/patient" className="nav-link">
+              <NavLink to="/patient" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>
                 Patient
-              </Link>
+              </NavLink>
             </div>
 
             {doctype === '1' && (
               <div className='nav-link'>
                 <BiBookReader className='house' />
-                <Link to="/appointment-list" className="nav-link">
+                <NavLink to="/appointment-list" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>
                   Appointment
-                </Link>
+                </NavLink>
               </div>
             )}
 
             <div className='nav-link'>
               <MdOutlinePersonPin className='house' />
-              <Link to="/doctor" className="nav-link">
+              <NavLink to="/doctor" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>
                 Doctors
-              </Link>
+              </NavLink>
             </div>
 
             <div className='nav-link'>
               <MdOutlineMarkChatRead className='house' />
-              <Link to="/chat" className="nav-link">
+              <NavLink to="/chat" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>
                 Chat
-              </Link>
+              </NavLink>
             </div>
 
             <div className='nav-link'>
-              <GrGroup className='house' />
-              <Link to="/add-staff" className="nav-link">
+              <GrGroup className="house" />
+              <NavLink to="/add-staff" className={({ isActive }: { isActive: boolean }) => isActive ? "nav-link active" : "nav-link"}>
                 Staff
-              </Link>
+              </NavLink>
             </div>
           </nav>
         </div>
