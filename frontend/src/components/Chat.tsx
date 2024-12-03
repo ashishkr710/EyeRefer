@@ -185,7 +185,7 @@ const Chat: React.FC = () => {
                         }`}
                         >
                       <p>{msg.message}</p>
-                      <span className="message-timestamp"> {msg.createdAt.split("T")[0]} </span>
+                        <span className="message-timestamp"> {new Date(msg.createdAt).toLocaleTimeString()} </span>
                     </div>
                     <br />
                       </>

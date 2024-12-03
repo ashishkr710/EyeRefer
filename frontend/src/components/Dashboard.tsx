@@ -175,33 +175,33 @@ const Dashboard: React.FC = () => {
         <div className="card" onClick={() => navigate('/patient')}>
           <div className='card-heading'style={{color:"black"}}>Referrals Received</div>
           <div className="card-body2">
-            <div className='icon d-flex'>
-              <img src="referReceived.png" alt="EyeRefer" className='icon-2'/>
-              <div className="card-text">{totalRefersReceived}</div>
-            </div>
-            <div className='d-flex justify-content-end fw-bold' style={{color: "#737A7D"}}>Last update:Nov 27</div>
+        <div className='icon d-flex'>
+          <img src="referReceived.png" alt="EyeRefer" className='icon-2'/>
+          <div className="card-text">{totalRefersReceived}</div>
+        </div>
+        <div className='d-flex justify-content-end fw-bold' style={{color: "#737A7D"}}>Last update: {new Date().toLocaleDateString()}</div>
           </div>
         </div>
 
         <div className="card">
           <div className='card-heading'style={{color:"black"}}>Total Refers Completed</div>
           <div className="card-body2">
-            <div className='icon d-flex'>
-              <img src="referCompleted.png" alt="EyeRefer" className='icon-2'/>
-              <div className="card-text">{totalRefersCompleted}</div>
-            </div>
-            <div className='d-flex justify-content-end fw-bold'  style={{color: "#737A7D"}}>Last update:Nov 27</div>
+        <div className='icon d-flex'>
+          <img src="referCompleted.png" alt="EyeRefer" className='icon-2'/>
+          <div className="card-text">{totalRefersCompleted}</div>
+        </div>
+        <div className='d-flex justify-content-end fw-bold'  style={{color: "#737A7D"}}>Last update: {new Date().toLocaleDateString()}</div>
           </div>
         </div>
 
         <div className="card" onClick={() => navigate('/doctor')}>
           <div className='card-heading'style={{color:"black"}}>Total Doctors OD/MD</div>
           <div className="card-body2">
-            <div className='icon d-flex'>
-              <img src="od_md.png" alt="EyeRefer" className='icon-2'/>
-              <div className="card-text">{totalDoctors}</div>
-            </div>
-            <div className='d-flex justify-content-end fw-bold'  style={{color: "#737A7D"}}>Last update:Nov 27</div>
+        <div className='icon d-flex'>
+          <img src="od_md.png" alt="EyeRefer" className='icon-2'/>
+          <div className="card-text">{totalDoctors}</div>
+        </div>
+        <div className='d-flex justify-content-end fw-bold'  style={{color: "#737A7D"}}>Last update: {new Date().toLocaleDateString()}</div>
           </div>
         </div>
       </div>
