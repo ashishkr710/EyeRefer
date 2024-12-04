@@ -78,10 +78,10 @@ const AppointmentsList: React.FC = () => {
     pageNumbers.push(i);
   }
 
-  const updatePatientStatus = async (appointment: { PatientId: string  }, status: string) => {
+  const updatePatientStatus = async (patientId: string, status: string) => {
     try {
       setLoading(true);
-      const response = await api.put(`${Local.UPDATE_PATIENT}/${appointment.PatientId}`, { status }, {
+      const response = await api.put(`${Local.UPDATE_PATIENT}/${patientId}`, { status }, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -183,14 +183,14 @@ const AppointmentsList: React.FC = () => {
                     </button>
                     <button
                       className="btn btn-success"
-                      onClick={() => updatePatientStatus(appointment.uuid, 'Completed')}
+                      onClick={() => updatePatientStatus(appointment.Patient?.uuid, 'Completed')}
                       disabled={loading}
                     >
                       Complete
                     </button>
                     <button
                       className="btn btn-danger"
-                      onClick={() => updatePatientStatus(appointment.uuid, 'Cancelled')}
+                      onClick={() => updatePatientStatus(appointment.Patient?.uuid, 'Cancelled')}
                       disabled={loading}
                     >
                       Cancel
