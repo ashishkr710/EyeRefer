@@ -8,7 +8,7 @@ import { MdOutlineMarkChatRead } from "react-icons/md";
 import { MdOutlinePersonPin } from "react-icons/md";
 import { BiBell, BiBookReader } from "react-icons/bi";
 import { LuLogOut } from "react-icons/lu";
-import logoImg from '../../public/logo1.png';
+import logoImg from '../logo1.png';
 import './Header.css';
 import Notification from './Notefication'; // Import the Notification component
 

@@ -74,7 +74,7 @@ const UpdateAppointment: React.FC = () => {
         }
       );
       toast.success(response.data.message || "Appointment updated successfully");
-      navigate(-1); // Navigate back to the previous page
+      navigate(-1);
     } catch (error) {
       toast.error("Failed to update appointment");
       console.error(error);

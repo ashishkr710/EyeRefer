@@ -14,19 +14,16 @@ export const setSocket = (httpServer:any) => {
     })
    
     io.on('connection', (socket) => {
-        console.log('Client connected');
         
         socket.on('joinchat', async(data:any)=>{
             joinRoom(socket, data);
         });
 
         socket.on('send_message', async(message:any) => {
-            console.log(message);
             sendMessage(socket, message);
         });
         
         socket.on('disconnect', ()=>{
-            console.log('Client disconnected');
         });
     });
 }

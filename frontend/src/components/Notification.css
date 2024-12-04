@@ -58,6 +58,9 @@
 .notificationList {
     list-style-type: none;
     padding: 0;
+    display: flex;
+    justify-content: center;    
+    align-items: center;
 }
 
 .notificationContener {

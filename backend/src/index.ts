@@ -28,9 +28,9 @@ sequelize.sync({alter:false}).then(()=>{
 
 app.get('/notifications', (req, res) => {
     const notifications = [
-      { id: '1', message: 'New message from John', type: 'info', createdAt: new Date().toISOString() },
-      { id: '2', message: 'Your appointment is confirmed', type: 'success', createdAt: new Date().toISOString() },
-      { id: '3', message: 'Server error occurred', type: 'error', createdAt: new Date().toISOString() },
+      { id: '1', message: 'New message from John', type: 'info', createdAt: new Date().toISOString() }
+      // { id: '2', message: 'Your appointment is confirmed', type: 'success', createdAt: new Date().toISOString() },
+      // { id: '3', message: 'Server error occurred', type: 'error', createdAt: new Date().toISOString() },
     ];
     res.json(notifications);
   });
