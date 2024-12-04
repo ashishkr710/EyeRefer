@@ -149,7 +149,7 @@ export const getPatientList = async (req: any, res: Response) => {
         const user = await User.findOne({ where: { uuid: uuid } });
 
         if (user) {
-            // Fetching the patient list with additional Appointments data
+
             let patientList: any = await Patient.findAll({
                 where: {
                     [Op.or]: [{ referedby: uuid }, { referedto: uuid }]
@@ -157,7 +157,7 @@ export const getPatientList = async (req: any, res: Response) => {
                 include: [
                     {
                         model: Appointments,
-                        attributes: ['date', 'type'] // Include the attributes you need from the Appointments model
+                        attributes: ['date', 'type'] 
                     }
                 ]
             });
@@ -172,10 +172,8 @@ export const getPatientList = async (req: any, res: Response) => {
                         Address.findOne({ where: { uuid: patient.address } })
                     ]);
 
-                    // You can get the appointment data directly from the patient object as it's included in the query
                     const appointmentData = patient.Appointments ? patient.Appointments[0] : null;
 
-                    // Prepare the patient data to be added to the response
                     const newPatientList: any = {
                         uuid: patient.uuid,
                         firstname: patient.firstname,
@@ -231,6 +229,51 @@ export const addPatient = async (req: any, res: Response) => {
         res.status(500).json({ "message": `${err}` });
     }
 }
+
+export const updatePatient = async (req: any, res: Response): Promise<void> => {
+    try {
+        const { uuid } = req.user;
+        const patientId = req.params.patientId;
+        const { firstname, lastname, gender, email, dob, disease, address, referedto, referback, companyName, policyStartingDate, policyExpireDate, notes, phoneNumber, laterality, timing, speciality } = req.body;
+
+        const user = await User.findOne({ where: { uuid } });
+        if (!user) {
+            res.status(401).json({ message: "You're not authorized" });
+            return;
+        }
+
+        const patient = await Patient.findOne({ where: { uuid: patientId } });
+        if (!patient) {
+            res.status(404).json({ message: "Patient not found" });
+            return;
+        }
+
+        patient.firstname = firstname || patient.firstname;
+        patient.lastname = lastname || patient.lastname;
+        patient.gender = gender || patient.gender;
+        patient.email = email || patient.email;
+        patient.dob = dob || patient.dob;
+        patient.disease = disease || patient.disease;
+        patient.Address = address || patient.Address;
+        patient.referedto = referedto || patient.referedto;
+        patient.referback = referback || patient.referback;
+        patient.companyName = companyName || patient.companyName;
+        patient.policyStartingDate = policyStartingDate || patient.policyStartingDate;
+        patient.policyExpireDate = policyExpireDate || patient.policyExpireDate;
+        patient.notes = notes || patient.notes;
+        patient.phoneNumber = phoneNumber || patient.phoneNumber;
+        patient.laterality = laterality || patient.laterality;
+        patient.timing = timing || patient.timing;
+        patient.speciality = speciality || patient.speciality;
+
+        await patient.save();
+
+        res.status(200).json({ message: "Patient updated successfully" });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Error updating patient" });
+    }
+};
 
 export const deletePatient = async (req: any, res: Response): Promise<void> => {
     try {
@@ -754,10 +797,10 @@ export const updateAppointment = async (req: any, res: any) => {
 
         await appoinment.save();
 
-        return res.status(200).json({ message: "Profile updated successfully" });
+        return res.status(200).json({ message: "Appointment updated successfully" });
     } catch (error) {
         console.error(error);
-        return res.status(500).json({ message: "Error updating profile" });
+        return res.status(500).json({ message: "Error updating Appointment" });
     }
 };
 

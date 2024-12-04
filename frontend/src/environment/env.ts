@@ -25,6 +25,8 @@ interface config {
     GET_ROOM: string;
     DELETE_PATIENT: any;
     // DELETE_STAFF: any;
+    // UPDATE_APPOINTMENT_STATUS:any;
+    UPDATE_PATIENT: any;
 }
 
 export const Local: config = {
@@ -52,7 +54,9 @@ export const Local: config = {
     GET_APPOINTMENT: import.meta.env.VITE_GET_APPOINTMENT,
     UPDATE_APPOINTMENT: import.meta.env.VITE_UPDATE_APPOINTMENT,
     GET_ROOM: import.meta.env.VITE_GET_ROOM,
-    DELETE_PATIENT: import.meta.env.VITE_DELETE_PATIENT
+    DELETE_PATIENT: import.meta.env.VITE_DELETE_PATIENT,
+    UPDATE_PATIENT: import.meta.env.VITE_UPDATE_PATIENT,
+    // UPDATE_APPOINTMENT_STATUS: import.meta.VITE_UPDATE_APPOINTMENT_STATUS
     // ,
     // DELETE_STAFF: import.meta.env.VITE_DELETE_STAFF
 }

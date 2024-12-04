@@ -78,6 +78,33 @@ const AppointmentsList: React.FC = () => {
     pageNumbers.push(i);
   }
 
+  const updatePatientStatus = async (appointment: { PatientId: string  }, status: string) => {
+    try {
+      setLoading(true);
+      const response = await api.put(`${Local.UPDATE_PATIENT}/${appointment.PatientId}`, { status }, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (response.status === 200) {
+        toast.success(`Appointment ${status} successfully`);
+        fetchAppointments(); // Refresh the appointments list
+      } else {
+        toast.error(`Failed to update appointment status to ${status}`);
+      }
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        toast.error(`Error updating appointment status to ${status}: ${err.message}`);
+        console.log(err);
+      } else {
+        toast.error(`Error updating appointment status to ${status}`);
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
   if (isLoading) {
     return (
       <div className="loading-container">
@@ -153,6 +180,20 @@ const AppointmentsList: React.FC = () => {
                       onClick={() => navigate(`/update-appointment/${appointment.uuid}`)}
                     >
                       Edit
+                    </button>
+                    <button
+                      className="btn btn-success"
+                      onClick={() => updatePatientStatus(appointment.uuid, 'Completed')}
+                      disabled={loading}
+                    >
+                      Complete
+                    </button>
+                    <button
+                      className="btn btn-danger"
+                      onClick={() => updatePatientStatus(appointment.uuid, 'Cancelled')}
+                      disabled={loading}
+                    >
+                      Cancel
                     </button>
                   </td>
                 </tr>

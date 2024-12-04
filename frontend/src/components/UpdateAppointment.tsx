@@ -18,21 +18,18 @@ const UpdateAppointment: React.FC = () => {
   });
   const [isLoading, setIsLoading] = useState(true);
 
-  // Validation schema using Yup
   const validationSchema = Yup.object({
     appointmentDate: Yup.date().required("Appointment date is required"),
     appointmentType: Yup.string()
-      .oneOf(["Consultation", "Follow-up"], "Invalid appointment type")
+      .oneOf(["Consultation", "Surgery"], "Invalid appointment type")
       .required("Appointment type is required"),
   });
 
-  // Fetch existing appointment details
   useEffect(() => {
     const fetchAppointmentDetails = async () => {
       try {
         const response = await api.get(
           `${Local.GET_APPOINTMENT}/${appointmentId}`
-        // const response = await api.get(`view-appointment/${appointmentId}`
           ,
           {
             headers: {
@@ -126,7 +123,7 @@ const UpdateAppointment: React.FC = () => {
               >
                 <option value="">Select type</option>
                 <option value="Consultation">Consultation</option>
-                <option value="Follow-up">Follow-up</option>
+                <option value="Surgery">Surgery</option>
               </Field>
               <ErrorMessage
                 name="appointmentType"

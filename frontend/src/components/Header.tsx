@@ -9,6 +9,7 @@ import { MdOutlinePersonPin } from "react-icons/md";
 import { BiBell, BiBookReader } from "react-icons/bi";
 import { LuLogOut } from "react-icons/lu";
 import logoImg from '../logo1.png';
+import arrowImg from '../arrow.png'; // Import the arrow image
 import './Header.css';
 import Notification from './Notefication'; // Import the Notification component
 
@@ -20,7 +21,8 @@ const Header: React.FC = () => {
 
   const doctype: any = localStorage.getItem('doctype');
 
-  const [showNotification, setShowNotification] = useState(false); // State to manage notification visibility
+  const [showNotification, setShowNotification] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true); // State to manage sidebar visibility
 
   const handleLogoClick = () => {
     navigate('/dashboard');
@@ -28,6 +30,10 @@ const Header: React.FC = () => {
 
   const handleBellClick = () => {
     navigate('/notifications'); // Navigate to the notification page
+  };
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
   };
 
   return (
@@ -94,7 +100,7 @@ const Header: React.FC = () => {
       )}
 
       {token && (
-        <div className="sidebar bg-white">
+        <div className={`sidebar bg-white ${isSidebarOpen ? 'open' : 'closed'}`}>
           <div className="sidebar-logo">
             <div onClick={handleLogoClick} className="logo">
               <img src={logoImg} alt="EyeRefer" className="logo1-img" />
@@ -103,7 +109,7 @@ const Header: React.FC = () => {
             </div>
           </div>
 
-          <nav className="nav-links ">
+          <nav className="nav-links">
             <div className='nav-link'>
               <PiHouseLight className='house' />
               <NavLink to="/dashboard" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>
@@ -148,6 +154,9 @@ const Header: React.FC = () => {
               </NavLink>
             </div>
           </nav>
+          <button className="toggle-sidebar-btn" onClick={toggleSidebar}>
+            <img src={arrowImg} alt="Toggle Sidebar" className={`arrow-img ${isSidebarOpen ? 'open' : 'closed'}`} />
+          </button>
         </div>
       )}
 

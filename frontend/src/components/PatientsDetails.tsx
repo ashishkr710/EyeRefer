@@ -118,9 +118,7 @@ const PatientDetails: React.FC = () => {
                                 <label htmlFor="text">Laterality: {patientData?.laterality}</label>
                             </div>
                         </div>
-
-                        {/* Add the Chat component */}
-                        {/* <Chat patientId={patientData?.id} /> */}
+        
 
                         <p style={{ marginTop: '1.5rem', marginBottom: "1.5rem", fontSize: 16, color: "black" }}>Referral OD/MD</p >
 

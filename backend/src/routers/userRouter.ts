@@ -23,6 +23,7 @@ import {
     getRooms,
     deletePatient,
     deleteStaff,
+    updatePatient,
 } from "../controllers/userController";
 import userAuthMiddleware from "../middlewares/userAuth";
 import signupValidation from "../middlewares/formValidation.ts/signupValidation";
@@ -53,5 +54,6 @@ router.get("/view-appointment/:appointmentId", userAuthMiddleware, getAppointmen
 router.put("/update-appointment/:appointmentId", userAuthMiddleware, updateAppointment);
 router.get('/room-list', userAuthMiddleware, getRooms);
 router.delete('/delete-staff/:staffId', userAuthMiddleware, deleteStaff);
+router.put('/update-patient/:patientId',userAuthMiddleware,updatePatient)
 
 export default router;
