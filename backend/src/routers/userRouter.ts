@@ -2,21 +2,14 @@ import { Router } from "express";
 import { getPatientList, addPatient, deletePatient, getPatientDetails, updatePatient } from "../controllers/patientController";
 import { addAddress, updateAddress, deleteAddress } from "../controllers/addressController";
 import {
-    registerUser,
-    loginUser,
-    verifyUser,
-    getUser,
-    getDocList,
-    getDoctorList,
-    updateprofile,
-    changePassword,
-    getRooms,
+    registerUser, loginUser, verifyUser, getUser, getDocList, getDoctorList, updateprofile, changePassword, getRooms,
 } from "../controllers/userController";
 import { addStaff, getStaffList, deleteStaff } from "../controllers/staffController";
 import { addAppointment, getAppointmentList, getAppointmentDetails, updateAppointment } from "../controllers/appointmentController";
 import userAuthMiddleware from "../middlewares/userAuth";
 import signupValidation from "../middlewares/formValidation.ts/signupValidation";
 import loginValidation from "../middlewares/formValidation.ts/loginValidation";
+
 
 const router = Router();
 

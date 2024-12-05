@@ -9,27 +9,44 @@ import api from '../api/axiosInstance';
 import * as Yup from 'yup';
 import { FormControlLabel, Switch } from '@mui/material';
 import "./AddPatient.css";
+import io from "socket.io-client";
+// import { io } from 'socket.io-client';
 const AddPatient: React.FC = () => {
+
+  const socket = io("http://localhost:3000/");
   const navigate = useNavigate();
   const token = localStorage.getItem('token');
   const handleCancelReferral = () => {
     navigate('/dashboard');
   }
   const addPatient = async (data: any) => {
+
+
     try {
       const response = await api.post(`${Local.ADD_PATIENT}`, data, {
         headers: {
           Authorization: `Bearer ${token}`
         }
-        
+
       });
+
+
+
+      // const userDetails = {};
+      // socket.emit("join_room", userDetails);
+
+      // socket.emit("sendNotification", {
+      //   message: `Dr. ${data.referedto} referred you a patient`,
+      //   room: data.md_name,
+      // });
+
       toast.success("Patient referred successfully");
       navigate('/dashboard');
     } catch (err: any) {
       toast.error(`${err.response?.data?.message || 'Error occurred'}`);
     }
-    
   };
+
 
   useEffect(() => {
     if (!token) navigate('/login');
@@ -76,7 +93,7 @@ const AddPatient: React.FC = () => {
     phoneNumber: Yup.string()
       // .transform((value) => (isNaN(value) ? NaN : Number(value)))
       .required('Phone number is required'),
-      // .typeError('Phone number must be a valid number'),
+    // .typeError('Phone number must be a valid number'),
     laterality: Yup.string().required('Laterality is required'),
     timing: Yup.string().required('Timing Is required'),
     speciality: Yup.string().required('Speciality Is required'),
@@ -132,14 +149,14 @@ const AddPatient: React.FC = () => {
         onSubmit={referPatientHandler}
       >
         {({ values, errors }) => (
-          <Form>  
+          <Form>
 
             <div className='fields-container'>
               <h6 className="basic-info">Basic information</h6>
               <div className='referral-fields1 row'>
                 <div className="form-group col">
                   <label>Date of Birth<span className='star'>*</span></label>
-                  <Field type="date" name="dob" className="form-control" style={{color:"#495057"}}/>
+                  <Field type="date" name="dob" className="form-control" style={{ color: "#495057" }} />
                   <ErrorMessage name="dob" component="div" className="text-danger" />
                 </div>
 
@@ -180,7 +197,7 @@ const AddPatient: React.FC = () => {
                 <div className="form-group col">
                   <label>Gender<span className='star'>*</span></label>
                   <Field as="select" name="gender" className="form-control" v>
-                    <option value="" style={{color:"#495057"}}>Select</option>
+                    <option value="" style={{ color: "#495057" }}>Select</option>
                     <option value="male">Male</option>
                     <option value="female">Female</option>
                     <option value="other">Other</option>
@@ -306,14 +323,14 @@ const AddPatient: React.FC = () => {
 
                 <div className="form-group col">
                   <label>Policy Starting Date<span className='star'>*</span></label>
-                  <Field type="date" name="policyStartingDate" placeholder="Enter Date" className="form-control" style={{color:"#495057"}}/>
+                  <Field type="date" name="policyStartingDate" placeholder="Enter Date" className="form-control" style={{ color: "#495057" }} />
                   <ErrorMessage name="policyStartingDate" component="div" className="text-danger" />
                 </div>
 
                 <div className="form-group col">
                   <label>Policy Expire Date<span className='star'>*</span></label>
                   <Field type="date"
-                    name="policyExpireDate" placeholder="Enter Date" className="form-control" style={{color:"#495057"}}/>
+                    name="policyExpireDate" placeholder="Enter Date" className="form-control" style={{ color: "#495057" }} />
                   <ErrorMessage name="policyExpireDate" component="div" className="text-danger" />
                 </div>
               </div>

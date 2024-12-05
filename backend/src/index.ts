@@ -16,7 +16,7 @@ setSocket(httpServer)
 app.use(cors());
 app.use(express.json());
 app.use("/", userRouter);
-sequelize.sync({ alter: false }).then(() => {
+sequelize.sync({ alter: true }).then(() => {
   console.log('Database connected');
 
   httpServer.listen(Local.SERVER_PORT, () => {
@@ -25,12 +25,3 @@ sequelize.sync({ alter: false }).then(() => {
 }).catch((err) => {
   console.log("Error: ", err);
 })
-
-app.get('/notifications', (req, res) => {
-  const notifications = [
-    { id: '1', message: 'New message from John', type: 'info', createdAt: new Date().toISOString() }
-    // ,{ id: '2', message: 'Your appointment is confirmed', type: 'success', createdAt: new Date().toISOString() },
-    // { id: '3', message: 'Server error occurred', type: 'error', createdAt: new Date().toISOString() },
-  ];
-  res.json(notifications);
-});

@@ -2,6 +2,7 @@ import User from "../models/User";
 import Chat from "../models/Chat";
 import { io } from "./socket";
 import Room from "../models/Room";
+import { not } from "joi";
 
 export const joinRoom = async(socket:any, data:any) => {
     try{
@@ -57,3 +58,27 @@ export const sendMessage = async(socket:any, message:any) => {
         console.log(err);
     }
 }
+
+// export const sendNotification = async(notification: any) => {
+//     try {
+//         const user = await User.findOne({ where: { id: notification.userId } });
+
+//         if (user) {
+//             io.to(`user-${user.uuid}`).emit('notification', notification);
+//         }
+//     } catch (err) {
+//         console.log(err);
+//     }
+// }
+
+// export const getNotification = async(socket: any, userId: any) => {
+//     try {
+//         const user = await User.findOne({ where: { id: userId } });
+
+//         if (user) {
+//             socket.join(`user-${user.uuid}`);
+//         }
+//     } catch (err) {
+//         console.log(err);
+//     }
+// }
