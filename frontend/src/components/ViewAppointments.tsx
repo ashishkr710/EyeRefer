@@ -15,7 +15,7 @@ const AppointmentDetails: React.FC = () => {
   const getAppointmentDetails = async () => {
     try {
       const response = await api.get(
-        `${Local.VIEW_APPOINTMENT}/${appointmentId}`,
+        `${Local.GET_APPOINTMENT}/${appointmentId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

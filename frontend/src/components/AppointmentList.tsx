@@ -10,6 +10,7 @@ import './AppointmentList.css';
 const AppointmentsList: React.FC = () => {
   const navigate = useNavigate();
   const token = localStorage.getItem('token');
+  const doctype = localStorage.getItem('doctype');
 
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredAppointments, setFilteredAppointments] = useState<any[]>([]);
@@ -20,8 +21,10 @@ const AppointmentsList: React.FC = () => {
   useEffect(() => {
     if (!token) {
       navigate('/login');
+    } else if (doctype === '2') {
+      navigate('/dashboard');
     }
-  }, [token, navigate]);
+  }, [token, doctype, navigate]);
 
   const fetchAppointments = async () => {
     try {
@@ -78,27 +81,27 @@ const AppointmentsList: React.FC = () => {
     pageNumbers.push(i);
   }
 
-  const updatePatientStatus = async (patientId: string, status: string) => {
+  const updatePatientStatus = async (patientId: string, referalstatus: string) => {
     try {
       setLoading(true);
-      const response = await api.put(`${Local.UPDATE_PATIENT}/${patientId}`, { status }, {
+      const response = await api.put(`${Local.UPDATE_PATIENT}/${patientId}`, { referalstatus }, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
 
       if (response.status === 200) {
-        toast.success(`Appointment ${status} successfully`);
+        toast.success(`Appointment ${referalstatus} successfully`);
         fetchAppointments(); // Refresh the appointments list
       } else {
-        toast.error(`Failed to update appointment status to ${status}`);
+        toast.error(`Failed to update appointment status to ${referalstatus}`);
       }
     } catch (err: unknown) {
       if (err instanceof Error) {
-        toast.error(`Error updating appointment status to ${status}: ${err.message}`);
+        toast.error(`Error updating appointment status to ${referalstatus}: ${err.message}`);
         console.log(err);
       } else {
-        toast.error(`Error updating appointment status to ${status}`);
+        toast.error(`Error updating appointment status to ${referalstatus}`);
       }
     } finally {
       setLoading(false);
@@ -183,18 +186,18 @@ const AppointmentsList: React.FC = () => {
                     </button>
                     <button
                       className="btn btn-success"
-                      onClick={() => updatePatientStatus(appointment.Patient?.uuid, 'Completed')}
+                      onClick={() => updatePatientStatus(appointment.Patient?.uuid, 'true')}
                       disabled={loading}
                     >
                       Complete
                     </button>
-                    <button
+                    {/* <button
                       className="btn btn-danger"
-                      onClick={() => updatePatientStatus(appointment.Patient?.uuid, 'Cancelled')}
+                      onClick={() => updatePatientStatus(appointment.Patient?.uuid, 'false')}
                       disabled={loading}
                     >
                       Cancel
-                    </button>
+                    </button> */}
                   </td>
                 </tr>
               ))

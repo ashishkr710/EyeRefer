@@ -234,7 +234,7 @@ export const updatePatient = async (req: any, res: Response): Promise<void> => {
     try {
         const { uuid } = req.user;
         const patientId = req.params.patientId;
-        const { firstname, lastname, gender, email, dob, disease, address, referedto, referback, companyName, policyStartingDate, policyExpireDate, notes, phoneNumber, laterality, timing, speciality } = req.body;
+        const { firstname, lastname, gender, email, dob, disease, address, referedto, referback,referalstatus, companyName, policyStartingDate, policyExpireDate, notes, phoneNumber, laterality, timing, speciality } = req.body;
 
         const user = await User.findOne({ where: { uuid } });
         if (!user) {
@@ -265,6 +265,7 @@ export const updatePatient = async (req: any, res: Response): Promise<void> => {
         patient.laterality = laterality || patient.laterality;
         patient.timing = timing || patient.timing;
         patient.speciality = speciality || patient.speciality;
+        patient.referalstatus = referalstatus || patient.referalstatus;
 
         await patient.save();
 
