@@ -1,30 +1,19 @@
 import { Router } from "express";
+import { getPatientList, addPatient, deletePatient, getPatientDetails, updatePatient } from "../controllers/patientController";
+import { addAddress, updateAddress, deleteAddress } from "../controllers/addressController";
 import {
     registerUser,
     loginUser,
     verifyUser,
     getUser,
     getDocList,
-    getPatientList,
-    addPatient,
-    addAddress,
     getDoctorList,
     updateprofile,
     changePassword,
-    updateAddress,
-    addStaff,
-    getStaffList,
-    deleteAddress,
-    addAppointment,
-    getAppointmentList,
-    getPatientDetails,
-    getAppointmentDetails,
-    updateAppointment,
     getRooms,
-    deletePatient,
-    deleteStaff,
-    updatePatient,
 } from "../controllers/userController";
+import { addStaff, getStaffList, deleteStaff } from "../controllers/staffController";
+import { addAppointment, getAppointmentList, getAppointmentDetails, updateAppointment } from "../controllers/appointmentController";
 import userAuthMiddleware from "../middlewares/userAuth";
 import signupValidation from "../middlewares/formValidation.ts/signupValidation";
 import loginValidation from "../middlewares/formValidation.ts/loginValidation";
@@ -54,6 +43,6 @@ router.get("/view-appointment/:appointmentId", userAuthMiddleware, getAppointmen
 router.put("/update-appointment/:appointmentId", userAuthMiddleware, updateAppointment);
 router.get('/room-list', userAuthMiddleware, getRooms);
 router.delete('/delete-staff/:staffId', userAuthMiddleware, deleteStaff);
-router.put('/update-patient/:patientId',userAuthMiddleware,updatePatient)
+router.put('/update-patient/:patientId', userAuthMiddleware, updatePatient)
 
 export default router;
