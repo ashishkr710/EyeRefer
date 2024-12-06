@@ -4,15 +4,11 @@ import sequelize from '../config/db';
 
 
 
-class Notification extends Model{
+class Notification extends Model {
     public id!: number;
-    public room_id!: number;
-    public title!: string;
+    public sender_id!: number;
+    public receiver_id!: number;
     public message!: string;
-    public receiver_id!: number;    
-    public userId!: number;
-    // public read!: boolean;
-
     public readonly createdAt!: Date;
     public readonly updatedAt!: Date;
 }
@@ -20,11 +16,15 @@ class Notification extends Model{
 Notification.init(
     {
         id: {
-            type: DataTypes.INTEGER.UNSIGNED,
+            type: DataTypes.STRING,
             autoIncrement: true,
             primaryKey: true,
         },
-        title: {
+        sender_id: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        receiver_id: {
             type: DataTypes.STRING,
             allowNull: false,
         },
@@ -32,15 +32,7 @@ Notification.init(
             type: DataTypes.TEXT,
             allowNull: false,
         },
-        userId: {
-            type: DataTypes.INTEGER.UNSIGNED,
-            allowNull: false,
-        },
-        read: {
-            type: DataTypes.BOOLEAN,
-            allowNull: false,
-            defaultValue: false,
-        },
+        
     },
     {
         sequelize,

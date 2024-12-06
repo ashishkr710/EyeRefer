@@ -159,7 +159,7 @@ export const addPatient = async (req: any, res: Response) => {
 
             const patient = await Patient.create({ firstname, lastname, gender, email, dob, disease, address, referedto, referback, companyName, policyStartingDate, policyExpireDate, notes, phoneNumber, laterality, timing, speciality, referedby: uuid });
             if (patient) {
-                res.status(200).json({ "message": "Patient added Successfully" });
+                res.status(200).json({ "message": "Patient added Successfully", "data": patient });
             }
         }
         else {

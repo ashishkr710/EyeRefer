@@ -10,14 +10,14 @@ import './Dashboard.css';
 import { useQuery } from '@tanstack/react-query';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
-// import { Parser } from 'json2csv';
-// import {Parser} from 'json2csv';
+// import { parse } from 'json2csv';
+
 const Dashboard: React.FC = () => {
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
 
-  const [currentPage, setCurrentPage] = useState(1);  
-  const patientsPerPage = 5; 
+  const [currentPage, setCurrentPage] = useState(1);
+  const patientsPerPage = 5;
 
   useEffect(() => {
     if (!token) {
@@ -79,13 +79,13 @@ const Dashboard: React.FC = () => {
     queryFn: fetchDoctorList
   });
 
-  const directChat = (patient:any, user1:any, user2:any, user:any, firstname:any, lastname:any) => {
+  const directChat = (patient: any, user1: any, user2: any, user: any, firstname: any, lastname: any) => {
     const chatdata = {
-        patient: patient,
-        user1: user1,
-        user2: user2,
-        user:user,
-        roomname: `${firstname} ${lastname}`
+      patient: patient,
+      user1: user1,
+      user2: user2,
+      user: user,
+      roomname: `${firstname} ${lastname}`
     };
     localStorage.setItem("pname", chatdata.roomname);
     localStorage.setItem('chatdata', JSON.stringify(chatdata));
@@ -153,55 +153,63 @@ const Dashboard: React.FC = () => {
     doc.save('patient_list.pdf');
   };
 
-  const downloadCSV = () => {
-    // const parser = new Parser();
-    // const csv = parser.parse(patientList);
-    // const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-    const link = document.createElement('a');
-    // const url = URL.createObjectURL(blob);
-    // link.setAttribute('href', url);
-    link.setAttribute('download', 'patient_list.csv');
-    link.style.visibility = 'hidden';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
+
+  // const downloadCSV = () => {
+  //   const fields = ['firstname', 'lastname', 'disease', 'referedby.firstname', 'referedby.lastname', 'referedto.firstname', 'referedto.lastname', 'referback', 'referalstatus'];
+  //   const opts = { fields };
+  //   try {
+  //     const csv = parse(patientList, opts);
+  //     const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+  //     const link = document.createElement('a');
+  //     const url = URL.createObjectURL(blob);
+  //     link.setAttribute('href', url);
+  //     link.setAttribute('download', 'patient_list.csv');
+  //     link.style.visibility = 'hidden';
+  //     document.body.appendChild(link);
+  //     link.click();
+  //     document.body.removeChild(link);
+  //   } catch (err) {
+  //     console.error(err);
+  //     toast.error("Failed to download CSV");
+  //   }
+  // };
+
 
   return (
     <div className="dashboard-container">
-      <h6 className="dashboard-title fw-bold" style={{fontSize:16,color:"black"}}>Dashboard</h6>
-    
+      <h6 className="dashboard-title fw-bold" style={{ fontSize: 16, color: "black" }}>Dashboard</h6>
+
       <div className="metrics-cards">
         <div className="card" onClick={() => navigate('/patient')}>
-          <div className='card-heading'style={{color:"black"}}>Referrals Received</div>
+          <div className='card-heading' style={{ color: "black" }}>Referrals Received</div>
           <div className="card-body2">
-        <div className='icon d-flex'>
-          <img src="referReceived.png" alt="EyeRefer" className='icon-2'/>
-          <div className="card-text">{totalRefersReceived}</div>
-        </div>
-        <div className='d-flex justify-content-end fw-bold' style={{color: "#737A7D"}}>Last update: {new Date().toLocaleDateString()}</div>
+            <div className='icon d-flex'>
+              <img src="referReceived.png" alt="EyeRefer" className='icon-2' />
+              <div className="card-text">{totalRefersReceived}</div>
+            </div>
+            <div className='d-flex justify-content-end fw-bold' style={{ color: "#737A7D" }}>Last update: {new Date().toLocaleDateString()}</div>
           </div>
         </div>
 
         <div className="card">
-          <div className='card-heading'style={{color:"black"}}>Total Refers Completed</div>
+          <div className='card-heading' style={{ color: "black" }}>Total Refers Completed</div>
           <div className="card-body2">
-        <div className='icon d-flex'>
-          <img src="referCompleted.png" alt="EyeRefer" className='icon-2'/>
-          <div className="card-text">{totalRefersCompleted}</div>
-        </div>
-        <div className='d-flex justify-content-end fw-bold'  style={{color: "#737A7D"}}>Last update: {new Date().toLocaleDateString()}</div>
+            <div className='icon d-flex'>
+              <img src="referCompleted.png" alt="EyeRefer" className='icon-2' />
+              <div className="card-text">{totalRefersCompleted}</div>
+            </div>
+            <div className='d-flex justify-content-end fw-bold' style={{ color: "#737A7D" }}>Last update: {new Date().toLocaleDateString()}</div>
           </div>
         </div>
 
         <div className="card" onClick={() => navigate('/doctor')}>
-          <div className='card-heading'style={{color:"black"}}>Total Doctors OD/MD</div>
+          <div className='card-heading' style={{ color: "black" }}>Total Doctors OD/MD</div>
           <div className="card-body2">
-        <div className='icon d-flex'>
-          <img src="od_md.png" alt="EyeRefer" className='icon-2'/>
-          <div className="card-text">{totalDoctors}</div>
-        </div>
-        <div className='d-flex justify-content-end fw-bold'  style={{color: "#737A7D"}}>Last update: {new Date().toLocaleDateString()}</div>
+            <div className='icon d-flex'>
+              <img src="od_md.png" alt="EyeRefer" className='icon-2' />
+              <div className="card-text">{totalDoctors}</div>
+            </div>
+            <div className='d-flex justify-content-end fw-bold' style={{ color: "#737A7D" }}>Last update: {new Date().toLocaleDateString()}</div>
           </div>
         </div>
       </div>
@@ -210,12 +218,12 @@ const Dashboard: React.FC = () => {
         {user?.doctype === 2 ? (
           <>
             <h6 className="refer-title">Refer a Patient</h6>
-            <button className="appointment-btn"  style={{ marginTop: -10}} onClick={() => navigate("/add-patient")}>+ Add Referral Patient</button>
+            <button className="appointment-btn" style={{ marginTop: -10 }} onClick={() => navigate("/add-patient")}>+ Add Referral Patient</button>
           </>
         ) : (
           <>
-            <h6 className="refer-title fw-bold" style={{color:"black"}}>Referrals Placed</h6>
-            <button className="appointment-btn fw-bold"  style={{marginTop:-5}}onClick={() => navigate("/add-appointment")}>+ Add Appointment</button>
+            <h6 className="refer-title fw-bold" style={{ color: "black" }}>Referrals Placed</h6>
+            <button className="appointment-btn fw-bold" style={{ marginTop: -5 }} onClick={() => navigate("/add-appointment")}>+ Add Appointment</button>
           </>
         )}
       </div>
@@ -242,9 +250,9 @@ const Dashboard: React.FC = () => {
                   <td>{patient.referedby.firstname} {patient.referedby.lastname}</td>
                   <td>{patient.referedto.firstname} {patient.referedto.lastname}</td>
                   <td>{patient.referback ? 'Yes' : 'No'}</td>
-                  <td> <p className = 'text-primary text-decoration-underline chng-pointer' onClick={()=>{
-                                    directChat(patient.uuid, patient.referedby.uuid, patient.referedto.uuid, userData?.data.user.uuid, patient.firstname, patient.lastname);
-                                }} >Link</p> </td>
+                  <td> <p className='text-primary text-decoration-underline chng-pointer' onClick={() => {
+                    directChat(patient.uuid, patient.referedby.uuid, patient.referedto.uuid, userData?.data.user.uuid, patient.firstname, patient.lastname);
+                  }} >Link</p> </td>
                   <td>
                     <span className={`badge ${patient.referalstatus ? 'bg-success' : 'bg-panding'}`}>
                       {patient.referalstatus ? 'Completed' : 'Pending'}

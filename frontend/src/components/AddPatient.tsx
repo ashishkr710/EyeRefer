@@ -10,7 +10,6 @@ import * as Yup from 'yup';
 import { FormControlLabel, Switch } from '@mui/material';
 import "./AddPatient.css";
 import io from "socket.io-client";
-// import { io } from 'socket.io-client';
 const AddPatient: React.FC = () => {
 
   const socket = io("http://localhost:3000/");
@@ -29,16 +28,12 @@ const AddPatient: React.FC = () => {
         }
 
       });
-
-
-
-      // const userDetails = {};
-      // socket.emit("join_room", userDetails);
-
-      // socket.emit("sendNotification", {
-      //   message: `Dr. ${data.referedto} referred you a patient`,
-      //   room: data.md_name,
-      // });
+      console.log(response.data.data);
+      socket.emit('send_notification', {
+        message: `New referral patient ${response.data.data.firstname} ${response.data.data.lastname} added by ${localStorage.getItem('firstname')} ${localStorage.getItem('lastname')}`,
+        receiver_id: response.data.data.referedto,
+        sender_id: response.data.data.referedby,
+      });
 
       toast.success("Patient referred successfully");
       navigate('/dashboard');

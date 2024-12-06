@@ -1,8 +1,10 @@
+// import { get, getN } from './event';
 import User from "../models/User";
 import Chat from "../models/Chat";
 import { io } from "./socket";
 import Room from "../models/Room";
 import { not } from "joi";
+import Notification from "../models/notification";
 
 export const joinRoom = async(socket:any, data:any) => {
     try{
@@ -59,26 +61,49 @@ export const sendMessage = async(socket:any, message:any) => {
     }
 }
 
-// export const sendNotification = async(notification: any) => {
-//     try {
-//         const user = await User.findOne({ where: { id: notification.userId } });
-
-//         if (user) {
-//             io.to(`user-${user.uuid}`).emit('notification', notification);
-//         }
-//     } catch (err) {
+// export const sendNotification = async(socket:any, data:any) => {
+//     try{
+//         const notification = await Notification.create({sender_id:data.sender_id,
+//             receiver_id:data.receiver_id, message:data.message});
+//         io.emit('new_notification', data);
+//     }
+//     catch(err){
 //         console.log(err);
 //     }
 // }
 
-// export const getNotification = async(socket: any, userId: any) => {
-//     try {
-//         const user = await User.findOne({ where: { id: userId } });
+export const sendNotification = async (socket: any, data: any) => {
+    try {
+      // Ensure sender_id and receiver_id are valid UUIDs
+      const senderId = data.sender_id;
+      const receiverId = data.receiver_id;
+  
+      if (!senderId || !receiverId) {
+        throw new Error('Invalid sender_id or receiver_id');
+      }
+  
+      const notification = await Notification.create({
+        sender_id: senderId,
+        receiver_id: receiverId,
+        message: data.message,
+      });
+  
+      io.emit('new_notification', data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
-//         if (user) {
-//             socket.join(`user-${user.uuid}`);
-//         }
-//     } catch (err) {
-//         console.log(err);
-//     }
-// }
+  export const getNotification = async (socket: any, data: any) => {
+    try {
+      const notifications = await Notification.findAll({
+        where: {
+          receiver_id: data.receiver_id,
+        },
+      });
+  
+      io.to(socket.id).emit('get_notifications', notifications);
+    } catch (err) {
+      console.log(err);
+    }
+  }

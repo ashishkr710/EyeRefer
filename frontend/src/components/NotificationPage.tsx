@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import api from '../api/axiosInstance';
 import { toast } from 'react-toastify';
 import './Notification.css';
+import { io } from 'socket.io-client';
 
 interface Notification {
   id: string;
@@ -11,6 +12,7 @@ interface Notification {
 }
 
 const NotificationPage: React.FC = () => {
+  const socket = io("http://localhost:3000/");
   const [notifications, setNotifications] = useState<Notification[]>([]);
   const [loading, setLoading] = useState(false);
 
@@ -24,12 +26,11 @@ const NotificationPage: React.FC = () => {
       }
 
       try {
-        const response = await api.get('/notifications', {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+        socket.on('get_notification', (data: any) => {
+          setNotifications((prevNotifications) => [data, ...prevNotifications]);
         });
 
+        const response = await api.get('/notifications');
         if (response.status === 200) {
           setNotifications(response.data);
         } else {

@@ -1,6 +1,6 @@
 import { Server } from 'socket.io';
-import { joinRoom, sendMessage } from './event';
-import Notification from '../models/notification'; // Import your Notification model
+import { getNotification, joinRoom, sendMessage, sendNotification } from './event';
+
 
 export let io: Server;
 
@@ -23,17 +23,13 @@ export const setSocket = (httpServer: any) => {
       sendMessage(socket, message);
     });
 
-    socket.on('joinnotification', (data) => {
-      socket.join(data?.id);
+    
+    socket.on('send_notification', async (data: any) => {
+      sendNotification(socket, data);
     });
-
-    socket.on('sendNotification', async (data) => {
-      io.to(data.room).emit("notification", { message: data.message });
-      await Notification.create({
-        message: data.message,
-        receiver_id: parseInt(data.room),
-        room_id: data.room,
-      });
+    
+    socket.on('get_notification', async (data: any) => {
+      getNotification(socket, data);
     });
 
     socket.on('disconnect', () => {
