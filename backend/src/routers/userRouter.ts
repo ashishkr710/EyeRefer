@@ -9,6 +9,7 @@ import { addAppointment, getAppointmentList, getAppointmentDetails, updateAppoin
 import userAuthMiddleware from "../middlewares/userAuth";
 import signupValidation from "../middlewares/formValidation.ts/signupValidation";
 import loginValidation from "../middlewares/formValidation.ts/loginValidation";
+import { getNotificationsByReceiverId } from "../controllers/notificationController";
 
 
 const router = Router();
@@ -37,5 +38,6 @@ router.put("/update-appointment/:appointmentId", userAuthMiddleware, updateAppoi
 router.get('/room-list', userAuthMiddleware, getRooms);
 router.delete('/delete-staff/:staffId', userAuthMiddleware, deleteStaff);
 router.put('/update-patient/:patientId', userAuthMiddleware, updatePatient)
+router.get('/notifications/:receiver_id', userAuthMiddleware ,getNotificationsByReceiverId)
 
 export default router;

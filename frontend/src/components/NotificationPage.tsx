@@ -25,12 +25,17 @@ const NotificationPage: React.FC = () => {
         return;
       }
 
+
       try {
         socket.on('get_notification', (data: any) => {
           setNotifications((prevNotifications) => [data, ...prevNotifications]);
         });
 
-        const response = await api.get('/notifications');
+        const response = await api.get(`/notifications/3963a1e2-2e48-4e6c-9960-f980eb899c04`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         if (response.status === 200) {
           setNotifications(response.data);
         } else {
@@ -58,8 +63,10 @@ const NotificationPage: React.FC = () => {
         <ul className='notificationList'>
           {notifications.map((notification) => (
             <li key={notification.id} className={`notification ${notification.type}`}>
-              <p>{notification.message}</p>
+              <div className='notificationContent'>
+              <p className='notificationMessage'>{notification.message}</p>
               <span className='notificationDate'>{new Date(notification.createdAt).toLocaleString()}</span>
+              </div>
             </li>
           ))}
         </ul>
