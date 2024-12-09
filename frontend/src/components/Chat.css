@@ -4,9 +4,8 @@
   height: 87vh;
   margin-right: 3px;
   background-color: #f0f2f5;
-  margin-left: 268px;
+  margin-left: 246px;
 }
-
 
 .chat-sidebar {
   width: 25%;
@@ -32,7 +31,7 @@
   padding: 10px;
   border-radius: 10px;
   cursor: pointer;
-  background-color: #35c0e4;
+  background-color: lightblue;
 }
 
 .patient-item.active {
@@ -51,13 +50,11 @@
   color: #6c757d;
 }
 
-
 .chat-main {
   width: 75%;
   display: flex;
   flex-direction: column;
 }
-
 
 .chat-header {
   background-color: #35c0e4;
@@ -76,7 +73,6 @@
   font-size: 14px;
   color: #e9ecef;
 }
-
 
 .chat-messages {
   flex: 1;
@@ -116,7 +112,6 @@
   bottom: -15px;
   right: 10px;
 }
-
 
 .chat-input-container {
   display: flex;

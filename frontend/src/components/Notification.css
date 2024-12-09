@@ -3,9 +3,9 @@
     position: fixed;
     top: 90px;
     display: flex;
-    flex-direction: column; /* Stack notifications vertically */
-    max-width: auto; /* Set a max width to prevent overflowing */
-    z-index: 1000; /* Ensure it's above other content */
+    flex-direction: column;
+    max-width: auto;
+    z-index: 1000;
     pointer-events: none;
     left: 280px;
 }
@@ -13,35 +13,35 @@
 .notification {
     padding: 15px;
     border-radius: 8px;
-    color: #fff; /* White text for readability */
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+    color: #fff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); 
     opacity: 1;
     transition: opacity 0.5s ease, transform 0.5s ease;
-    transform: translateY(100%); /* Start below */
-    pointer-events: auto; /* Enable interaction with notifications */
+    transform: translateY(100%);
+    pointer-events: auto; 
 }
 
 .notification.show {
-    transform: translateY(0); /* Slide in when active */
+    transform: translateY(0); 
 }
 
 .notification.success {
-    background-color: #28a745; /* Green */
+    background-color: #28a745; 
 }
 
 .notification.warning {
-    background-color: #ffc107; /* Yellow */
+    background-color: #ffc107; 
 }
 
 .notification.info {
-    background-color: #17a2b8; /* Blue */
+    background-color: #17a2b8; 
 }
 
 .notification.error {
-    background-color: #dc3545; /* Red */
+    background-color: #dc3545; 
 }
 
-/* Notification text styling */
+
 .notification p {
     margin: 0;
     font-size: 14px;
@@ -51,23 +51,23 @@
 
 .notificationDate {
     font-size: 12px;
-    color:  #000000; /* Light gray */
+    color:  #000000; 
     margin-top: 5px;
 }
 
-/* Animating the disappearance of notifications */
+
 .notification.hide {
     opacity: 0;
-    transform: translateY(100%); /* Move out of view */
+    transform: translateY(100%); 
 }
 
-/* Optional: For specific notification classes */
+
 .notification.success .notificationDate,
 .notification.warning .notificationDate,
 .notification.info .notificationDate,
 .notification.error .notificationDate {
     font-size: 10px;
-    color: #cfd8dc; /* Lighter date color */
+    color: #cfd8dc; 
 }
 
 .notificationList {

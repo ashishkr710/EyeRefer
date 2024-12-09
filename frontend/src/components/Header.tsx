@@ -11,7 +11,7 @@ import { LuLogOut } from "react-icons/lu";
 import logoImg from '../logo1.png';
 import arrowImg from '../arrow.png'; // Import the arrow image
 import './Header.css';
-import Notification from './Notefication'; // Import the Notification component
+// import Notification from './Notefication'; // Import the Notification component
 
 const Header: React.FC = () => {
   const navigate = useNavigate();
@@ -21,7 +21,7 @@ const Header: React.FC = () => {
 
   const doctype: any = localStorage.getItem('doctype');
 
-  const [showNotification, setShowNotification] = useState(false);
+  // const [showNotification, setShowNotification] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true); // State to manage sidebar visibility
 
   const handleLogoClick = () => {
@@ -95,9 +95,9 @@ const Header: React.FC = () => {
         </div>
       </header>
 
-      {showNotification && (
+      {/* {showNotification && (
         <Notification message="You have new notifications!" type="info" />
-      )}
+      )} */}
 
       {token && (
         <div className={`sidebar bg-white ${isSidebarOpen ? 'open' : 'closed'}`}>

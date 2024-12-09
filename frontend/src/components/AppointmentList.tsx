@@ -90,7 +90,9 @@ const AppointmentsList: React.FC = () => {
 
       if (response.status === 200) {
         toast.success(`Appointment ${referalstatus} successfully`);
-        fetchAppointments(); 
+        setFilteredAppointments((prevAppointments) =>
+          prevAppointments.filter((appointment) => appointment.Patient?.uuid !== patientId)
+        );
       } else {
         toast.error(`Failed to update appointment status to ${referalstatus}`);
       }
