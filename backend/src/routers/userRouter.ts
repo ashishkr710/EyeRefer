@@ -22,7 +22,7 @@ router.get('/doc-list', userAuthMiddleware, getDocList);
 router.get('/doctor-list', userAuthMiddleware, getDoctorList);
 router.get('/patient-list', userAuthMiddleware, getPatientList);
 router.post('/add-patient', userAuthMiddleware, addPatient);
-router.delete('/delete-patient', userAuthMiddleware, deletePatient); // Ensure this line is correct
+router.delete('/delete-patient', userAuthMiddleware, deletePatient); 
 router.post('/add-address', userAuthMiddleware, addAddress);
 router.post('/update-profile', userAuthMiddleware, updateprofile);
 router.post("/change-password", userAuthMiddleware, changePassword);

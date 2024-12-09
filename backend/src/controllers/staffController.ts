@@ -65,8 +65,8 @@ export const getStaffList = async (req: any, res: Response): Promise<void> => {
 
 export const deleteStaff = async (req: any, res: Response): Promise<void> => {
     try {
-        const { uuid } = req.user; // User's UUID from token (this is good, leave it)
-        const { staffId } = req.params; // Changed to get staffId from URL params instead of body
+        const { uuid } = req.user; 
+        const { staffId } = req.params; 
 
         if (!staffId) {
             res.status(400).json({ message: "Staff ID is required" });

@@ -47,16 +47,7 @@
         pincode: {
             type: DataTypes.INTEGER,
         },
-        // userId:{
-        //     type: DataTypes.STRING,
-        //     allowNull:false,
-        //     references:{
-        //         model: "User",
-        //         key: 'uuid'
-        //     },
-        //     onDelete: "CASCADE",
-        //     onUpdate: "CASCADE"
-        // }
+        
     },{
         sequelize,
         modelName:'Address'

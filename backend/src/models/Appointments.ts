@@ -8,13 +8,12 @@ class Appointment extends Model {
   public uuid!: string;
   public type!: string;
   public date!: string;
-  public patientId!: string;  // This will reference the Patient model
-  public userId!: string;     // This will reference the User (Doctor or Optometrist)
+  public patientId!: string; 
+  public userId!: string;     
   public createdAt!: Date;
   public updatedAt!: Date;
     patient: any;
     user: any;
-    // status: string;
 }
 
 Appointment.init(

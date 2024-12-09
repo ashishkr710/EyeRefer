@@ -2,7 +2,6 @@ import express from 'express';
 import cors from 'cors';
 import { Local } from './environment/env';
 import sequelize from './config/db';
-// import User from './models/User';
 import userRouter from './routers/userRouter';
 import { createServer } from 'http';
 import { setSocket } from './socket/socket';
@@ -16,7 +15,7 @@ setSocket(httpServer)
 app.use(cors());
 app.use(express.json());
 app.use("/", userRouter);
-sequelize.sync({ alter: true }).then(() => {
+sequelize.sync({ alter: false }).then(() => {
   console.log('Database connected');
 
   httpServer.listen(Local.SERVER_PORT, () => {

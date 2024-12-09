@@ -1,4 +1,4 @@
-// import { get, getN } from './event';
+
 import User from "../models/User";
 import Chat from "../models/Chat";
 import { io } from "./socket";
@@ -61,20 +61,10 @@ export const sendMessage = async(socket:any, message:any) => {
     }
 }
 
-// export const sendNotification = async(socket:any, data:any) => {
-//     try{
-//         const notification = await Notification.create({sender_id:data.sender_id,
-//             receiver_id:data.receiver_id, message:data.message});
-//         io.emit('new_notification', data);
-//     }
-//     catch(err){
-//         console.log(err);
-//     }
-// }
+
 
 export const sendNotification = async (socket: any, data: any) => {
     try {
-      // Ensure sender_id and receiver_id are valid UUIDs
       const senderId = data.sender_id;
       const receiverId = data.receiver_id;
   

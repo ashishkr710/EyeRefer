@@ -18,7 +18,7 @@ import AddAppointment from './components/AddAppoinments';
 import UpdatePassword from './components/UpdatePassword';
 import UpdateAddress from './components/UpdateAddress';
 import AppointmentList from './components/AppointmentList';
-import NotificationPage from './components/NotificationPage'; // Import the NotificationPage component
+import NotificationPage from './components/NotificationPage'; 
 
 import './App.css';
 import PatientDetails from './components/PatientsDetails';

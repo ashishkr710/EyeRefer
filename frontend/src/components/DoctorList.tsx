@@ -6,7 +6,7 @@ import api from '../api/axiosInstance';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import './DoctorList.css'; // Custom styles can be added for spacing or adjustments
+import './DoctorList.css'; 
 
 const DoctorList: React.FC = () => {
   const navigate = useNavigate();
@@ -14,8 +14,8 @@ const DoctorList: React.FC = () => {
 
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredDoctors, setFilteredDoctors] = useState<any[]>([]);
-  const [currentPage, setCurrentPage] = useState(1);  // Track current page
-  const doctorsPerPage = 5;  // Doctors to show per page
+  const [currentPage, setCurrentPage] = useState(1);  
+  const doctorsPerPage = 5;  
 
   useEffect(() => {
     if (!token) {
@@ -23,7 +23,7 @@ const DoctorList: React.FC = () => {
     }
   }, [navigate, token]);
 
-  // Fetch doctor list
+ 
   const fetchDoctor = async () => {
     try {
       const response = await api.get(`${Local.GET_DOCTOR_LIST}`, {
@@ -37,13 +37,11 @@ const DoctorList: React.FC = () => {
     }
   };
 
-  // Use React Query to fetch the doctor data
   const { data: doctors, error, isLoading, isError } = useQuery({
     queryKey: ['doctor'],
     queryFn: fetchDoctor,
   });
 
-  // Filter doctors based on search query
   const handleSearch = () => {
     if (doctors?.doctorList) {
       setFilteredDoctors(
@@ -54,25 +52,23 @@ const DoctorList: React.FC = () => {
     }
   };
 
-  // Reset filtered list when search query is cleared
   useEffect(() => {
     if (doctors?.doctorList && searchQuery === '') {
-      setFilteredDoctors(doctors.doctorList); // Reset to original list if search query is cleared
+      setFilteredDoctors(doctors.doctorList); 
     }
   }, [searchQuery, doctors]);
 
-  // Pagination Logic
   const totalPages = Math.ceil(filteredDoctors.length / doctorsPerPage);
   const indexOfLastDoctor = currentPage * doctorsPerPage;
   const indexOfFirstDoctor = indexOfLastDoctor - doctorsPerPage;
   const currentDoctors = filteredDoctors.slice(indexOfFirstDoctor, indexOfLastDoctor);
 
-  // Change page
+
   const handlePageChange = (pageNumber: number) => {
     setCurrentPage(pageNumber);
   };
 
-  // Loading state
+
   if (isLoading) {
     return (
       <div className="loading-container">
@@ -84,7 +80,7 @@ const DoctorList: React.FC = () => {
     );
   }
 
-  // Error state
+ 
   if (isError) {
     return (
       <div className="error-container">
@@ -97,14 +93,14 @@ const DoctorList: React.FC = () => {
     <div className="doctor-list-container">
       <h5 className="referral-title">Doctor List</h5>
 
-      {/* Search Input and Button */}
+ 
       <form className="d-flex mb-4 hii1" style={{marginTop:10}} role="search">
         <input
           className="form-control me-2 hi2"
           type="search"
           placeholder="Search"
           value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)} // Update search query on input change
+          onChange={(e) => setSearchQuery(e.target.value)} 
           aria-label="Search"
         />
         <button className="btn btn-primary btn-search" type="button" onClick={handleSearch}>
@@ -122,7 +118,7 @@ const DoctorList: React.FC = () => {
             </tr>
           </thead>
           <tbody>
-            {/* Render filtered doctors */}
+
             {currentDoctors.length > 0 ? (
               currentDoctors.map((doctor: any, _index: number) => (
                 <tr key={doctor.id}>

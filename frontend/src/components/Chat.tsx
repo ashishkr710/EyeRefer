@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import io from "socket.io-client";
 import "./Chat.css";
-// import '../Styling/Dashboard.css';
 import { toast } from "react-toastify";
 import api from "../api/axiosInstance";
 import { Local } from "../environment/env";
@@ -109,6 +108,7 @@ const Chat: React.FC = () => {
   if(isLoading){
     return (
       <>
+   
         <div className='loading-icon'>
             <div className="spinner-border spinner text-primary me-2" role="status">
                 <span className="visually-hidden">Loading...</span>
@@ -130,8 +130,9 @@ const Chat: React.FC = () => {
   return (
     <>
         <div className="chat-layout">
-          {/* Sidebar */}
+          
           <div className="chat-sidebar">
+            <h4 style={{ margin: "10px" }}>Chat</h4>
             <input
               type="text"
               className="search-bar"

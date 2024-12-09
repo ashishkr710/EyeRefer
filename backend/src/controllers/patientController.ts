@@ -45,7 +45,6 @@ export const getPatientDetails = async (req: any, res: Response) => {
         const appoinment = await Appointment.findOne({ where: { patientId } })
 
         if (patient) {
-            // Construct the response object
             const patientDetails = {
                 uuid: patient.uuid,
                 firstname: patient.firstname,
@@ -64,8 +63,6 @@ export const getPatientDetails = async (req: any, res: Response) => {
                 laterality: patient.laterality,
                 timing: patient.timing,
                 speciality: patient.speciality,
-                // createdAt: patient.createdAt,
-                // updatedAt: patient.updatedAt,
                 referedto: patient.referedtoUser,
                 referedby: patient.referedbyUser,
                 address: patient.Address,
@@ -129,8 +126,8 @@ export const getPatientList = async (req: any, res: Response) => {
                         address: address,
                         dob: patient.dob,
                         notes: patient.notes,
-                        appointmentDate: appointmentData ? appointmentData.date : null, // If an appointment exists, include the date
-                        appointmentType: appointmentData ? appointmentData.type : null // Include the type if available
+                        appointmentDate: appointmentData ? appointmentData.date : null,
+                        appointmentType: appointmentData ? appointmentData.type : null 
                     };
 
                     plist.push(newPatientList);
@@ -219,7 +216,7 @@ export const updatePatient = async (req: any, res: Response): Promise<void> => {
 
 export const deletePatient = async (req: any, res: Response): Promise<void> => {
     try {
-        const { patientId } = req.body; // Use req.body to get patientId
+        const { patientId } = req.body; 
         const { uuid } = req.user;
 
         const user = await User.findOne({ where: { uuid } });

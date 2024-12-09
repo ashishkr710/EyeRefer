@@ -6,8 +6,6 @@ import User from "./User";
 class Staff extends Model {
   public uuid!: string;
   public staffName!: string;
-//   public firstname!: string;
-//   public lastname!: string;
   public gender!: string;
   public email!: string;
   public phone!: string;
@@ -25,14 +23,7 @@ Staff.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
-      // lastname: {
-    //   type: DataTypes.STRING,
-    //   allowNull: false,
-    // },
-    // lastname: {
-    //   type: DataTypes.STRING,
-    //   allowNull: false,
-    // },
+     
     gender: {
       type: DataTypes.STRING,
       allowNull: false,

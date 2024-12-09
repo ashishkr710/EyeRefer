@@ -16,7 +16,6 @@ class Patient extends Model {
     public referedto!: string;
     public referalstatus!: boolean;
     public referback!: boolean
-    // public address!: string;
     public companyName!: string;
     public policyStartingDate!: Date;
     public policyExpireDate!: Date;

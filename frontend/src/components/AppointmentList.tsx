@@ -14,8 +14,8 @@ const AppointmentsList: React.FC = () => {
 
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredAppointments, setFilteredAppointments] = useState<any[]>([]);
-  const [currentPage, setCurrentPage] = useState(1);  // Track current page
-  const appointmentsPerPage = 5;  // Appointments to show per page
+  const [currentPage, setCurrentPage] = useState(1);  
+  const appointmentsPerPage = 5;  
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -44,7 +44,7 @@ const AppointmentsList: React.FC = () => {
     queryFn: fetchAppointments,
   });
 
-  // Filter appointments based on search query
+ 
   const handleSearch = () => {
     if (appointmentsData) {
       setFilteredAppointments(
@@ -57,25 +57,23 @@ const AppointmentsList: React.FC = () => {
     }
   };
 
-  // Reset filtered list when search query is cleared
   useEffect(() => {
     if (appointmentsData && searchQuery === '') {
-      setFilteredAppointments(appointmentsData); // Reset to original list if search query is cleared
+      setFilteredAppointments(appointmentsData); 
     }
   }, [searchQuery, appointmentsData]);
 
-  // Pagination Logic
+
   const totalPages = Math.ceil(filteredAppointments.length / appointmentsPerPage);
   const indexOfLastAppointment = currentPage * appointmentsPerPage;
   const indexOfFirstAppointment = indexOfLastAppointment - appointmentsPerPage;
   const currentAppointments = filteredAppointments.slice(indexOfFirstAppointment, indexOfLastAppointment);
 
-  // Change page
+
   const handlePageChange = (pageNumber: number) => {
     setCurrentPage(pageNumber);
   };
 
-  // Generate page numbers for pagination
   const pageNumbers = [];
   for (let i = 1; i <= totalPages; i++) {
     pageNumbers.push(i);
@@ -92,7 +90,7 @@ const AppointmentsList: React.FC = () => {
 
       if (response.status === 200) {
         toast.success(`Appointment ${referalstatus} successfully`);
-        fetchAppointments(); // Refresh the appointments list
+        fetchAppointments(); 
       } else {
         toast.error(`Failed to update appointment status to ${referalstatus}`);
       }
@@ -149,7 +147,7 @@ const AppointmentsList: React.FC = () => {
           type="search"
           placeholder="Search"
           value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)} // Update search query on input change
+          onChange={(e) => setSearchQuery(e.target.value)} 
           aria-label="Search"
         />
         <button className="btn btn-primary btn-search" type="button" onClick={handleSearch}>

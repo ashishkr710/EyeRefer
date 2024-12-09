@@ -198,14 +198,12 @@ export const getUserProfile = async (req: any, res: Response) => {
             return res.status(404).json({ "message": "User Not Found" });
         }
 
-        // Fetch additional counts or data based on the user type
         let profileDetails: any = {
             user: user,
             message: "User Found",
         };
 
-        if (user.doctype === 1) { // If user is a Doctor
-            // Doctor-specific data
+        if (user.doctype === 1) {
             const patientCount = await Patient.count({ where: { referedto: uuid } });
             const referredPatients = await Patient.findAll({ where: { referedto: uuid } });
             profileDetails = {

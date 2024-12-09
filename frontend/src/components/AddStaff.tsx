@@ -117,7 +117,7 @@ const AddStaff: React.FC = () => {
 
         if (response.status === 200) {
           toast.success('Staff deleted successfully');
-          fetchStaff(); // Refresh the staff list
+          fetchStaff(); 
         } else {
           toast.error('Failed to delete staff');
         }
@@ -133,7 +133,7 @@ const AddStaff: React.FC = () => {
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
-  // Search functionality
+ 
   const handleSearch = () => {
     if (searchQuery) {
       setFilteredStaff(
@@ -142,11 +142,11 @@ const AddStaff: React.FC = () => {
         )
       );
     } else {
-      setFilteredStaff(staffList); // Reset if search query is empty
+      setFilteredStaff(staffList); 
     }
   };
 
-  // Pagination Logic
+
   const totalPages = Math.ceil(filteredStaff.length / staffPerPage);
   const indexOfLastStaff = currentPage * staffPerPage;
   const indexOfFirstStaff = indexOfLastStaff - staffPerPage;

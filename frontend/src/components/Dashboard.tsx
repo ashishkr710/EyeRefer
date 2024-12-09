@@ -10,7 +10,7 @@ import './Dashboard.css';
 import { useQuery } from '@tanstack/react-query';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
-// import { parse } from 'json2csv';
+
 
 const Dashboard: React.FC = () => {
   const navigate = useNavigate();
@@ -244,21 +244,21 @@ const Dashboard: React.FC = () => {
             </thead>
             <tbody>
               {currentPatients?.map((patient: any, index: number) => (
-                <tr key={index}>
-                  <td>{patient.firstname} {patient.lastname}</td>
-                  <td>{patient.disease}</td>
-                  <td>{patient.referedby.firstname} {patient.referedby.lastname}</td>
-                  <td>{patient.referedto.firstname} {patient.referedto.lastname}</td>
-                  <td>{patient.referback ? 'Yes' : 'No'}</td>
-                  <td> <p className='text-primary text-decoration-underline chng-pointer' onClick={() => {
-                    directChat(patient.uuid, patient.referedby.uuid, patient.referedto.uuid, userData?.data.user.uuid, patient.firstname, patient.lastname);
-                  }} >Link</p> </td>
-                  <td>
-                    <span className={`badge ${patient.referalstatus ? 'bg-success' : 'bg-panding'}`}>
-                      {patient.referalstatus ? 'Completed' : 'Pending'}
-                    </span>
-                  </td>
-                </tr>
+              <tr key={index}>
+                <td>{patient.firstname ? patient.firstname : ' - '} {patient.lastname ? patient.lastname : ' - '}</td>
+                <td>{patient.disease ? patient.disease : ' - '}</td>
+                <td>{patient.referedby?.firstname ? patient.referedby.firstname : ' - '} {patient.referedby?.lastname ? patient.referedby.lastname : ' - '}</td>
+                <td>{patient.referedto?.firstname ? patient.referedto.firstname : ' - '} {patient.referedto?.lastname ? patient.referedto.lastname : ' - '}</td>
+                <td>{patient.referback ? 'Yes' : 'No'}</td>
+                <td> <p className='text-primary text-decoration-underline chng-pointer' onClick={() => {
+                directChat(patient.uuid, patient.referedby.uuid, patient.referedto.uuid, userData?.data.user.uuid, patient.firstname, patient.lastname);
+                }} >Link</p> </td>
+                <td>
+                <span className={`badge ${patient.referalstatus ? 'bg-success' : 'bg-pending'}`}>
+                  {patient.referalstatus ? 'Completed' : 'Pending'}
+                </span>
+                </td>
+              </tr>
               ))}
             </tbody>
           </table>
