@@ -58,7 +58,7 @@ const UpdateAppointment: React.FC = () => {
     }
   }, [appointmentId, token, navigate]);
 
-  // Submit handler for the form
+
   const handleSubmit = async (values: typeof initialValues) => {
     try {
       const response = await api.put(

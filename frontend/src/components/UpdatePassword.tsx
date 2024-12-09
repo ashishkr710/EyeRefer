@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import { Local } from '../environment/env';
 import api from '../api/axiosInstance';
 import { useNavigate } from 'react-router-dom';
-import './UpdatePassword.css'; // Optional: Add custom CSS for styling
+import './UpdatePassword.css'; 
 
 const UpdatePassword: React.FC = () => {
   const navigate = useNavigate();
@@ -12,13 +12,13 @@ const UpdatePassword: React.FC = () => {
   const handleCancel = () => {
     navigate('/dashboard')
   }
-  // Local state for old and new passwords
+  
   const [oldPassword, setOldPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [loading, setLoading] = useState(false);
 
-  // Handle form submission
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -30,7 +30,6 @@ const UpdatePassword: React.FC = () => {
     try {
       setLoading(true);
 
-      // Make API call to change password
       const response = await api.post(
         `${Local.CHANGE_PASSWORD}`,
         { currentPassword: oldPassword, newPassword },

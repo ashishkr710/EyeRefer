@@ -9,9 +9,8 @@ import { MdOutlinePersonPin } from "react-icons/md";
 import { BiBell, BiBookReader } from "react-icons/bi";
 import { LuLogOut } from "react-icons/lu";
 import logoImg from '../logo1.png';
-import arrowImg from '../arrow.png'; // Import the arrow image
+import arrowImg from '../arrow.png';
 import './Header.css';
-// import Notification from './Notefication'; // Import the Notification component
 
 const Header: React.FC = () => {
   const navigate = useNavigate();
@@ -21,15 +20,14 @@ const Header: React.FC = () => {
 
   const doctype: any = localStorage.getItem('doctype');
 
-  // const [showNotification, setShowNotification] = useState(false);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true); // State to manage sidebar visibility
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true); 
 
   const handleLogoClick = () => {
     navigate('/dashboard');
   };
 
   const handleBellClick = () => {
-    navigate('/notifications'); // Navigate to the notification page
+    navigate('/notifications'); 
   };
 
   const toggleSidebar = () => {

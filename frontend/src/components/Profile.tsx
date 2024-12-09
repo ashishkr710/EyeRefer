@@ -49,7 +49,7 @@ const Profile: React.FC = () => {
   const [showEditModal, setShowEditModal] = useState(false);
   const [showAddAddressModal, setShowAddAddressModal] = useState(false);
   const [showUpdateAddressModal, setShowUpdateAddressModal] = useState(false);
-  const [selectedAddress, setSelectedAddress] = useState<Address | null>(null); // To store the selected address for update
+  const [selectedAddress, setSelectedAddress] = useState<Address | null>(null); 
   const [formData, setFormData] = useState<User | null>(null);
 
   const handleDelete = (addressUuid: string) => {
@@ -211,7 +211,7 @@ const Profile: React.FC = () => {
             <span className="fw-medium">Address Information</span>
             <div className='address-data'>
 
-              {/* <p className="fw-bold">Work</p> */}
+            
               {user.Addresses?.map((add, index) => (
                 <div key={index} className='address-data-img'><span className='address-title'>{`${add.title}`}
                   <BsPencilSquare onClick={() => handleOpenUpdateAddressModal(add)}
@@ -219,19 +219,7 @@ const Profile: React.FC = () => {
                   <AiOutlineDelete onClick={() => handleDelete(add.uuid)} className='profile-icon' /> <br></br></span>
                   {`${add.street}`}<br></br>{`${add.city}`}<br></br> {`${add.state}`}<br></br> {`${add.pincode}`}
 
-                  {/* <hr className='horizontal-line'></hr> */}
-                  {/* <button
-                    onClick={() => handleOpenUpdateAddressModal(add)}
-                    // src="update.png"
-                    // alt="Update Address"
-                    className="btn btn-addAddress"
-                  >Update</button>*/}
-                  {/* <button
-                    onClick={() => handleDelete(add.uuid)}
-                      src="delete.png"
-                       alt="Delete Address"
-                    className="btn btn-addAddress"
-                  >Delete</button> */}
+                  
                   <div className='line'></div>
                 </div>
               ))}
@@ -239,9 +227,7 @@ const Profile: React.FC = () => {
 
           </p>
 
-          {/* <p>Type: {user.doctype === 2 ? 'OD' : 'MD'}</p> */}
-
-          {/* Edit Profile Modal */}
+         
           <Modal show={showEditModal} onHide={handleCloseEditModal} centered>
             <Modal.Header closeButton>
               <Modal.Title>Edit Profile</Modal.Title>

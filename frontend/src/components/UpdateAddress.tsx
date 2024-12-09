@@ -40,7 +40,7 @@ const UpdateAddress = ({ address, close }: { address: Address, close: () => void
     },
     onSuccess: () => {
       toast.success('Address Updated');
-      close();  // Close the modal
+      close();  
     },
     onError: (error) => {
       toast.error('Error updating address');

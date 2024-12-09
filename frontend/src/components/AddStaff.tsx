@@ -109,7 +109,7 @@ const AddStaff: React.FC = () => {
     if (window.confirm("Are you sure you want to delete this staff member?")) {
       try {
         setLoading(true);
-        const response = await axios.delete(`http://localhost:3000/delete-staff/${staffId}`, { // Pass the staffId in URL
+        const response = await axios.delete(`http://localhost:3000/delete-staff/${staffId}`, { 
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -164,7 +164,6 @@ const AddStaff: React.FC = () => {
           <button className="btn-add-staff" onClick={openModal}>+ Add Staff</button>
         </div>
 
-        {/* Modal for adding new staff */}
         {isModalOpen && (
           <div className="modal-overlay">
             <div className="modal-content">
@@ -241,7 +240,6 @@ const AddStaff: React.FC = () => {
           </div>
         )}
 
-        {/* Search Input */}
         <form className="d-flex mb-4 hii1" style={{ marginTop: 25 }} role="search" onSubmit={(e) => e.preventDefault()}>
           <input
             className="form-control me-2 hi2"
@@ -256,7 +254,6 @@ const AddStaff: React.FC = () => {
           </button>
         </form>
 
-        {/* Staff List Table */}
         {fetching ? (
           <div className="spinner-border text-primary" role="status">
             <span className="visually-hidden">Loading...</span>
@@ -276,7 +273,7 @@ const AddStaff: React.FC = () => {
                 </thead>
                 <tbody>
                   {currentStaff.map((staff: any, index: number) => (
-                    <tr key={staff.uuid}> {/* Use the correct property for the key */}
+                    <tr key={staff.uuid}> 
                       <td>{staff.staffName}</td>
                       <td>{staff.email}</td>
                       <td>{staff.phone}</td>
@@ -300,7 +297,7 @@ const AddStaff: React.FC = () => {
           <p>No staff found.</p>
         )}
 
-        {/* Pagination Controls */}
+  
         <div className="pagination-controls d-flex justify-content-end mt-4 pagination-color">
           <nav aria-label="Page navigation example">
             <ul className="pagination">
@@ -314,7 +311,7 @@ const AddStaff: React.FC = () => {
                   <span aria-hidden="true">&laquo;</span>
                 </a>
               </li>
-              {/* Loop to create page numbers */}
+
               {[...Array(totalPages)].map((_, index) => (
                 <li key={index} className={`page-item ${currentPage === index + 1 ? 'active' : ''}`}>
                   <a

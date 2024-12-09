@@ -1,5 +1,5 @@
 import React from 'react';
-import './Notification.css'; // Assuming you have some CSS for styling
+import './Notification.css'; 
 
 interface NotificationProps {
     message: string;

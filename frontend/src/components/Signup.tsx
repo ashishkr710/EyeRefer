@@ -70,8 +70,7 @@ const Signup: React.FC = () => {
                         </div>
                     </div>
 
-                    {/* Right Side - Signup Form */}
-{/* <div className='form-data'> */}
+
                     <div className="sign-up-form">
                         <div className="form-heading">
                             <h2>Signup</h2>
@@ -81,7 +80,7 @@ const Signup: React.FC = () => {
                             initialValues={{
                                 firstname: '',
                                 lastname: '',
-                                doctype: '1', // Set a default value or a placeholder value
+                                doctype: '1', 
                                 email: '',
                                 password: '',
                                 confirmPass: ''

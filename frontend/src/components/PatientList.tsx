@@ -56,7 +56,7 @@ const PatientList: React.FC = () => {
     queryFn: fetchPatient,
   });
 
-  // Filter patients based on search query
+
   const handleSearch = () => {
     if (Patients?.patientList) {
       setFilteredPatients(
@@ -69,25 +69,24 @@ const PatientList: React.FC = () => {
     }
   };
 
-  // Reset filtered list when search query is cleared
+
   useEffect(() => {
     if (Patients?.patientList && searchQuery === '') {
-      setFilteredPatients(Patients.patientList); // Reset to original list if search query is cleared
+      setFilteredPatients(Patients.patientList); 
     }
   }, [searchQuery, Patients]);
 
-  // Pagination Logic
   const totalPages = Math.ceil(filteredPatients.length / patientsPerPage);
   const indexOfLastPatient = currentPage * patientsPerPage;
   const indexOfFirstPatient = indexOfLastPatient - patientsPerPage;
   const currentPatients = filteredPatients.slice(indexOfFirstPatient, indexOfLastPatient);
 
-  // Change page
+
   const handlePageChange = (pageNumber: number) => {
     setCurrentPage(pageNumber);
   };
 
-  // Generate page numbers for pagination
+
   const pageNumbers = [];
   for (let i = 1; i <= totalPages; i++) {
     pageNumbers.push(i);
@@ -123,14 +122,14 @@ const PatientList: React.FC = () => {
         </div>
       )}
 
-      {/* Search Input and Button */}
+   
       <div className="search-border d-flex mb-4 hii1" style={{ marginTop: 10 }} role="search">
         <input
           className="form-control me-2 hi2"
           type="search"
           placeholder="Search"
           value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)} // Update search query on input change
+          onChange={(e) => setSearchQuery(e.target.value)} 
           aria-label="Search"
         />
         <button className="btn btn-primary btn-search" type="button" onClick={handleSearch}>
@@ -138,7 +137,7 @@ const PatientList: React.FC = () => {
         </button>
       </div>
 
-      {/* Patient Table */}
+
       <div className='table-responsive'>
         <div className="table-container">
           <table className="table table-striped">
@@ -182,7 +181,7 @@ const PatientList: React.FC = () => {
         </div>
       </div>
 
-      {/* Pagination */}
+     
       <nav aria-label="Page navigation example">
         <ul className="pagination justify-content-end">
           <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
