@@ -174,7 +174,9 @@ const Profile: React.FC = () => {
               src="avtar03.png"
               alt="Profile photo"
               className="googleIcon-4"
-            />{user.firstname} {user.lastname}</div>
+            />
+            {/* {user.firstname} {user.lastname} */}
+            </div>
           <button onClick={handleOpenEditModal} className="btn btn-primary mb-4">
             Edit Profile
           </button>
@@ -185,7 +187,7 @@ const Profile: React.FC = () => {
             <div>
               <span className='infoheading' >Name: </span>{user.firstname} {user.lastname}
             </div>
-            <div className='gender-center'><span className='infoheading'>Gender:{user.gender}</span></div>
+            <div className='gender-center'><span className='infoheading'>Gender: {user.gender}</span></div>
           </div>
 
           <div className='info'>
