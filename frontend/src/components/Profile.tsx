@@ -168,7 +168,6 @@ const Profile: React.FC = () => {
     if (!token || !profilePhoto) return;
 
     const formData = new FormData();
-    console.log(user.uuid);
     formData.append('profile_photo', profilePhoto);
     formData.append('uuid', user.uuid);
     

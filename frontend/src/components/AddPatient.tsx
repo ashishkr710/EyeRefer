@@ -28,7 +28,6 @@ const AddPatient: React.FC = () => {
         }
 
       });
-      console.log(response.data.data);
       socket.emit('send_notification', {
         message: `New referral patient ${response.data.data.firstname} ${response.data.data.lastname} added by ${localStorage.getItem('firstname')} ${localStorage.getItem('lastname')}`,
         receiver_id: response.data.data.referedto,

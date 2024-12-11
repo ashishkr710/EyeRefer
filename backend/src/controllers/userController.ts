@@ -321,7 +321,6 @@ export const getRooms = async (req: any, res: Response) => {
 
 export const uploadProfilePhoto = async (req: any, res: any) => {
     try {
-        console.log(req.body);
         const { uuid } = req.body;
         const user = await User.findOne({ where: { uuid } });
 
