@@ -10,7 +10,11 @@ import './Dashboard.css';
 import { useQuery } from '@tanstack/react-query';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
+// import { Parser } from 'json2csv/dist/json2csv.umd';
+import ChartsSection from './ChartsSection';
+import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, BarElement, ArcElement, Title, Tooltip, Legend } from 'chart.js';
 
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, BarElement, ArcElement, Title, Tooltip, Legend);
 
 const Dashboard: React.FC = () => {
   const navigate = useNavigate();
@@ -18,6 +22,7 @@ const Dashboard: React.FC = () => {
 
   const [currentPage, setCurrentPage] = useState(1);
   const patientsPerPage = 5;
+  const [showCharts, setShowCharts] = useState(false); // State to control visibility of ChartsSection
 
   useEffect(() => {
     if (!token) {
@@ -174,6 +179,48 @@ const Dashboard: React.FC = () => {
     link.click();
   };
 
+  // Data for Charts
+  const lineChartData = {
+    labels: patientList.map((patient: any) => `${patient.firstname} ${patient.lastname}`),
+    datasets: [
+      {
+        label: 'Patients',
+        data: patientList.map((patient: any) => patient.referalstatus ? 1 : 0),
+        borderColor: 'rgba(75, 192, 192, 1)',
+        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+      },
+    ],
+  };
+
+  const barChartData = {
+    labels: patientList.map((patient: any) => `${patient.firstname} ${patient.lastname}`),
+    datasets: [
+      {
+        label: 'Patients',
+        data: patientList.map((patient: any) => patient.referalstatus ? 1 : 0),
+        backgroundColor: 'rgba(153, 102, 255, 0.2)',
+        borderColor: 'rgba(153, 102, 255, 1)',
+        borderWidth: 1,
+      },
+    ],
+  };
+
+  const pieChartData = {
+    labels: ['Completed', 'Pending'],
+    datasets: [
+      {
+        label: 'Referral Status',
+        data: [
+          patientList.filter((patient: any) => patient.referalstatus).length,
+          patientList.filter((patient: any) => !patient.referalstatus).length,
+        ],
+        backgroundColor: ['rgba(75, 192, 192, 0.2)', 'rgba(255, 99, 132, 0.2)'],
+        borderColor: ['rgba(75, 192, 192, 1)', 'rgba(255, 99, 132, 1)'],
+        borderWidth: 1,
+      },
+    ],
+  };
+
   return (
     <div className="dashboard-container">
       <h6 className="dashboard-title fw-bold" style={{ fontSize: 16, color: "black" }}>Dashboard</h6>
@@ -309,6 +356,18 @@ const Dashboard: React.FC = () => {
           </ul>
         </nav>
       </div>
+
+      <button className="btn btn-primary" onClick={() => setShowCharts(!showCharts)}>
+        {showCharts ? 'Hide Charts' : 'Show Charts'}
+      </button>
+
+      {showCharts && (
+        <ChartsSection
+          lineChartData={lineChartData}
+          barChartData={barChartData}
+          pieChartData={pieChartData}
+        />
+      )}
     </div>
   );
 };
