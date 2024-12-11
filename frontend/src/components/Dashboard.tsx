@@ -153,27 +153,26 @@ const Dashboard: React.FC = () => {
     doc.save('patient_list.pdf');
   };
 
-
-  // const downloadCSV = () => {
-  //   const fields = ['firstname', 'lastname', 'disease', 'referedby.firstname', 'referedby.lastname', 'referedto.firstname', 'referedto.lastname', 'referback', 'referalstatus'];
-  //   const opts = { fields };
-  //   try {
-  //     const csv = parse(patientList, opts);
-  //     const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-  //     const link = document.createElement('a');
-  //     const url = URL.createObjectURL(blob);
-  //     link.setAttribute('href', url);
-  //     link.setAttribute('download', 'patient_list.csv');
-  //     link.style.visibility = 'hidden';
-  //     document.body.appendChild(link);
-  //     link.click();
-  //     document.body.removeChild(link);
-  //   } catch (err) {
-  //     console.error(err);
-  //     toast.error("Failed to download CSV");
-  //   }
-  // };
-
+  const downloadCSV = () => {
+    const csv = [
+      ['Patient Name', 'Disease', 'Refer by', 'Refer to', 'Refer back', 'Status'],
+      ...patientList.map((patient: any) => [
+        `${patient.firstname} ${patient.lastname}`,
+        patient.disease,
+        `${patient.referedby.firstname} ${patient.referedby.lastname}`,
+        `${patient.referedto.firstname} ${patient.referedto.lastname}`,
+        patient.referback ? 'Yes' : 'No',
+        patient.referalstatus ? 'Completed' : 'Pending'
+      ])
+    ];
+    const csvContent = `data:text/csv;charset=utf-8,${csv.map(row => row.join(',')).join('\n')}`;
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement('a');
+    link.setAttribute('href', encodedUri);
+    link.setAttribute('download', 'patient_list.csv');
+    document.body.appendChild(link);
+    link.click();
+  };
 
   return (
     <div className="dashboard-container">
@@ -244,21 +243,21 @@ const Dashboard: React.FC = () => {
             </thead>
             <tbody>
               {currentPatients?.map((patient: any, index: number) => (
-              <tr key={index}>
-                <td>{patient.firstname ? patient.firstname : ' - '} {patient.lastname ? patient.lastname : ' - '}</td>
-                <td>{patient.disease ? patient.disease : ' - '}</td>
-                <td>{patient.referedby?.firstname ? patient.referedby.firstname : ' - '} {patient.referedby?.lastname ? patient.referedby.lastname : ' - '}</td>
-                <td>{patient.referedto?.firstname ? patient.referedto.firstname : ' - '} {patient.referedto?.lastname ? patient.referedto.lastname : ' - '}</td>
-                <td>{patient.referback ? 'Yes' : 'No'}</td>
-                <td> <p className='text-primary text-decoration-underline chng-pointer' onClick={() => {
-                directChat(patient.uuid, patient.referedby.uuid, patient.referedto.uuid, userData?.data.user.uuid, patient.firstname, patient.lastname);
-                }} >Link</p> </td>
-                <td>
-                <span className={`badge ${patient.referalstatus ? 'bg-success' : 'bg-pending'}`}>
-                  {patient.referalstatus ? 'Completed' : 'Pending'}
-                </span>
-                </td>
-              </tr>
+                <tr key={index}>
+                  <td>{patient.firstname ? patient.firstname : ' - '} {patient.lastname ? patient.lastname : ' - '}</td>
+                  <td>{patient.disease ? patient.disease : ' - '}</td>
+                  <td>{patient.referedby?.firstname ? patient.referedby.firstname : ' - '} {patient.referedby?.lastname ? patient.referedby.lastname : ' - '}</td>
+                  <td>{patient.referedto?.firstname ? patient.referedto.firstname : ' - '} {patient.referedto?.lastname ? patient.referedto.lastname : ' - '}</td>
+                  <td>{patient.referback ? 'Yes' : 'No'}</td>
+                  <td> <p className='text-primary text-decoration-underline chng-pointer' onClick={() => {
+                    directChat(patient.uuid, patient.referedby.uuid, patient.referedto.uuid, userData?.data.user.uuid, patient.firstname, patient.lastname);
+                  }} >Link</p> </td>
+                  <td>
+                    <span className={`badge ${patient.referalstatus ? 'bg-success' : 'bg-pending'}`}>
+                      {patient.referalstatus ? 'Completed' : 'Pending'}
+                    </span>
+                  </td>
+                </tr>
               ))}
             </tbody>
           </table>
@@ -266,7 +265,7 @@ const Dashboard: React.FC = () => {
 
         <div className="download-buttons">
           <button className="btn btn-primary" onClick={downloadPDF}>Download PDF</button>
-          {/* <button className="btn btn-secondary" onClick={downloadCSV}>Download CSV</button> */}
+          <button className="btn btn-primary" onClick={downloadCSV}>Download CSV</button>
         </div>
 
         <nav aria-label="Page navigation example">
