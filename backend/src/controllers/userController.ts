@@ -3,15 +3,12 @@ import Address from "../models/Address";
 import Patient from "../models/Patient";
 import sendOTP from "../utils/mailer";
 import User from "../models/User";
-import { Response } from 'express';
+import { Response, Request } from 'express';
 import jwt from "jsonwebtoken";
 import { Op } from "sequelize";
 import bcrypt from 'bcrypt';
-import Staff from "../models/Staff";
-import Appointments from "../models/Appointments";
-import { any } from "joi";
-import Appointment from "../models/Appointments";
 import Room from "../models/Room";
+import upload from '../utils/multer'; // Import multer configuration
 
 const Security_Key: any = Local.SECRET_KEY;
 
@@ -58,7 +55,7 @@ export const verifyUser = async (req: any, res: Response) => {
             res.status(403).json({ "message": "Something Went Wrong" })
         }
     }
-    catch (err) {
+    catch (err) {   
         res.status(500).json({ "message": err })
     }
 }
@@ -320,3 +317,27 @@ export const getRooms = async (req: any, res: Response) => {
         res.status(500).json({ "message": err });
     }
 }
+
+
+export const uploadProfilePhoto = async (req: any, res: any) => {
+    try {
+        console.log(req.body);
+        const { uuid } = req.body;
+        const user = await User.findOne({ where: { uuid } });
+
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        if (req.file) {
+            user.profile_photo = req.file.path;
+            await user.save();
+            return res.status(200).json({ message: 'Profile photo uploaded successfully', profile_photo: user.profile_photo });
+        } else {
+            return res.status(400).json({ message: 'No file uploaded' });
+        }
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ message: 'Error uploading profile photo' });
+    }
+};

@@ -5,6 +5,8 @@ import sequelize from './config/db';
 import userRouter from './routers/userRouter';
 import { createServer } from 'http';
 import { setSocket } from './socket/socket';
+import e from 'cors';
+import path from 'path';
 
 const app = express();
 
@@ -14,6 +16,7 @@ setSocket(httpServer);
 app.use(cors());
 app.use(express.json());
 app.use("/", userRouter);
+app.use("/uploads", express.static(path.join(__dirname, '../uploads')));
 sequelize.sync({ alter: false }).then(() => {
   console.log('Database connected');
 

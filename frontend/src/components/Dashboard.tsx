@@ -123,7 +123,8 @@ const Dashboard: React.FC = () => {
 
   localStorage.setItem("firstname", user?.firstname)
   localStorage.setItem("lastname", user?.lastname)
-
+  localStorage.setItem("profile_photo", user?.profile_photo)
+ 
   const totalRefersReceived = patientList?.length || 0;
   const totalRefersCompleted = patientList?.filter((patient: { referalstatus: boolean }) => patient.referalstatus === true).length || 0;
   const totalDoctors = doctorList?.length || 0;

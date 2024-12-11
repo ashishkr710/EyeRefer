@@ -3,6 +3,9 @@ import { getPatientList, addPatient, deletePatient, getPatientDetails, updatePat
 import { addAddress, updateAddress, deleteAddress } from "../controllers/addressController";
 import {
     registerUser, loginUser, verifyUser, getUser, getDocList, getDoctorList, updateprofile, changePassword, getRooms,
+    uploadProfilePhoto,
+    // uploadProfilePhoto,
+
 } from "../controllers/userController";
 import { addStaff, getStaffList, deleteStaff } from "../controllers/staffController";
 import { addAppointment, getAppointmentList, getAppointmentDetails, updateAppointment } from "../controllers/appointmentController";
@@ -10,6 +13,7 @@ import userAuthMiddleware from "../middlewares/userAuth";
 import signupValidation from "../middlewares/formValidation.ts/signupValidation";
 import loginValidation from "../middlewares/formValidation.ts/loginValidation";
 import { getNotificationsByReceiverId } from "../controllers/notificationController";
+import upload from "../utils/multer";
 
 
 const router = Router();
@@ -39,5 +43,6 @@ router.get('/room-list', userAuthMiddleware, getRooms);
 router.delete('/delete-staff/:staffId', userAuthMiddleware, deleteStaff);
 router.put('/update-patient/:patientId', userAuthMiddleware, updatePatient)
 router.get('/notifications/:receiver_id', userAuthMiddleware ,getNotificationsByReceiverId)
+router.post('/upload-profile-photo', upload.single('profile_photo'), uploadProfilePhoto);
 
 export default router;

@@ -11,12 +11,17 @@ import { LuLogOut } from "react-icons/lu";
 import logoImg from '../logo1.png';
 import arrowImg from '../arrow.png';
 import './Header.css';
+import { Local } from '../environment/env';
+
+
 
 const Header: React.FC = () => {
   const navigate = useNavigate();
   const token = localStorage.getItem('token');
   const firstname = localStorage.getItem('firstname')
   const lastname = localStorage.getItem('lastname')
+  const profile_photo = localStorage.getItem('profile_photo');
+
 
   const doctype: any = localStorage.getItem('doctype');
 
@@ -43,7 +48,7 @@ const Header: React.FC = () => {
         <div className="header-right">
           <BiBell className='noteficationBell' onClick={handleBellClick} />
           <img
-            src="avtar03.png"
+            src={profile_photo && profile_photo !== 'null' ? `${Local.BASE_URL}${profile_photo}` : "avtar03.png"}
             alt="Profile photo"
             className='header-profile-img'
             style={{ width: '40px', height: '40px', borderRadius: '50%', marginRight: '-15px', marginTop: '-8px' }}
@@ -92,10 +97,6 @@ const Header: React.FC = () => {
           </div>
         </div>
       </header>
-
-      {/* {showNotification && (
-        <Notification message="You have new notifications!" type="info" />
-      )} */}
 
       {token && (
         <div className={`sidebar bg-white ${isSidebarOpen ? 'open' : 'closed'}`}>

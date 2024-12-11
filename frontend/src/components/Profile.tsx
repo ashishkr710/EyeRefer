@@ -1,4 +1,3 @@
- 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import React, { useState, useEffect } from 'react';
@@ -30,6 +29,7 @@ interface User {
   phone: string;
   doctype: number;
   gender: string;
+  profile_photo?: string;
   Addresses?: Array<Address>;
 }
 
@@ -51,6 +51,7 @@ const Profile: React.FC = () => {
   const [showUpdateAddressModal, setShowUpdateAddressModal] = useState(false);
   const [selectedAddress, setSelectedAddress] = useState<Address | null>(null); 
   const [formData, setFormData] = useState<User | null>(null);
+  const [profilePhoto, setProfilePhoto] = useState<File | null>(null);
 
   const handleDelete = (addressUuid: string) => {
     const token = localStorage.getItem('token');
@@ -156,11 +157,48 @@ const Profile: React.FC = () => {
     }
   };
 
+  const handleProfilePhotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      setProfilePhoto(e.target.files[0]);
+    }
+  };
+
+  const handleProfilePhotoUpload = () => {
+    const token = localStorage.getItem('token');
+    if (!token || !profilePhoto) return;
+
+    const formData = new FormData();
+    console.log(user.uuid);
+    formData.append('profile_photo', profilePhoto);
+    formData.append('uuid', user.uuid);
+    
+    axios
+      .post(`${Local.BASE_URL}upload-profile-photo`, formData, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((response) => {
+        setProfile((prev) => ({
+          ...prev!,
+          user: {
+            ...prev!.user,
+            profile_photo: response.data.profile_photo,
+          },
+        }));
+        localStorage.setItem('profile_photo', response.data.profile_photo); // Store profile photo URL in local storage
+        toast.success('Profile photo uploaded successfully');
+      })
+      .catch((err) => {
+        console.error(err);
+        toast.error('Error uploading profile photo');
+      });
+  };
+
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
   if (!profile) return null;
 
   const { user } = profile;
+
 
   return (
     <div className="profile-container">
@@ -169,14 +207,23 @@ const Profile: React.FC = () => {
       </div>
       <div className='profile'>
         <div className='profile-photo-heading'>
-          <div>
+            <div>
             <img
-              src="avtar03.png"
+              src={user.profile_photo ? `${Local.BASE_URL}${user.profile_photo}` : "avtar03.png"}
               alt="Profile photo"
               className="googleIcon-4"
             />
-            {/* {user.firstname} {user.lastname} */}
+            <input type="file" onChange={handleProfilePhotoChange} />
+            <button onClick={handleProfilePhotoUpload} className="btn btn-primary mb-4">
+              Upload Photo
+            </button>
             </div>
+          <img
+            src="upload-icon.png"
+            alt="Upload Icon"
+            className="upload-icon"
+            onClick={() => document.querySelector<HTMLInputElement>('input[type="file"]')?.click()}
+          />
           <button onClick={handleOpenEditModal} className="btn btn-primary mb-4">
             Edit Profile
           </button>
