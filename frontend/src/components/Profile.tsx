@@ -6,7 +6,7 @@ import { Modal, Button, Form } from 'react-bootstrap';
 import { toast, ToastContainer } from 'react-toastify';
 import { Local } from '../environment/env';
 import AddAddress from './AddAddress';
-import UpdateAddress from './UpdateAddress'; 
+import UpdateAddress from './UpdateAddress';
 import { AiOutlineDelete } from "react-icons/ai";
 import { BsPencilSquare } from "react-icons/bs";
 import './Profile.css';
@@ -49,7 +49,7 @@ const Profile: React.FC = () => {
   const [showEditModal, setShowEditModal] = useState(false);
   const [showAddAddressModal, setShowAddAddressModal] = useState(false);
   const [showUpdateAddressModal, setShowUpdateAddressModal] = useState(false);
-  const [selectedAddress, setSelectedAddress] = useState<Address | null>(null); 
+  const [selectedAddress, setSelectedAddress] = useState<Address | null>(null);
   const [formData, setFormData] = useState<User | null>(null);
   const [profilePhoto, setProfilePhoto] = useState<File | null>(null);
 
@@ -95,8 +95,8 @@ const Profile: React.FC = () => {
   const handleCloseAddAddressModal = () => setShowAddAddressModal(false);
 
   const handleOpenUpdateAddressModal = (address: Address) => {
-    setSelectedAddress(address); 
-    setShowUpdateAddressModal(true); 
+    setSelectedAddress(address);
+    setShowUpdateAddressModal(true);
   };
 
   const handleCloseUpdateAddressModal = () => setShowUpdateAddressModal(false);
@@ -170,7 +170,7 @@ const Profile: React.FC = () => {
     const formData = new FormData();
     formData.append('profile_photo', profilePhoto);
     formData.append('uuid', user.uuid);
-    
+
     axios
       .post(`${Local.BASE_URL}upload-profile-photo`, formData, {
         headers: { Authorization: `Bearer ${token}` },
@@ -183,7 +183,7 @@ const Profile: React.FC = () => {
             profile_photo: response.data.profile_photo,
           },
         }));
-        localStorage.setItem('profile_photo', response.data.profile_photo); // Store profile photo URL in local storage
+        localStorage.setItem('profile_photo', response.data.profile_photo); 
         toast.success('Profile photo uploaded successfully');
       })
       .catch((err) => {
@@ -202,11 +202,11 @@ const Profile: React.FC = () => {
   return (
     <div className="profile-container">
       <div>
-        <p className='fw-bold' style={{color:"black"}}>Profile</p>
+        <p className='fw-bold' style={{ color: "black" }}>Profile</p>
       </div>
       <div className='profile'>
         <div className='profile-photo-heading'>
-            <div>
+          <div>
             <img
               src={user.profile_photo ? `${Local.BASE_URL}${user.profile_photo}` : "avtar03.png"}
               alt="Profile photo"
@@ -216,20 +216,20 @@ const Profile: React.FC = () => {
             <button onClick={handleProfilePhotoUpload} className="btn btn-primary mb-4">
               Upload Photo
             </button>
-            </div>
-            <img
+          </div>
+          <img
             src="upload-icon.png"
             alt="Upload Icon"
             className="upload-icon"
             onClick={() => document.querySelector<HTMLInputElement>('input[type="file"]')?.click()}
-            />
+          />
           <button onClick={handleOpenEditModal} className="btn btn-primary mb-4">
             Edit Profile
-          </button>
+          </button> 
         </div>
 
         <div className="profile-info2">
-          <div className='info'style={{marginBottom:15}}>
+          <div className='info' style={{ marginBottom: 15 }}>
             <div>
               <span className='infoheading' >Name: </span>{user.firstname} {user.lastname}
             </div>
@@ -242,7 +242,7 @@ const Profile: React.FC = () => {
           </div>
 
           <div className='insurance-top'>
-          <a href="#" className='insurance' style={{ marginTop: 20, textDecoration: 'underline' }}>Insurance Details</a>
+            <a href="#" className='insurance' style={{ marginTop: 20, textDecoration: 'underline' }}>Insurance Details</a>
 
           </div>
 
@@ -259,7 +259,7 @@ const Profile: React.FC = () => {
             <span className="fw-medium">Address Information</span>
             <div className='address-data'>
 
-            
+
               {user.Addresses?.map((add, index) => (
                 <div key={index} className='address-data-img'><span className='address-title'>{`${add.title}`}
                   <BsPencilSquare onClick={() => handleOpenUpdateAddressModal(add)}
@@ -267,7 +267,7 @@ const Profile: React.FC = () => {
                   <AiOutlineDelete onClick={() => handleDelete(add.uuid)} className='profile-icon' /> <br></br></span>
                   {`${add.street}`}<br></br>{`${add.city}`}<br></br> {`${add.state}`}<br></br> {`${add.pincode}`}
 
-                  
+
                   <div className='line'></div>
                 </div>
               ))}
@@ -275,7 +275,7 @@ const Profile: React.FC = () => {
 
           </p>
 
-         
+
           <Modal show={showEditModal} onHide={handleCloseEditModal} centered>
             <Modal.Header closeButton>
               <Modal.Title>Edit Profile</Modal.Title>
