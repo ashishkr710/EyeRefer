@@ -217,12 +217,12 @@ const Profile: React.FC = () => {
               Upload Photo
             </button>
             </div>
-          <img
+            <img
             src="upload-icon.png"
             alt="Upload Icon"
             className="upload-icon"
             onClick={() => document.querySelector<HTMLInputElement>('input[type="file"]')?.click()}
-          />
+            />
           <button onClick={handleOpenEditModal} className="btn btn-primary mb-4">
             Edit Profile
           </button>

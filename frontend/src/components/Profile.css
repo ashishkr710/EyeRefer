@@ -7,7 +7,7 @@
     background-color: #f8f9fa;
     padding: 20px;
     z-index: 1000;
-    margin-left:-27px;
+    margin-left: -27px;
 }
 
 .header {
@@ -20,10 +20,12 @@
     padding: 20px;
     z-index: 999;
 }
-.line{
+
+.line {
     border: 1px solid #4e5154;
     margin-top: 5px;
 }
+
 .profile-container {
     margin-left: 220px;
     padding: 20px;
@@ -31,104 +33,126 @@
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
-.profile{
+
+.profile {
     background-color: white;
     padding: 30px;
 }
-.googleIcon-4{
+
+.googleIcon-4 {
     border-radius: 50%;
-  height: 150px;
-  -o-object-fit: cover;
-  object-fit: cover;
-  width: 150px;
+    height: 150px;
+    -o-object-fit: cover;
+    object-fit: cover;
+    width: 150px;
 }
-.profile-photo-heading{
-    display:flex;
+
+.profile-photo-heading {
+    display: flex;
     justify-content: space-between;
     align-items: center;
 }
-.profile-info2{
+
+.profile-info2 {
     background-color: #f5f5f5;
     border-radius: 4px;
-  margin-top: 20px;
-  padding: 17px 24px;
+    margin-top: 20px;
+    padding: 17px 24px;
 }
-.info{
+
+.info {
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
-.infoheading{
+
+.infoheading {
     font-weight: 450;
 }
-.address-heading{
+
+.address-heading {
     text-align: end;
     margin-top: 20px;
 }
-.address-info{
+
+.address-info {
     background-color: #f5f5f5;
-  border-radius: 4px;
-  margin-top: 10px;
-  padding: 17px 24px;
+    border-radius: 4px;
+    margin-top: 10px;
+    padding: 17px 24px;
 }
-.address-data{
+
+.address-data {
     margin-top: 20px;
 }
-.address-data-img{
+
+.address-data-img {
     /* display: flex; */
     justify-content: space-evenly;
     align-items: center;
     /* gap:33.33%; */
 }
-.insurance{
-    color:#35c0e4;
-    margin-top:5px;
+
+.insurance {
+    color: #35c0e4;
+    margin-top: 5px;
 }
-.insurance-top{
+
+.insurance-top {
     margin-top: 20px;
 }
-.horizontal-line{
-    width:100%;
+
+.horizontal-line {
+    width: 100%;
     color: #737a7d;
-  font-weight: 600;
+    font-weight: 600;
 }
+
 .profile-title {
     font-size: 28px;
     font-weight: bold;
     margin-bottom: 20px;
 }
-.gender-center{
-    position:relative;
-    left:-32.2%;
+
+.gender-center {
+    position: relative;
+    left: -32.2%;
 }
-.email-center{
-    position:relative;
-    left:-21.5%;
+
+.email-center {
+    position: relative;
+    left: -21.5%;
 }
-.btn-addAddress{
+
+.btn-addAddress {
     background-color: #35c0e4;
-    color:white;
+    color: white;
 }
-.btn-addAddress:hover{
-background-color:#2a99b6;
-border-color: #2a99b6;
-color:white;
+
+.btn-addAddress:hover {
+    background-color: #2a99b6;
+    border-color: #2a99b6;
+    color: white;
 }
-.text-danger1{
-    color:red;
-    margin-top:-20px;
+
+.text-danger1 {
+    color: red;
+    margin-top: -20px;
 }
+
 .btn-primary {
     background-color: #35c0e4;
     border-color: #35c0e4;
 }
-.address-title{
+
+.address-title {
     color: black;
     text-transform: capitalize;
     font-weight: 600;
     line-height: 25px;
 }
-.profile-icon{
+
+.profile-icon {
     width: 25px;
     height: 25px;
     margin-left: 25px;
@@ -140,6 +164,7 @@ color:white;
     transition: transform 0.2s;
     color: gray;
 }
+
 .btn-primary:hover {
     background-color: #2a99b6;
     border-color: #2a99b6;
@@ -149,9 +174,24 @@ color:white;
     max-height: 80vh;
     overflow-y: auto;
 }
-.googleIcon-3{
-    margin-left:20px;
-    width:25px;
-    height:25px;
+
+.googleIcon-3 {
+    margin-left: 20px;
+    width: 25px;
+    height: 25px;
     cursor: pointer;
+}
+
+.upload-icon {
+    cursor: pointer;
+    margin-left: -1245px;
+    width: 30px;
+    height: 30px;
+    border: 2px solid lightgray;
+    border-radius: 20px;
+    margin-top: -26px;
+}
+
+.upload-icon:hover {
+    background-color: lightblue;
 }

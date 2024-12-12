@@ -9,7 +9,6 @@ import { toast } from 'react-toastify';
 import api from '../api/axiosInstance';
 import * as Yup from 'yup';
 import './Signup.css';
-import { height } from '@mui/system';
 
 const Signup: React.FC = () => {
     const navigate = useNavigate();

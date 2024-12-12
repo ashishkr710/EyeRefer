@@ -101,9 +101,7 @@
     transition: width 0.3s ease;
 }
 
-.sidebar.closed {
-    /* width: 60px; */
-}
+
 
 .sidebar-logo {
     display: flex;
