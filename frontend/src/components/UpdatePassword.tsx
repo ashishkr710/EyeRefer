@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import { Local } from '../environment/env';
 import api from '../api/axiosInstance';
 import { useNavigate } from 'react-router-dom';
-import './UpdatePassword.css'; 
+import './UpdatePassword.css';
 
 const UpdatePassword: React.FC = () => {
   const navigate = useNavigate();
@@ -12,7 +12,7 @@ const UpdatePassword: React.FC = () => {
   const handleCancel = () => {
     navigate('/dashboard')
   }
-  
+
   const [oldPassword, setOldPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -61,7 +61,7 @@ const UpdatePassword: React.FC = () => {
 
         <form onSubmit={handleSubmit} className="update-password-form">
           <div className="form-group3">
-            <label htmlFor="old-password">Old Password<span className='star'>*</span></label>
+            <label htmlFor="old-password"><span className='star'>*</span></label>
             <input
               type="password"
               id="old-password"
@@ -69,7 +69,7 @@ const UpdatePassword: React.FC = () => {
               onChange={(e) => setOldPassword(e.target.value)}
               required
               className="form-control"
-              placeholder="old Password"
+              placeholder=""
             />
           </div>
 
@@ -82,7 +82,7 @@ const UpdatePassword: React.FC = () => {
               onChange={(e) => setNewPassword(e.target.value)}
               required
               className="form-control"
-              placeholder="new Password"
+              placeholder="New Password"
             />
           </div>
 
