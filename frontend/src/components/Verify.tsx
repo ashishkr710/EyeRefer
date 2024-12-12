@@ -55,66 +55,66 @@ const Verify: React.FC = () => {
 
     return (
         <>
-        <section className="sign-up-section">
-            <div className="parent-div">
-            
-                <div className="left-login-wrap">
-                    <div className="bg-img-div">
-                        <img src="logo.png" alt="background" />
+            <section className="sign-up-section">
+                <div className="parent-div">
+
+                    <div className="left-login-wrap">
+                        <div className="bg-img-div">
+                            <img src="logo.png" alt="background" />
+                        </div>
+                    </div>
+
+
+                    <div className="sign-up-form">
+                        <div className="form-heading">
+                            <h2>Verify OTP</h2>
+                        </div>
+
+                        <Formik
+                            initialValues={{
+                                otp: ''
+                            }}
+                            validationSchema={validationSchema}
+                            onSubmit={handleSubmit}
+                        >
+                            {() => (
+                                <Form className="auth-form">
+                                    <div className='form-border'>
+                                        <div className="field-wrap input-fields">
+                                            <label htmlFor="otp"><span className='star'>*</span>OTP</label>
+                                            <Field
+                                                type="text"
+                                                name="otp"
+                                                id="otp"
+                                                placeholder="Enter OTP"
+                                                className="form-control"
+                                            />
+                                            <ErrorMessage name="otp" component="div" className="text-danger" />
+                                        </div>
+
+                                        <button
+                                            type="submit"
+                                            className="btn-verify btn-outline-dark"
+                                        >
+                                            Verify OTP
+                                        </button>
+                                        <div className="bottom-sec">
+                                            <p>Already verified? <span><Link to="/login">Login</Link></span></p>
+                                        </div>
+                                    </div>
+                                </Form>
+                            )}
+                        </Formik>
+
+
                     </div>
                 </div>
-
-             
-                <div className="sign-up-form">
-                    <div className="form-heading">
-                        <h2>Verify OTP</h2>
-                    </div>
-
-                    <Formik
-                        initialValues={{
-                            otp: ''
-                        }}
-                        validationSchema={validationSchema}
-                        onSubmit={handleSubmit}
-                    >
-                        {() => (
-                            <Form className="auth-form">
-                                <div className='form-border'>
-                                <div className="field-wrap input-fields">
-                                    <label htmlFor="otp"><span className='star'>*</span>OTP</label>
-                                    <Field
-                                        type="text"
-                                        name="otp"
-                                        id="otp"
-                                        placeholder="Enter OTP"
-                                        className="form-control"
-                                    />
-                                    <ErrorMessage name="otp" component="div" className="text-danger" />
-                                </div>
-
-                                <button
-                                    type="submit"
-                                    className="btn-verify btn-outline-dark"
-                                >
-                                    Verify OTP
-                                </button>
-                                <div className="bottom-sec">
-                        <p>Already verified? <span><Link to="/login">Login</Link></span></p>
-                    </div>
-                                </div>
-                            </Form>
-                        )}
-                    </Formik>
-
-                   
+            </section>
+            <section className='footer'>
+                <div className='footer-content bg-dark'>
+                    <p className='text-white text-center m-0 p-2'>{new Date().getFullYear()} Eye Refer</p>
                 </div>
-            </div>
-        </section>
-        <section className='footer'>
-            <div className='footer-content bg-dark'>
-                <p className='text-white text-center m-0 p-2'>@2024 Eye Refer</p>
-            </div>
-        </section>
+            </section>
         </>
     );
 };

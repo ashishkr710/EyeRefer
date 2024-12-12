@@ -245,19 +245,23 @@ hr {
 
 .toggle-sidebar-btn {
     position: absolute;
-    /* bottom: 20px; */
     left: 100%;
     transform: translateX(-50%);
-    background: none;
-    border: none;
+    background: transparent;
     cursor: pointer;
     top: 100px;
+    color: #35c0e4;
+    border: 1px solid #35c0e4;
+    border-radius: 50%;
+    
+    
 }
 
 .arrow-img {
     width: 20px;
     height: 20px;
     transition: transform 0.3s ease;
+    color: #35c0e4;
 }
 
 .arrow-img.closed {

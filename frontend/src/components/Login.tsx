@@ -8,7 +8,7 @@ import React, { useEffect } from 'react';
 import { toast } from 'react-toastify';
 import api from '../api/axiosInstance';
 import * as Yup from 'yup';
-import './Login.css'; 
+import './Login.css';
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
@@ -25,7 +25,7 @@ const Login: React.FC = () => {
       if (response.status === 200) {
         if (response.data.user.is_verified) {
           localStorage.setItem('firstname', response.data.user.firstname)
-          localStorage.setItem('lastname',response.data.user.lastname)
+          localStorage.setItem('lastname', response.data.user.lastname)
           localStorage.setItem("doctype", response.data.user.doctype);
           localStorage.setItem("token", response.data.token);
           toast.success("Login Successfully");
@@ -63,78 +63,78 @@ const Login: React.FC = () => {
 
   return (
     <>
-    <section className="sign-up-section">
-      <div className="parent-div">
-        <div className="left-login-wrap">
-          <div className="bg-img-div">
-            <img src='logo.png' alt="loginbg" />
-          </div>
-        </div>
-
-        <div className="sign-up-form">
-          <div className="form-heading">
-            <h2>Login</h2>
-          </div>
-
-          <Formik
-            initialValues={{
-              email: '',
-              password: '',
-            }}
-            validationSchema={validationSchema}
-            onSubmit={loginSubmit}
-          >
-            {() => (
-              <Form className="auth-form">
-                <div className='form-border'>
-                <div className="field-wrap input-fields">
-                  <label htmlFor="email">Email<span className='star'>*</span></label>
-                  <Field 
-                    name="email" 
-                    type="email" 
-                    id="email" 
-                    placeholder="Enter your Email" 
-                    className="form-control" 
-                  />
-                  <ErrorMessage name="email" component="div" className="text-danger" />
-                </div>
-
-                <div className="field-wrap input-fields">
-                  <label htmlFor="password">Password<span className='star'>*</span></label>
-                  <Field 
-                    name="password" 
-                    type="password" 
-                    id="password" 
-                    placeholder="Enter your Password" 
-                    className="form-control" 
-                  />
-                  <ErrorMessage name="password" component="div" className="text-danger" />
-                </div>
-
-                <button 
-                  type="submit" 
-                  className="btn-login btn-outline-dark sign-up-btn"
-                >
-                  Login
-                </button>
-                <div className="bottom-sec">
-            <p>Don't have an Account? <span><Link to="/" color='#57cdec'>Sign Up</Link></span></p>
-          </div>
-                </div>
-              </Form>
-            )}
-          </Formik>
-
-          
-        </div>
-      </div>
-    </section>
-    <section className='footer'>
-            <div className='footer-content bg-dark'>
-                <p className='text-white text-center m-0 p-2'>@2024 Eye Refer</p>
+      <section className="sign-up-section">
+        <div className="parent-div">
+          <div className="left-login-wrap">
+            <div className="bg-img-div">
+              <img src='logo.png' alt="loginbg" />
             </div>
-        </section>
-        </>
+          </div>
+
+          <div className="sign-up-form">
+            <div className="form-heading">
+              <h2>Login</h2>
+            </div>
+
+            <Formik
+              initialValues={{
+                email: '',
+                password: '',
+              }}
+              validationSchema={validationSchema}
+              onSubmit={loginSubmit}
+            >
+              {() => (
+                <Form className="auth-form">
+                  <div className='form-border'>
+                    <div className="field-wrap input-fields">
+                      <label htmlFor="email">Email<span className='star'>*</span></label>
+                      <Field
+                        name="email"
+                        type="email"
+                        id="email"
+                        placeholder="Enter your Email"
+                        className="form-control"
+                      />
+                      <ErrorMessage name="email" component="div" className="text-danger" />
+                    </div>
+
+                    <div className="field-wrap input-fields">
+                      <label htmlFor="password">Password<span className='star'>*</span></label>
+                      <Field
+                        name="password"
+                        type="password"
+                        id="password"
+                        placeholder="Enter your Password"
+                        className="form-control"
+                      />
+                      <ErrorMessage name="password" component="div" className="text-danger" />
+                    </div>
+
+                    <button
+                      type="submit"
+                      className="btn-login btn-outline-dark sign-up-btn"
+                    >
+                      Login
+                    </button>
+                    <div className="bottom-sec">
+                      <p>Don't have an Account? <span><Link to="/" color='#57cdec'>Sign Up</Link></span></p>
+                    </div>
+                  </div>
+                </Form>
+              )}
+            </Formik>
+
+
+          </div>
+        </div>
+      </section>
+      <section className='footer'>
+        <div className='footer-content bg-dark'>
+          <p className='text-white text-center m-0 p-2'>{new Date().getFullYear()} Eye Refer</p>
+        </div>
+      </section>
+    </>
   );
 };
 

@@ -239,7 +239,7 @@ const Dashboard: React.FC = () => {
         </div>
 
         <div className="card">
-          <div className='card-heading' style={{ color: "black" }}>Total Refers Completed</div>
+          <div className='card-heading' style={{ color: "black" }}>Refers Completed</div>
           <div className="card-body2">
             <div className='icon d-flex'>
               <img src="referCompleted.png" alt="EyeRefer" className='icon-2' />
@@ -250,7 +250,7 @@ const Dashboard: React.FC = () => {
         </div>
 
         <div className="card" onClick={() => navigate('/doctor')}>
-          <div className='card-heading' style={{ color: "black" }}>Total Doctors OD/MD</div>
+          <div className='card-heading' style={{ color: "black" }}>OD/MD</div>
           <div className="card-body2">
             <div className='icon d-flex'>
               <img src="od_md.png" alt="EyeRefer" className='icon-2' />

@@ -80,7 +80,7 @@ const Signup: React.FC = () => {
                             initialValues={{
                                 firstname: '',
                                 lastname: '',
-                                doctype: '1', 
+                                doctype: '1',
                                 email: '',
                                 password: '',
                                 confirmPass: ''
@@ -106,8 +106,8 @@ const Signup: React.FC = () => {
 
                                         <div className="field-wrap input-fields">
                                             <label className="doctor-label">Doctor Type<span className='star'>*</span></label>
-                                            <Field as="select" name="doctype" className="form-select p-2" aria-label="Doctor Type" style={{height:46}}>
-                                                <option value="" style={{color:"#ccc"}} disabled>Select Doctor Type</option>
+                                            <Field as="select" name="doctype" className="form-select p-2" aria-label="Doctor Type" style={{ height: 46 }}>
+                                                <option value="" style={{ color: "#ccc" }} disabled>Select Doctor Type</option>
                                                 <option value="1">MD</option>
                                                 <option value="2">OD</option>
                                             </Field>
@@ -142,12 +142,12 @@ const Signup: React.FC = () => {
                             )}
                         </Formik>
                     </div>
-                            {/* </div> */}
+                    {/* </div> */}
                 </div>
             </section>
             <section className='footer'>
                 <div className='footer-content bg-dark'>
-                    <p className='text-white text-center m-0 p-2'>@2024 Eye Refer</p>
+                    <p className='text-white text-center m-0 p-2'>{new Date().getFullYear()} Eye Refer</p>
                 </div>
             </section>
         </>
