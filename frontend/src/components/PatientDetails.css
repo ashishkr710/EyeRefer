@@ -1,4 +1,4 @@
-.patient-details-container{
+.patient-details-container {
     margin-left: 220px;
     margin-top: 0px;
     padding: 20px;
@@ -6,35 +6,42 @@
     height: calc(100vh - 60px);
     overflow-y: auto;
 }
-.details-btn{
-display: flex;
-  justify-content: space-between;
+
+.details-btn {
+    display: flex;
+    justify-content: space-between;
 }
-.patient-info{
-    padding:15px;
+
+.patient-info {
+    padding: 15px;
     background-color: white;
     margin-top: 15px;
 
 }
-.name-info{
-    padding:8px;
+
+.name-info {
+    padding: 8px;
     background-color: #ecf1f3;
     margin: 0px;
 }
-.back{
+
+.back {
     cursor: pointer;
     position: relative;
-  top: 1rem
+    top: 1rem
 }
-.form-group4{
+
+.form-group4 {
     display: flex;
-  max-width: 100%;
-  width: 69%;
+    max-width: 100%;
+    width: 69%;
 }
-.type{
-    width:100%;
+
+.type {
+    width: 100%;
 }
-.delete-btn{
+
+.delete-btn {
     background-color: #f44336;
     color: white;
     border: none;
@@ -48,7 +55,8 @@ display: flex;
     border-radius: 5px;
     margin-left: 8px;
 }
-.delete-btn:hover{
+
+.delete-btn:hover {
     background-color: #f44336;
     opacity: 0.8;
 }
