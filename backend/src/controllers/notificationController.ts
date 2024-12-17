@@ -6,9 +6,13 @@ export const getNotificationsByReceiverId = async (req: Request, res: Response):
         const receiver_id = req.params.receiver_id;
         const notifications = await Notification.findAll({ where: { receiver_id: receiver_id } });
 
+        // if (!notifications || notifications.length === 0) {
+        //     res.status(404).json({ message: 'No notifications found for this receiver ID' });
+        //     return;
+        // }
         if (!notifications || notifications.length === 0) {
-            res.status(404).json({ message: 'No notifications found for this receiver ID' });
-            return;
+             res.status(200).json([]); // Return empty array instead of 404
+             return;
         }
 
         res.status(200).json(notifications);

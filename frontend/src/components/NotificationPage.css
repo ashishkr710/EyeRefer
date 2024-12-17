@@ -1,16 +1,25 @@
-
 .notificationContener {
     position: fixed;
     top: 90px;
+    left: 0;
+    right: 0;
     display: flex;
     flex-direction: column;
-    max-width: auto;
+    align-items: center;
     z-index: 1000;
     pointer-events: none;
-    left: 280px;
+    max-height: 80vh;
+    overflow-y: auto;
+   
+}
+.notficationHead{
+    margin-left: -700px;
 }
 
 .notification {
+    width: 100%;
+    max-width: 1100px;
+    margin-left: 160px;
     padding: 15px;
     border-radius: 8px;
     color: #fff;
@@ -19,6 +28,8 @@
     transition: opacity 0.5s ease, transform 0.5s ease;
     transform: translateY(100%);
     pointer-events: auto; 
+    margin-bottom: 10px;
+    background-color: #e4f0f5;
 }
 
 .notification.show {
@@ -41,7 +52,6 @@
     background-color: #dc3545; 
 }
 
-
 .notification p {
     margin: 0;
     font-size: 14px;
@@ -51,16 +61,14 @@
 
 .notificationDate {
     font-size: 12px;
-    color:  #000000; 
+    color: #000000; 
     margin-top: 5px;
 }
-
 
 .notification.hide {
     opacity: 0;
     transform: translateY(100%); 
 }
-
 
 .notification.success .notificationDate,
 .notification.warning .notificationDate,
@@ -74,7 +82,28 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
+    width: 100%;
+    align-items: center;
     color: black;
     font-size: 14px;
     font-weight: 500;
+}
+
+.notificationContent {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.notificationList{
+    margin-top: -50px;
+    margin-left: 25px;
+}
+.noNotification {
+    font-size: 20px;
+    font-weight: 500;
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
