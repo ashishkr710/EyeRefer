@@ -61,7 +61,7 @@ const UpdatePassword: React.FC = () => {
 
         <form onSubmit={handleSubmit} className="update-password-form">
           <div className="form-group3">
-            <label htmlFor="old-password"><span className='star'>*</span></label>
+            <label htmlFor="old-password">Old Password<span className='star'>*</span></label>
             <input
               type="password"
               id="old-password"
@@ -69,7 +69,7 @@ const UpdatePassword: React.FC = () => {
               onChange={(e) => setOldPassword(e.target.value)}
               required
               className="form-control"
-              placeholder=""
+              placeholder="Old Password"
             />
           </div>
 

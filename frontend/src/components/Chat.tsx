@@ -174,7 +174,7 @@ const Chat: React.FC = () => {
                     className={`chat-bubble ${msg.sender_id === chatdata.user ? "chat-sent" : "chat-received"}`}
                   >
                     <p>{msg.message}</p>
-                    <span className="message-timestamp"> {new Date(msg.createdAt).toLocaleTimeString()} </span>
+                    <span className="message-timestamp"> {new Date(msg.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} </span>
                   </div>
                 ))}
               </div>

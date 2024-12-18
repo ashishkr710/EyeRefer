@@ -281,7 +281,7 @@ const Dashboard: React.FC = () => {
             <thead>
               <tr>
                 <th scope="col">Patient Name</th>
-                <th scope="col">Disease</th>
+                <th scope="col">Consult</th>
                 <th scope="col">Referred by</th>
                 <th scope="col">Referred to</th>
                 <th scope="col">Return to Referrer</th>
