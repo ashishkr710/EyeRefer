@@ -76,14 +76,14 @@
 
 .chat-messages {
   flex: 1;
-  padding: 10px 20px;
+  padding: 10px 20px; 
   overflow-y: auto;
   background-color: #f0f2f5;
 }
 
 .chat-bubble {
   max-width: 60%;
-  margin: 5px 0;
+  margin: 15px 0;
   padding: 10px 15px;
   border-radius: 10px;
   word-wrap: break-word;

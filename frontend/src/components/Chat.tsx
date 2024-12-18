@@ -79,7 +79,7 @@ const Chat: React.FC = () => {
     localStorage.setItem("pname", n);
 
     setMessages([]);
-    setActiveRoom(patient); 
+    setActiveRoom(patient);
 
     socket.emit("joinchat", chatData);
   };
