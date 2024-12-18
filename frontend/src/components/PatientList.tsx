@@ -72,7 +72,7 @@ const PatientList: React.FC = () => {
 
   useEffect(() => {
     if (Patients?.patientList && searchQuery === '') {
-      setFilteredPatients(Patients.patientList); 
+      setFilteredPatients(Patients.patientList);
     }
   }, [searchQuery, Patients]);
 
@@ -122,14 +122,14 @@ const PatientList: React.FC = () => {
         </div>
       )}
 
-   
+
       <div className="search-border d-flex mb-4 hii1" style={{ marginTop: 10 }} role="search">
         <input
           className="form-control me-2 hi2"
           type="search"
           placeholder="Search"
           value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)} 
+          onChange={(e) => setSearchQuery(e.target.value)}
           aria-label="Search"
         />
         <button className="btn btn-primary btn-search" type="button" onClick={handleSearch}>
@@ -149,7 +149,7 @@ const PatientList: React.FC = () => {
                 <th style={{ width: 158 }}>Appointment Date</th>
                 <th style={{ width: 100 }}>Refer By</th>
                 <th style={{ width: 100 }}>Refer To</th>
-                <th style={{ width: 100 }}>Refer Back</th>
+                <th style={{ width: 100 }}>Return to Referrer</th>
                 <th style={{ width: 117 }}>Consult Note</th>
                 <th >Status</th>
                 <th>Action</th>
@@ -181,7 +181,7 @@ const PatientList: React.FC = () => {
         </div>
       </div>
 
-     
+
       <nav aria-label="Page navigation example">
         <ul className="pagination justify-content-end">
           <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>

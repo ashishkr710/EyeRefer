@@ -124,9 +124,9 @@ const Dashboard: React.FC = () => {
   localStorage.setItem("firstname", user?.firstname)
   localStorage.setItem("lastname", user?.lastname)
   localStorage.setItem("profile_photo", user?.profile_photo)
-  localStorage.setItem("uuid",userData?.data.user.uuid)
-  
- 
+  localStorage.setItem("uuid", user?.uuid)
+
+
   const totalRefersReceived = patientList?.length || 0;
   const totalRefersCompleted = patientList?.filter((patient: { referalstatus: boolean }) => patient.referalstatus === true).length || 0;
   const totalDoctors = doctorList?.length || 0;
@@ -148,7 +148,7 @@ const Dashboard: React.FC = () => {
     const doc = new jsPDF();
     doc.text('Patient List', 20, 10);
     autoTable(doc, {
-      head: [['Patient Name', 'Disease', 'Refer by', 'Refer to', 'Refer back', 'Status']],
+      head: [['Patient Name', 'Disease', 'Referred by', 'Referred to', 'Return to Referrer', 'Status']],
       body: patientList.map((patient: any) => [
         `${patient.firstname} ${patient.lastname}`,
         patient.disease,
@@ -163,7 +163,7 @@ const Dashboard: React.FC = () => {
 
   const downloadCSV = () => {
     const csv = [
-      ['Patient Name', 'Disease', 'Refer by', 'Refer to', 'Refer back', 'Status'],
+      ['Patient Name', 'Disease', 'Referred by', 'Referred to', 'Return to Referrer', 'Status'],
       ...patientList.map((patient: any) => [
         `${patient.firstname} ${patient.lastname}`,
         patient.disease,
@@ -230,25 +230,23 @@ const Dashboard: React.FC = () => {
 
       <div className="metrics-cards">
         <div className="card" onClick={() => navigate('/patient')}>
-          <div className='card-heading' style={{ color: "black" }}>Referrals Received</div>
+          <div className='card-heading' style={{ color: "black" }}>Referrals Placed</div>
           <div className="card-body2">
             <div className='icon d-flex'>
               <img src="referReceived.png" alt="EyeRefer" className='icon-2' />
               <div className="card-text">{totalRefersReceived}</div>
             </div>
-            <div className='d-flex justify-content-end fw-bold' style={{ color: "#737A7D" }}>Last update: {new Date().toLocaleDateString()}</div>
+            <div className='d-flex justify-content-end fw-bold' style={{ color: "#737A7D" }}>Last update: {new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</div>
           </div>
         </div>
 
         <div className="card">
-          <div className='card-heading' style={{ color: "black" }}>Refers Completed</div>
+          <div className='card-heading' style={{ color: "black" }}>Referrals Completed</div>
           <div className="card-body2">
             <div className='icon d-flex'>
               <img src="referCompleted.png" alt="EyeRefer" className='icon-2' />
               <div className="card-text">{totalRefersCompleted}</div>
-            </div>
-            <div className='d-flex justify-content-end fw-bold' style={{ color: "#737A7D" }}>Last update: {new Date().toLocaleDateString()}</div>
-          </div>
+            </div><div className='d-flex justify-content-end fw-bold' style={{ color: "#737A7D" }}>Last update: {new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</div></div>
         </div>
 
         <div className="card" onClick={() => navigate('/doctor')}>
@@ -258,7 +256,7 @@ const Dashboard: React.FC = () => {
               <img src="od_md.png" alt="EyeRefer" className='icon-2' />
               <div className="card-text">{totalDoctors}</div>
             </div>
-            <div className='d-flex justify-content-end fw-bold' style={{ color: "#737A7D" }}>Last update: {new Date().toLocaleDateString()}</div>
+            <div className='d-flex justify-content-end fw-bold' style={{ color: "#737A7D" }}>Last update: {new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</div>
           </div>
         </div>
       </div>
@@ -266,7 +264,7 @@ const Dashboard: React.FC = () => {
       <div className='refer d-flex'>
         {user?.doctype === 2 ? (
           <>
-            <h6 className="refer-title">Refer a Patient</h6>
+            <h6 className="refer-title fw-bold" style={{ color: "black" }} >Referrals Placed</h6>
             <button className="appointment-btn" style={{ marginTop: -10 }} onClick={() => navigate("/add-patient")}>+ Add Referral Patient</button>
           </>
         ) : (
@@ -284,9 +282,9 @@ const Dashboard: React.FC = () => {
               <tr>
                 <th scope="col">Patient Name</th>
                 <th scope="col">Disease</th>
-                <th scope="col">Refer by</th>
-                <th scope="col">Refer to</th>
-                <th scope="col">Refer back</th>
+                <th scope="col">Referred by</th>
+                <th scope="col">Referred to</th>
+                <th scope="col">Return to Referrer</th>
                 <th scope='col'>Direct Message</th>
                 <th scope="col">Status</th>
               </tr>
