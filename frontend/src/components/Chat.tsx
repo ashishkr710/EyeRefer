@@ -16,6 +16,7 @@ const Chat: React.FC = () => {
   const [messages, setMessages] = useState<any[]>([]);
   const [newMessage, setNewMessage] = useState("");
   const [activeRoom, setActiveRoom] = useState<string | null>(null);
+  // const [searchQuery, setSearchQuery] = useState('');
   const direct = Object.keys(chatdata).length;
   const pname = localStorage.getItem('pname');
 
@@ -79,7 +80,7 @@ const Chat: React.FC = () => {
     localStorage.setItem("pname", n);
 
     setMessages([]);
-    setActiveRoom(patient);
+    setActiveRoom(patient); // Set the active room
 
     socket.emit("joinchat", chatData);
   };
@@ -101,6 +102,28 @@ const Chat: React.FC = () => {
       setNewMessage("");
     }
   };
+
+  const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      sendMessage();
+    }
+  };
+
+  // const handleSearchKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+  //   if (event.key === 'Enter') {
+  //     handleSearch();
+  //   }
+  // };
+
+  // const handleSearch = () => {
+  //   if (rooms) {
+  //     const filteredRooms = rooms.room.filter((room: any) =>
+  //       room.patient.firstname.toLowerCase().includes(searchQuery.toLowerCase()) ||
+  //       room.patient.lastname.toLowerCase().includes(searchQuery.toLowerCase())
+  //     );
+  //     setFilteredRooms(filteredRooms);
+  //   }
+  // };
 
   if (isLoading) {
     return (
@@ -132,6 +155,9 @@ const Chat: React.FC = () => {
             type="text"
             className="search-bar"
             placeholder="Search Patient"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            onKeyPress={handleSearchKeyPress}
           /> */}
           <div className="chat-patient-list">
             {rooms?.room?.map((room: any) => (
@@ -186,6 +212,7 @@ const Chat: React.FC = () => {
                   value={newMessage}
                   onChange={(e) => setNewMessage(e.target.value)}
                   placeholder="Type a message..."
+                  onKeyPress={handleKeyPress}
                 />
                 <button className="chat-send-button" onClick={sendMessage}>
                   <svg

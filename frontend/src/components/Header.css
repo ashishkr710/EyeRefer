@@ -209,7 +209,7 @@ hr {
 }
 
 .noteficationBell {
-    margin-right: 35px;
+    margin-right: 8px;
     margin-bottom: 4px;
     width: auto;
     height: 20px;
@@ -218,12 +218,15 @@ hr {
 .noteficationBell:hover {
     cursor: pointer;
     background-color: #43d79e;
-    border-radius: 50%;
+    border-radius: 100%;
+    border: 2px solid #43d79e;
     transition: color 0.3s ease-in-out;
 }
 
 .header-profile-img {
     margin-left: 10px;
+    margin-right: -8px !important;
+    /* border: 1px solid #212121; */
 }
 
 .user-actions {

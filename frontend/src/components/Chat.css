@@ -31,12 +31,15 @@
   padding: 10px;
   border-radius: 10px;
   cursor: pointer;
-  background-color: lightblue;
+  /* background-color: lightblue; */
 }
 
 .patient-item.active {
-  background-color: #35c0e4;
-  color: white;
+  background-color: rgba(67, 215, 158, 0.2);
+  /* color: white; */
+}
+.patient-item:hover {
+  background-color: rgba(67, 215, 158, 0.1);
 }
 
 .patient-item h5 {
@@ -57,10 +60,10 @@
 }
 
 .chat-header {
-  background-color: #35c0e4;
+  background-color: rgba(67, 215, 158, 0.2);
   padding: 20px 20px;
   border-bottom: 1px solid #dee2e6;
-  color: white;
+  /* color: white; */
 }
 
 .chat-header h4 {
@@ -94,8 +97,8 @@
   align-self: flex-end;
   margin-left: auto;
   text-align: right;
-  background-color: #35c0e4;
-  color: white;
+  background-color: rgba(67, 215, 158, 0.2);
+  /* color: white; */
 }
 
 .chat-received {
@@ -130,8 +133,8 @@
 .chat-send-button {
   margin-left: 10px;
   padding: 10px 20px;
-  background-color: #35c0e4;
-  color: white;
+  background-color: rgba(85, 248, 186, 0.795);
+  /* color: white; */
   border: none;
   border-radius: 20px;
   cursor: pointer;
