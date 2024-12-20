@@ -16,7 +16,8 @@ const Chat: React.FC = () => {
   const [messages, setMessages] = useState<any[]>([]);
   const [newMessage, setNewMessage] = useState("");
   const [activeRoom, setActiveRoom] = useState<string | null>(null);
-  // const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filteredRooms, setFilteredRooms] = useState<any[]>([]);
   const direct = Object.keys(chatdata).length;
   const pname = localStorage.getItem('pname');
 
@@ -80,7 +81,7 @@ const Chat: React.FC = () => {
     localStorage.setItem("pname", n);
 
     setMessages([]);
-    setActiveRoom(patient); // Set the active room
+    setActiveRoom(patient); 
 
     socket.emit("joinchat", chatData);
   };
@@ -109,21 +110,35 @@ const Chat: React.FC = () => {
     }
   };
 
-  // const handleSearchKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
-  //   if (event.key === 'Enter') {
-  //     handleSearch();
-  //   }
-  // };
+  const handleSearchKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      handleSearch();
+    }
+  };
 
-  // const handleSearch = () => {
-  //   if (rooms) {
-  //     const filteredRooms = rooms.room.filter((room: any) =>
-  //       room.patient.firstname.toLowerCase().includes(searchQuery.toLowerCase()) ||
-  //       room.patient.lastname.toLowerCase().includes(searchQuery.toLowerCase())
-  //     );
-  //     setFilteredRooms(filteredRooms);
-  //   }
-  // };
+  const handleSearch = () => {
+    if (rooms) {
+      const filteredRooms = rooms.room.filter((room: any) =>
+        room.patient.firstname.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        room.patient.lastname.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      setFilteredRooms(filteredRooms);
+    }
+  };
+
+  const groupMessagesByDate = (messages: any[]) => {
+    const groupedMessages: { [key: string]: any[] } = {};
+    messages.forEach((message) => {
+      const date = new Date(message.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+      if (!groupedMessages[date]) {
+        groupedMessages[date] = [];
+      }
+      groupedMessages[date].push(message);
+    });
+    return groupedMessages;
+  };
+
+  const groupedMessages = groupMessagesByDate(messages);
 
   if (isLoading) {
     return (
@@ -151,38 +166,64 @@ const Chat: React.FC = () => {
       <div className="chat-layout">
         <div className="chat-sidebar">
           <h4 style={{ margin: "10px" }}>Chat</h4>
-          {/* <input
+          <input
             type="text"
             className="search-bar"
             placeholder="Search Patient"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             onKeyPress={handleSearchKeyPress}
-          /> */}
+          />
           <div className="chat-patient-list">
-            {rooms?.room?.map((room: any) => (
-              <div
-                key={room.patient.uuid}
-                className={`patient-item ${activeRoom === room.patient.uuid ? 'active' : ''} mb-2`}
-                onClick={() => {
-                  openChat(room?.patient?.uuid, room?.doc1?.uuid, room?.doc2?.uuid, rooms?.user?.uuid, room?.patient?.firstname, room?.patient?.lastname)
-                }}
-              >
-                <h5>{room.name}</h5>
-                <p>{room.doc1.uuid !== rooms.user.uuid && (
-                  <>
-                    {room.doc1.firstname} {room.doc1.lastname}
-                  </>
-                )}
-
-                  {room.doc2.uuid !== rooms.user.uuid && (
+            {filteredRooms.length > 0 ? (
+              filteredRooms.map((room: any) => (
+                <div
+                  key={room.patient.uuid}
+                  className={`patient-item ${activeRoom === room.patient.uuid ? 'active' : ''} mb-2`}
+                  onClick={() => {
+                    openChat(room?.patient?.uuid, room?.doc1?.uuid, room?.doc2?.uuid, rooms?.user?.uuid, room?.patient?.firstname, room?.patient?.lastname)
+                  }}
+                >
+                  <h5>{room.name}</h5>
+                  <p>{room.doc1.uuid !== rooms.user.uuid && (
                     <>
-                      {room.doc2.firstname} {room.doc2.lastname}
+                      {room.doc1.firstname} {room.doc1.lastname}
                     </>
                   )}
-                </p>
-              </div>
-            ))}
+
+                    {room.doc2.uuid !== rooms.user.uuid && (
+                      <>
+                        {room.doc2.firstname} {room.doc2.lastname}
+                      </>
+                    )}
+                  </p>
+                </div>
+              ))
+            ) : (
+              rooms?.room?.map((room: any) => (
+                <div
+                  key={room.patient.uuid}
+                  className={`patient-item ${activeRoom === room.patient.uuid ? 'active' : ''} mb-2`}
+                  onClick={() => {
+                    openChat(room?.patient?.uuid, room?.doc1?.uuid, room?.doc2?.uuid, rooms?.user?.uuid, room?.patient?.firstname, room?.patient?.lastname)
+                  }}
+                >
+                  <h5>{room.name}</h5>
+                  <p>{room.doc1.uuid !== rooms.user.uuid && (
+                    <>
+                      {room.doc1.firstname} {room.doc1.lastname}
+                    </>
+                  )}
+
+                    {room.doc2.uuid !== rooms.user.uuid && (
+                      <>
+                        {room.doc2.firstname} {room.doc2.lastname}
+                      </>
+                    )}
+                  </p>
+                </div>
+              ))
+            )}
           </div>
         </div>
 
@@ -194,13 +235,20 @@ const Chat: React.FC = () => {
               </div>
 
               <div className="chat-messages mb-5">
-                {messages.map((msg: any, index: number) => (
-                  <div
-                    key={index}
-                    className={`chat-bubble ${msg.sender_id === chatdata.user ? "chat-sent" : "chat-received"}`}
-                  >
-                    <p>{msg.message}</p>
-                    <span className="message-timestamp"> {new Date(msg.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} </span>
+                {Object.keys(groupedMessages).map((date) => (
+                  <div key={date}>
+                    <div className="date-divider">
+                      <span>{date}</span>
+                    </div>
+                    {groupedMessages[date].map((msg: any, index: number) => (
+                      <div
+                        key={index}
+                        className={`chat-bubble ${msg.sender_id === chatdata.user ? "chat-sent" : "chat-received"}`}
+                      >
+                        <p>{msg.message}</p>
+                        <span className="message-timestamp"> {new Date(msg.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} </span>
+                      </div>
+                    ))}
                   </div>
                 ))}
               </div>
